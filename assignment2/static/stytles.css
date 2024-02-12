@@ -1,0 +1,60 @@
+body{
+    background-image: url("./images/back.svg");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    text-align: center;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    /* background-color: #f1f1f1; */
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ccc;
+  }
+  
+  /* Create an active/current tablink class */
+  .active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+
+  .allTabs{
+    display: none;
+  }
+
+  .error{
+    display: none;
+  }
+
+  #company_table{
+    text-align: center;
+  }
+
+  .search_img{
+    height: 15px;
+    width: 15px;
+    /* padding: 15px; */
+  }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trading</title>
+    <link rel="stylesheet" href="./static/stytles.css">
+    <script src="./static/responsive.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+    <h2>Stock Search</h2>
+    <form id="form" method="get"> 
+        <button id="search_btn" onclick="getStock(event)">search</button>
+        <input type="search" id="ticker" name="ticker" placeholder="Search" required>
+        <button id="clear">clear</button>
+    </form>
+
+    <!-- Tab links -->
+<div class="allTabs">
+  <div class="tab">
+      <button class="tablinks active" onclick="openTab(event, 'company_container')">Company</button>
+      <button class="tablinks" onclick="openTab(event, 'summary_container')">Stock Summary</button>
+      <button class="tablinks" onclick="openTab(event, 'Charts')">Charts</button>
+      <button class="tablinks" onclick="openTab(event, 'latest_news_contianer')">Latest News</button>
+  </div>
+    
+    <!-- Tab content -->
+    <div id="company_container" class="tabcontent">
+      <table id="company_table">
+        <tr id="logo">
+          <td></td>
+        </tr>
+        <tr id="company_name">
+          <td>Company Name</td>
+          <td></td>
+        </tr>
+        <tr id="stock_ticker_symbol">
+          <td>Stock Ticker Symbol</td>
+          <td></td>
+        </tr>
+        <tr id="stock_exchange_code">
+          <td>Stock Exchange Code</td>
+          <td></td>
+        </tr>
+        <tr id="company_ipo_date">
+          <td>Company IPO Date</td>
+          <td></td>
+        </tr>
+        <tr id="category">
+          <td>Category</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+    
+    <div id="summary_container" class="tabcontent">
+      <table id="summary_table">
+        <tr id="stock_ticker_symbol_2">
+          <td>Stock Ticker Symbol</td>
+          <td></td>
+        </tr>
+        <tr id="trading_day">
+          <td>Trading Day</td>
+          <td></td>
+        </tr>
+        <tr id="previous_closing_price">
+          <td>Previous Closing Price</td>
+          <td></td>
+        </tr>
+        <tr id="opening_price">
+          <td>Opening Price</td>
+          <td></td>
+        </tr>
+        <tr id="high_price">
+          <td>High Price</td>
+          <td></td>
+        </tr>
+        <tr id="low_price">
+          <td>Low Price</td>
+          <td></td>
+        </tr>
+        <tr id="change">
+          <td>Change</td>
+          <td></td>
+        </tr>
+        <tr id="change_percent">
+          <td>Change Percent</td>
+          <td></td>
+        </tr>
+      </table>
+      <div id="recommendations">
+        <span>Strong Sell</span>
+        <span id="ss"></span>
+        <span id="s"></span>
+        <span id="h"></span>
+        <span id="b"></span>
+        <span id="sb"></span>
+        <span>Strong Buy</span>
+      </div>
+    </div>
+    
+    <div id="Charts" class="tabcontent">
+      <div id="charts_container"></div>
+    </div>
+    <div id="latest_news_contianer" class="tabcontent" style="display: flex; flex-direction: column;"> 
+    </div>
+</div>
+<div class="error">
+  <p>Error: No record has been found, please enter a valid symbol</p>
+</div>
+</body>
+</html>
