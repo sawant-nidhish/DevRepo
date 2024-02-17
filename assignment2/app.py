@@ -78,10 +78,12 @@ def charts():
 
     # Calculate the date 30 days prior to the current date
     date_6_months_ago = (current_date - relativedelta(months=6,days=1)).strftime('%Y-%m-%d')
+
     current_date=current_date.strftime('%Y-%m-%d')
     #Finhub "Qoute Services" tab API call
     print(current_date)
-    response = requests.get("https://api.polygon.io/v2/aggs/ticker/{}/range/1/day/{}/{}?apiKey={}".format(ticker,date_6_months_ago,current_date,os.getenv("POLYGON_API_KEY")))
+    print(date_6_months_ago)
+    response = requests.get("https://api.polygon.io/v2/aggs/ticker/{}/range/1/day/{}/{}?adjusted=true&sort=asc&apiKey={}".format(ticker,date_6_months_ago,current_date,os.getenv("POLYGON_API_KEY")))
     data={}
     data={}
     if(len(response.json())==0):

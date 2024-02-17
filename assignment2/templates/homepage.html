@@ -13,101 +13,105 @@
 </head>
 <body>
     <h2>Stock Search</h2>
-    <form id="form" method="get"> 
-        <button id="search_btn" onclick="getStock(event)">search</button>
-        <input type="search" id="ticker" name="ticker" placeholder="Search" required>
-        <button id="clear">clear</button>
+    <form id="form"> 
+        <button id="search_btn" class="search-btn" onclick="getStock(event)" type="submit"><img src="../static/images/search-solid.svg" class="search_img"></button>
+        <input type="text" id="ticker" name="ticker" placeholder="Search" required>
+        <button id="clear" class="close-btn" type="button" onclick="clearScreen(event)"><img src="../static/images/times-solid.svg" class="close_img"></button>
     </form>
 
     <!-- Tab links -->
-<div class="allTabs">
-  <div class="tab">
-      <button class="tablinks active" onclick="openTab(event, 'company_container')">Company</button>
-      <button class="tablinks" onclick="openTab(event, 'summary_container')">Stock Summary</button>
-      <button class="tablinks" onclick="openTab(event, 'Charts')">Charts</button>
-      <button class="tablinks" onclick="openTab(event, 'latest_news_contianer')">Latest News</button>
-  </div>
-    
-    <!-- Tab content -->
-    <div id="company_container" class="tabcontent">
-      <table id="company_table">
-        <tr id="logo">
-          <td></td>
-        </tr>
-        <tr id="company_name">
-          <td>Company Name</td>
-          <td></td>
-        </tr>
-        <tr id="stock_ticker_symbol">
-          <td>Stock Ticker Symbol</td>
-          <td></td>
-        </tr>
-        <tr id="stock_exchange_code">
-          <td>Stock Exchange Code</td>
-          <td></td>
-        </tr>
-        <tr id="company_ipo_date">
-          <td>Company IPO Date</td>
-          <td></td>
-        </tr>
-        <tr id="category">
-          <td>Category</td>
-          <td></td>
-        </tr>
-      </table>
+<div class="tab_container">    
+  <div class="allTabs">
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'company_container')">Company</button>
+        <button class="tablinks" onclick="openTab(event, 'summary_container')">Stock Summary</button>
+        <button class="tablinks" onclick="openTab(event, 'Charts')">Charts</button>
+        <button class="tablinks" onclick="openTab(event, 'latest_news_contianer')">Latest News</button>
     </div>
-    
-    <div id="summary_container" class="tabcontent">
-      <table id="summary_table">
-        <tr id="stock_ticker_symbol_2">
-          <td>Stock Ticker Symbol</td>
-          <td></td>
-        </tr>
-        <tr id="trading_day">
-          <td>Trading Day</td>
-          <td></td>
-        </tr>
-        <tr id="previous_closing_price">
-          <td>Previous Closing Price</td>
-          <td></td>
-        </tr>
-        <tr id="opening_price">
-          <td>Opening Price</td>
-          <td></td>
-        </tr>
-        <tr id="high_price">
-          <td>High Price</td>
-          <td></td>
-        </tr>
-        <tr id="low_price">
-          <td>Low Price</td>
-          <td></td>
-        </tr>
-        <tr id="change">
-          <td>Change</td>
-          <td></td>
-        </tr>
-        <tr id="change_percent">
-          <td>Change Percent</td>
-          <td></td>
-        </tr>
-      </table>
-      <div id="recommendations">
-        <span>Strong Sell</span>
-        <span id="ss"></span>
-        <span id="s"></span>
-        <span id="h"></span>
-        <span id="b"></span>
-        <span id="sb"></span>
-        <span>Strong Buy</span>
+    <div class="content">
+      <!-- Tab content -->
+      <div id="company_container" class="tabcontent">
+        <div id="logo">
+            
+        </div>
+        <table id="company_table">
+          <tr id="company_name"  class="first_row">
+            <td class="left_col">Company Name</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="stock_ticker_symbol">
+            <td class="left_col">Stock Ticker Symbol</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="stock_exchange_code">
+            <td class="left_col">Stock Exchange Code</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="company_ipo_date">
+            <td class="left_col">Company IPO Date</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="category">
+            <td class="left_col">Category</td>
+            <td class="right_col"></td>
+          </tr>
+        </table>
       </div>
-    </div>
-    
-    <div id="Charts" class="tabcontent">
-      <div id="charts_container"></div>
-    </div>
-    <div id="latest_news_contianer" class="tabcontent" style="display: flex; flex-direction: column;"> 
-    </div>
+      
+      <div id="summary_container" class="tabcontent">
+        <table id="summary_table">
+          <tr id="stock_ticker_symbol_2"  class="first_row">
+            <td class="left_col">Stock Ticker Symbol</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="trading_day">
+            <td class="left_col">Trading Day</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="previous_closing_price">
+            <td class="left_col">Previous Closing Price</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="opening_price">
+            <td class="left_col">Opening Price</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="high_price">
+            <td class="left_col">High Price</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="low_price">
+            <td class="left_col">Low Price</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="change">
+            <td class="left_col">Change</td>
+            <td class="right_col"></td>
+          </tr>
+          <tr id="change_percent">
+            <td class="left_col">Change Percent</td>
+            <td class="right_col"></td>
+          </tr>
+        </table>
+        <div id="recommendations">
+          <div id="ss-word">Strong<br>Sell</div>
+          <div class="recs" id="ss"></div>
+          <div class="recs" id="s"></div>
+          <div class="recs" id="h"></div>
+          <div class="recs" id="b"></div>
+          <div class="recs" id="sb"></div>
+          <div id="sb-word">Strong<br>Buy</div>
+        </div>
+      </div>
+      
+      <div id="Charts" class="tabcontent">
+        <div id="charts_container"></div>
+      </div>
+      <div id="latest_news_contianer" class="tabcontent" style="display: flex; flex-direction: column;"> 
+      </div>
+  </div>
+    </div>  
+      
 </div>
 <div class="error">
   <p>Error: No record has been found, please enter a valid symbol</p>
