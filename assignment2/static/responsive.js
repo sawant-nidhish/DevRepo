@@ -218,26 +218,28 @@ fetch(`/recommendation_trends?ticker=${ticker}`)
       showContent();
       data1=[];
       data2=[];
-
+      let maxVol=0;
       console.log(json['results'].length);
       for(let i=0; i<json['results'].length; i++){
         data1.push([json['results'][i]['t'],json['results'][i]['c']]);
         data2.push([json['results'][i]['t'],json['results'][i]['v']]);
+        if(json['results'][i]['v']>maxVol){
+          maxVol=json['results'][i]['v'];
+        }
         console.log("asdasd",i);
       }
-
+      console.log("Max value",maxVol)
+      console.log("Last day Stock Prce",data1.at(-1)[1])
+      console.log("Last date for the stock price chart",new Date(data1.at(-1)[0]).toUTCString('en-us', {  month:"long", day:"numeric", year:"numeric"}))
+      console.log("Last day volume",data2[data2.length-1][1])
+      console.log("Last date for the volume chart",new Date(data2[data2.length-1][0]).toUTCString('en-us', {  month:"long", day:"numeric", year:"numeric"}))
+      // console.log("Printing the latest date given by the the api",new Date(data2[data2.length-1][0]).toLocaleDateString('en-us', {  month:"long", day:"numeric", year:"numeric"}))
       todays_date=json['currentDate'];
       ticker=json['ticker'];
-      groupingUnits = [[
-          'day',                         // unit name
-          [7,15]                             // allowed multiples
-      ], [
-          'month',
-          [1, 3, 6]
-      ]];
       // create the chart
       Highcharts.stockChart('charts_container', {
-  
+        
+        
           title: {
               text: `Stock Price ${ticker} ${todays_date}`
           },
@@ -247,7 +249,11 @@ fetch(`/recommendation_trends?ticker=${ticker}`)
           },
   
           xAxis: {
-              gapGridLineWidth: 0
+              gapGridLineWidth: 0,
+              minPadding:0,
+              maxPadding: 0,
+              min:data1[0][0],
+              max:data1.at(-1)[0],
           },
           yAxis:[ {
             
@@ -259,16 +265,26 @@ fetch(`/recommendation_trends?ticker=${ticker}`)
                 text:'Stock Price',
                 margin: 30
             }
+            
           },{
           opposite:true,
           // height:"200",
-          alignedTicks:true,
+          alignedTicks:false,
           // tickLength:10,
           tickAmount:6,
+          tickInterval:Math.floor(maxVol/2 / 10000000)*10000000,
           title: {
               text:'Volume',
               margin: 30
-          }
+          },
+          labels: {
+            formatter: function() {
+                // Round the value to the nearest million (M)
+                var roundedValue = Math.floor(this.value / 10000000)*10;
+                console.log(roundedValue);
+                return roundedValue + 'M';
+            }
+        }
       },],
   
           rangeSelector: {
@@ -293,9 +309,9 @@ fetch(`/recommendation_trends?ticker=${ticker}`)
                 text: '3m'
                 },
                 {
-                  type: 'month',
-                  count: 6,
-                  text: '6m'
+                type: 'month',
+                count: 6,
+                text: '6m'
                 },
               ],
               selected: 4,
@@ -304,7 +320,13 @@ fetch(`/recommendation_trends?ticker=${ticker}`)
           plotOptions: {
             series: {
                 pointWidth: 5
-            }
+            },
+            column: {
+              // pointPadding: 0,
+              // groupPadding: -1,
+              pointPlacement:'on',
+          }
+  
         },
   
           series: [{
@@ -336,6 +358,8 @@ fetch(`/recommendation_trends?ticker=${ticker}`)
             data: data2,
             yAxis: 1,
             color: "black",
+            // height:'50%',
+            
             
           }
         ]

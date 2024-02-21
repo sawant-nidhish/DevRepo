@@ -135,6 +135,7 @@ body{
     padding-left: 0;
     border-right: 2px #f9fbfb solid;
     box-shadow: 0px 2px 0px 0px #d3d3d3;
+    cursor: none;
   }
   :focus{
     outline: none !important;
@@ -307,4 +308,8 @@ body{
     /* border-top-radius: 15px;
     border-bottom-radius: 15px; */
     /* box-shadow: 0px 2px 0px 0px #d3d3d3; */
+  }
+
+  #charts_container{
+    height: 700px;
   }
