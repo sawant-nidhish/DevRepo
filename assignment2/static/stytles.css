@@ -179,10 +179,11 @@ body{
   }
   tr{
     border-bottom: 1px solid rgb(227, 227, 227);
+    
   }
   td{
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
   #ss{
     background-color: #EB2837;
