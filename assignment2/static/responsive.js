@@ -254,6 +254,13 @@ fetch(`/recommendation_trends?ticker=${ticker}`)
               maxPadding: 0,
               min:data1[0][0],
               max:data1.at(-1)[0],
+              tooltip: {
+                // Optionally, you can specify a different tooltip format for the x-axis
+                formatter: function() {
+                    // Your custom tooltip formatting logic here
+                    return 'Date: ' + Highcharts.dateFormat('%Y-%m-%d', this.point)
+                }
+            }
           },
           yAxis:[ {
             

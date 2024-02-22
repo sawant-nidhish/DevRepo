@@ -12,10 +12,10 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 <body>
-    <h2>Stock Search</h2>
+    <div id="heading"><h2 >Stock Search</h2></div>
     <form id="form"> 
         <button id="search_btn" class="search-btn" onclick="getStock(event)" type="submit"><img src="../static/images/search-solid.svg" class="search_img"></button>
-        <input type="text" id="ticker" name="ticker" placeholder="Search" required>
+        <input type="text" id="ticker" name="ticker" placeholder="Search" autocomplete="on" required>
         <button id="clear" class="close-btn" type="button" onclick="clearScreen(event)"><img src="../static/images/times-solid.svg" class="close_img"></button>
     </form>
 

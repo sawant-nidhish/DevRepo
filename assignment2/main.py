@@ -83,7 +83,7 @@ def charts():
     current_date = datetime.now()
 
     # Calculate the date 30 days prior to the current date
-    date_6_months_ago = (current_date - relativedelta(months=6,days=2)).strftime('%Y-%m-%d')
+    date_6_months_ago = (current_date - relativedelta(months=6,days=1)).strftime('%Y-%m-%d')
 
     current_date=current_date.strftime('%Y-%m-%d')
     #Finhub "Qoute Services" tab API call
