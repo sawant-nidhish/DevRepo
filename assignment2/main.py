@@ -2,7 +2,7 @@ from flask import Flask, send_from_directory, request, jsonify, redirect, url_fo
 from dotenv import load_dotenv
 import os
 import requests
-from datetime import datetime
+from datetime import date
 from dateutil.relativedelta import relativedelta
 
 load_dotenv()
@@ -80,7 +80,7 @@ def charts():
     ticker=request.args.get('ticker').upper()
     # print("From app",ticker)
     # Get the current date
-    current_date = datetime.now()
+    current_date = date.today()
 
     # Calculate the date 30 days prior to the current date
     date_6_months_ago = (current_date - relativedelta(months=6,days=1)).strftime('%Y-%m-%d')
@@ -110,7 +110,7 @@ def news():
     ticker=request.args.get('ticker').upper()
     # print("From app",ticker)
     # Get the current date
-    current_date = datetime.now()
+    current_date = date.today()
 
     # Calculate the date 30 days prior to the current date
     date_30_days_ago = (current_date - relativedelta(days=30)).strftime('%Y-%m-%d')
