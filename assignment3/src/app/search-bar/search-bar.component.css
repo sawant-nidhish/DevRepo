@@ -1,0 +1,13 @@
+.search-input {
+    width: calc(100% - 80px); /* Adjust width based on button sizes */
+  }
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .small-spinner {
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+  }

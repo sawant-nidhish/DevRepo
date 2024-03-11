@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center">Stock Search</h2>
+      
+      <form class="input-group rounded d-flex align-items-center" (ngSubmit)="getData()">
+        <input type="search" class="form-control rounded search-input" placeholder="Enter Stock Ticker Symbol" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="inputTicker" name="ticker">
+        <div class="input-group-append">
+          <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+          <button class="btn" type="button"><i class="fas fa-times"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <app-alerts [isEmptyTicker]=isEmptyTicker></app-alerts>
+  
+  
+    <!-- <app-stock-details *ngIf="showContent"></app-stock-details>
+    <app-tabs-content *ngIf="showContent"></app-tabs-content> -->
+    <router-outlet *ngIf="showContent"></router-outlet>
+
+  
+  
+  
+</div>
+

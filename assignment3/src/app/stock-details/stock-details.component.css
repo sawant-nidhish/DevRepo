@@ -1,0 +1,45 @@
+.stock-details{
+    margin-top: 50px;
+    
+}
+.logo_img{
+    margin-left: auto;
+    margin-right: auto;
+    height: 8em;
+    /* border: green 2px solid;   */
+  }
+.ticker{
+    font-size: 2em;
+}
+.cmpName{
+    font-size: 1.5em;
+}
+.exchange{
+    font-size: 1em;
+}
+
+.price{
+    font-size: 2em;
+    
+}
+.change{
+    font-size: 1.5em;
+    
+}
+.timestamp{
+    font-size: 1em;
+    
+}
+.green{
+    color: green;
+}
+.red{
+    color: red;
+}
+.market-status{
+    margin-top: 2em;
+}
+.description-box{
+    height: 10em;
+    /* width: 100%; */
+}

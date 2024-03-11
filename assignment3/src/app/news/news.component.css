@@ -1,0 +1,10 @@
+.card{
+    height: 6em;
+}
+.news-image{
+    height: 4em;
+    width: 7em;
+}
+.modal-open{
+    top: 100px;
+}
