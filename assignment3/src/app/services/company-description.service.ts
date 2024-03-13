@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class CompanyDescriptionService {
   private inputTicker: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private newsModal: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private companyHistoricalData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private companyHourlyData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private companyRecommendationData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private companyEarningsData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private companySentimentsData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   // Company Details HTTP Call
@@ -68,14 +73,59 @@ export class CompanyDescriptionService {
     );
   }
 
+  // Company Historical Data HTTP Call
+  getCompanyHourlyData(symbol: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/company_hourly_data?symbol=${symbol}`).pipe(
+      catchError(error => {
+        console.error('Error fetching company Hourly data:', error);
+        throw error;
+      })
+    );
+  }
+
+  // Company Recommendation Data HTTP Call
+  getCompanyRecommendationData(symbol: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/company_recommendation_trends?symbol=${symbol}`).pipe(
+      catchError(error => {
+        console.error('Error fetching company recommendation data:', error);
+        throw error;
+      })
+    );
+  }
+
+  // Company Earnings Data HTTP Call
+  getCompanyEarningsData(symbol: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/company_earnings?symbol=${symbol}`).pipe(
+      catchError(error => {
+        console.error('Error fetching company recommendation data:', error);
+        throw error;
+      })
+    );
+  }
+
+  // Company Earnings Data HTTP Call
+  getCompanySentimentsData(symbol: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/company_insider_sentiments?symbol=${symbol}`).pipe(
+      catchError(error => {
+        console.error('Error fetching company sentiments data:', error);
+        throw error;
+      })
+    );
+  }
+  
+
   // Fetch data from both APIs
-  fetchData(symbol: string): Observable<[any, any, any, any, any]> {
+  fetchData(symbol: string): Observable<[any, any, any, any, any, any, any, any, any]> {
     const companyData$ = this.getCompanyData(symbol);
     const companyPrice$ = this.getCompanyPrice(symbol);
     const companyPeers$ = this.getCompanyPeers(symbol);
     const companyNews$ = this.getCompanyNews(symbol);
     const companyHistoricalData$ = this.getCompanyHistoricalData(symbol);
-    return forkJoin([companyData$, companyPrice$, companyPeers$, companyNews$, companyHistoricalData$]);
+    const companyHourlyData$ = this.getCompanyHourlyData(symbol);
+    const companyRecommendationData$ = this.getCompanyRecommendationData(symbol);
+    const companyEarningsData$ = this.getCompanyEarningsData(symbol);
+    const companySentimentsData$ = this.getCompanySentimentsData(symbol);
+    return forkJoin([companyData$, companyPrice$, companyPeers$, companyNews$, companyHistoricalData$, companyHourlyData$, companyRecommendationData$, companyEarningsData$, companySentimentsData$]);
   }
 
   // Set company data
@@ -147,6 +197,41 @@ export class CompanyDescriptionService {
     this.companyHistoricalData.next(data);
   }
 
+  getCompanyHourlyDataObservable(): Observable<any> {
+    return this.companyHourlyData.asObservable();
+  }
+  
+  // Set company peers data
+  setCompanyHourlyData(data: any): void {
+    this.companyHourlyData.next(data);
+  }
+
+  getCompanyRecommendationDataObservable(): Observable<any> {
+    return this.companyRecommendationData.asObservable();
+  }
+  
+  // Set company peers data
+  setCompanyRecommendationData(data: any): void {
+    this.companyRecommendationData.next(data);
+  }
+
+  getCompanyEarningsDataObservable(): Observable<any> {
+    return this.companyEarningsData.asObservable();
+  }
+  
+  // Set company peers data
+  setCompanyEarningsData(data: any): void {
+    this.companyEarningsData.next(data);
+  }
+
+  getCompanySentimentsDataObservable(): Observable<any> {
+    return this.companySentimentsData.asObservable();
+  }
+  
+  // Set company peers data
+  setCompanySentimentsData(data: any): void {
+    this.companySentimentsData.next(data);
+  }
   // openDialog(content:any): void {
   //   // this.dialogRef = this.dialog.open(ModalComponent, {
   //   //   width: '400px',

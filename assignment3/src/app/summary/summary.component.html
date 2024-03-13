@@ -1,6 +1,6 @@
 <div class="pl-5 row" style="overflow-x: visible">
-    <div class="col-md-6 d-flex">    
-        <div class="d-flex flex-column w-100">
+    <div class="col-md-6 d-flex flex-column">    
+        <!-- <div class="d-flex flex-column w-100"> -->
             <p class="m-0 h6"><span class="font-weight-bold m-0">High Price:</span>{{highPrice}}</p>
             <p class="m-0 h6"><span class="font-weight-bold"> Low Price:</span>{{lowPrice}}</p>
             <p class="m-0 h6"><span class="font-weight-bold"> Open Price:</span>{{openPrice}}</p>
@@ -11,16 +11,20 @@
                 <p><span class="font-weight-bold">Industry:</span>{{industry}}</p>
                 <p><span class="font-weight-bold">Webpage:</span><a href="{{webpage}}" >{{webpage}}</a></p>
                 <p class="font-weight-bold">Company Peers:</p>
-                <div class="row"><a class="d-inline" *ngFor="let cmpny of companyPeers" routerLink="/search/{{cmpny}}">{{cmpny}}, </a></div>
+                <div class="d-flex"><a class="d-inline" *ngFor="let cmpny of companyPeers" routerLink="/search/{{cmpny}}">{{cmpny}}, </a></div>
             </div>
             
-        </div>
+        <!-- </div> -->
         <!-- <div class="d-flex flex-column">
             
             
         </div> -->
     </div>
     <div class="col-md-6">
-        <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. A, obcaecati eum earum praesentium unde quo quisquam cumque magnam eius pariatur, delectus nihil fugiat molestiae autem numquam animi mollitia? Dolorum, deserunt?</div>
+        <highcharts-chart
+   [Highcharts] = "Highcharts" 
+   [options] = "chartOptions" 
+   style = "display: block;">
+</highcharts-chart>
     </div>
 </div>

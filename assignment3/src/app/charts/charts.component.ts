@@ -28,7 +28,7 @@ export class ChartsComponent {
     }
     
   }
-Highcharts: typeof Highcharts = Highcharts;
+Highcharts= Highcharts;
 
 chartOptions: Highcharts.Options = {
   

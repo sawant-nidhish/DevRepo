@@ -34,6 +34,7 @@
     "highcharts-angular": "^4.0.0",
     "highcharts-more": "^0.1.7",
     "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-md-6  mt-3" *ngFor="let item of topNews; let i=index">
       
-        <div class="card rounded" id="{{item.id}}" (click)="open()">
+        <div class="card rounded" id="{{item.id}}" (click)="open($event)">
         <div class="card-body row align-items-center">
             <div class="col-md-3"><img src="{{item.image}}" class="news-image rounded"></div>
             <div class="col-md-9 text-center "><p class="d-inline">{{ item.headline }}</p></div>

@@ -146,6 +146,118 @@ app.get('/api/company_historical_data', async (req, res) => {
   }
 });
 
+app.get('/api/company_hourly_data', async (req, res) => {
+  try {
+  const symbol = req.query.symbol;
+  // const time = req.query.time;
+  if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+  }
+  // Get the current date
+  const currentDate = moment();
+  const formattedCurrDate = currentDate.format('YYYY-MM-DD');
+  // Calculate the date 6 hours ago
+  const twoYearsAgo = currentDate.subtract(5, 'day');
+
+  // Format the date to your desired format (e.g., YYYY-MM-DD)
+  const formattedPrevDate = twoYearsAgo.format('YYYY-MM-DD');
+  
+  console.log("Calling hourly data for",formattedCurrDate)
+
+  const apiUrl = `https://api.polygon.io/v2/aggs/ticker/${symbol}/range/1/hour/${formattedPrevDate}/${formattedCurrDate}?adjusted=true&
+  // sort=asc&apiKey=${POLYGON_KEY}`;
+  // const apiUrl='https://demo-live-data.highcharts.com/aapl-ohlcv.json'
+  const response = await axios.get(apiUrl);
+  // console.log(response)
+  // // Extract necessary data from the response
+  const { data } = response;
+
+  for (let i = 0; i < data.results.length; i += 1) {
+    console.log("time ",new Date(data.results[i].t).toLocaleString())
+  }
+
+  // const { name, exchange, industry, country, logo } = data;
+
+  // // Send extracted data in the response
+  res.json(data);
+  } catch (error) {
+  console.error('Error fetching Hourly data:', error.message);
+  res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+//Get the data for the company sentiments
+app.get('/api/company_insider_sentiments', async (req, res) => {
+  try {
+  const symbol = req.query.symbol;
+  if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+  }
+
+  const apiUrl = `https://finnhub.io/api/v1/stock/insider-sentiment?symbol=${symbol}&from=2022-01-01&token=${API_KEY}`
+  const response = await axios.get(apiUrl);
+  // console.log(response)
+  // // Extract necessary data from the response
+  const { data } = response;
+  // const { name, exchange, industry, country, logo } = data;
+
+  // // Send extracted data in the response
+  res.json(data);
+  } catch (error) {
+  console.error('Error fetching sentiments data:', error.message);
+  res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+
+//Get the data for the company sentiments
+app.get('/api/company_recommendation_trends', async (req, res) => {
+  try {
+  const symbol = req.query.symbol;
+  if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+  }
+
+  const apiUrl = `https://finnhub.io/api/v1/stock/recommendation?symbol=${symbol}&token=${API_KEY}`
+  
+  const response = await axios.get(apiUrl);
+  // console.log(response)
+  // // Extract necessary data from the response
+  const { data } = response;
+  // const { name, exchange, industry, country, logo } = data;
+
+  // // Send extracted data in the response
+  res.json(data);
+  } catch (error) {
+  console.error('Error fetching sentiments data:', error.message);
+  res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+//Get the data for the company sentiments
+app.get('/api/company_earnings', async (req, res) => {
+  try {
+  const symbol = req.query.symbol;
+  if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+  }
+
+  const apiUrl = `https://finnhub.io/api/v1/stock/earnings?symbol=${symbol}&token=${API_KEY}`
+  
+  const response = await axios.get(apiUrl);
+  // console.log(response)
+  // // Extract necessary data from the response
+  const { data } = response;
+  // const { name, exchange, industry, country, logo } = data;
+
+  // // Send extracted data in the response
+  res.json(data);
+  } catch (error) {
+  console.error('Error fetching sentiments data:', error.message);
+  res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

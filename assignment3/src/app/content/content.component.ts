@@ -28,7 +28,7 @@ export class ContentComponent {
       this.isInvalidTicker = false;
 
       this.companyDataAPI.fetchData(this.tickerValue).subscribe({
-        next: ([companyData, companyPrice, companyPeers, companyNews, companyHistoricalData]) => {
+        next: ([companyData, companyPrice, companyPeers, companyNews, companyHistoricalData, companyHourlyData, companyRecommendationData, companyEarningsData, companySentimentsData]) => {
           if (Object.keys(companyData).length === 0 || Object.keys(companyPrice).length === 0) {
             this.isInvalidTicker = true;
             this.isLoading = false;
@@ -40,6 +40,10 @@ export class ContentComponent {
             this.companyDataAPI.setCompanyPeersData(companyPeers);
             this.companyDataAPI.setCompanyNewsData(companyNews);
             this.companyDataAPI.setCompanyHistoricalData(companyHistoricalData);
+            this.companyDataAPI.setCompanyHourlyData(companyHourlyData);
+            this.companyDataAPI.setCompanyRecommendationData(companyRecommendationData);
+            this.companyDataAPI.setCompanyEarningsData(companyEarningsData);
+            this.companyDataAPI.setCompanySentimentsData(companySentimentsData);
 
             this.isLoading = false;
             this.showContent = true;
@@ -52,14 +56,13 @@ export class ContentComponent {
               // Call the API every 15 seconds
               this.timerSubscription = timer(15000, 15000)
               .pipe(
-                switchMap(() => this.companyDataAPI.fetchData(this.tickerValue))
+                switchMap(() => this.companyDataAPI.getCompanyPrice(this.tickerValue))
               )
               .subscribe({
-                next: ([updatedCompanyData, updatedCompanyPrice, updatedCompanyPeers]) => {
-                  // Update the company data and price
-                  this.companyDataAPI.setCompanyData(updatedCompanyData);
+                next: (updatedCompanyPrice) => {
+                  // Update the company data and pri
                   this.companyDataAPI.setCompanyPriceData(updatedCompanyPrice);
-                  this.companyDataAPI.setCompanyPeersData(updatedCompanyPeers);
+                  
 
                   console.log("Called the data");
                 },

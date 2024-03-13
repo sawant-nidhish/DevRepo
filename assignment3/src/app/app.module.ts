@@ -22,8 +22,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ChartsComponent} from './charts/charts.component';
 import { HighchartsChartModule } from 'highcharts-angular';
-import {CommonModule} from '@angular/common'
-import{NgbdModalComponent} from '../app/ng-modal/ng-modal.component'
+import {CommonModule} from '@angular/common';
+import { InsightsComponent } from './insights/insights.component'
+// import{NgbdModalComponent} from '../app/ng-modal/ng-modal.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import{NgbdModalComponent} from '../app/ng-modal/ng-modal.component'
     SummaryComponent,
     ContentComponent,
     ChartsComponent,
+    InsightsComponent,
     
     // HighchartsChartComponent
 
@@ -52,7 +54,7 @@ import{NgbdModalComponent} from '../app/ng-modal/ng-modal.component'
     NgbModule,
     HighchartsChartModule,
     NewsComponent,
-    NgbdModalComponent,
+    // NgbdModalComponent,
     CommonModule
   ],
   providers: [
