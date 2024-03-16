@@ -112,6 +112,17 @@ export class CompanyDescriptionService {
       })
     );
   }
+
+  // Company Autocomplete Data HTTP Call
+  getCompanyAutocompleteData(symbol: string): Observable<any> {
+    // this.http.get(`http://localhost:3000/api/company_autocomplete?symbol=${symbol}`).subscribe(data => console.log(data))
+    return this.http.get(`http://localhost:3000/api/company_autocomplete?symbol=${symbol}`).pipe(
+      catchError(error => {
+        console.error('Error fetching company autocomplete data:', error);
+        throw error;
+      })
+    );
+  }
   
 
   // Fetch data from both APIs

@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const moment = require('moment');
+const {MongoClient} =require('mongodb')
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +10,98 @@ const PORT = 3000;
 const API_KEY = 'cmtjpqpr01qqtangt8mgcmtjpqpr01qqtangt8n0';
 const POLYGON_KEY = 'sHItDAscBrHfX9CxLM9G31Rc36d1dRaP';
 app.use(cors());
+app.use(express.json())
+function connect(){
+  const uri='mongodb+srv://nidhishsawant135:QMcqhyI5g53sFzjR@homework3.j2ujlwy.mongodb.net/?retryWrites=true&w=majority&appName=Homework3'
+
+  const client = new MongoClient(uri);
+  
+  try{
+      client.connect();
+      console.log("Connectd to DataBase Successfully");
+      return client
+  }
+  catch (e){
+      console.error(e);
+  }
+}
+
+async function findWatchList(client){
+  const cursor = await client.db('homework_3').collection('watchlist').find()
+  const result = await cursor.toArray()
+  console.log(result)
+  return result
+}
+
+async function findOneStock(client,query){
+  const result = await client.db('homework_3').collection('watchlist').findOne(query)
+  // const result = await cursor.toArray()
+  console.log(result)
+  return result
+}
+
+async function deleteWathcList(client,watchlist){
+  const result = await client.db('homework_3').collection('watchlist').deleteOne(watchlist)
+  console.log("Deleted ",result)
+}
+
+const client=connect()
+
+//Degine a endpoint to get the list wathclist
+app.get('/api/watchList', async (req, res) => {
+  try{
+    const symbol = req.query.symbol;
+    if (!symbol) {
+      data=await findWatchList(client)
+      res.json(data);
+    }
+    else{
+      data=await findOneStock(client,{name:symbol})
+      res.json(data);
+    }
+    
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+//Define a endpoint to update the list wathclist
+app.post('/api/watchList', async (req, res) => {
+  try{
+    newItem=req.body
+    console.log("New Itme is",newItem)
+
+    const db=client.db('homework_3')
+    const collection=db.collection('watchlist');
+    // console.log(watchlist.name)
+    const query={name:newItem.name}
+    const update ={$set:newItem};
+
+    const result=await collection.findOneAndUpdate(query,update,{upsert:true})
+
+    // data=await findWatchList(client)
+    res.json("Posted Data Successfully!!!");
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+//Degine a endpoint to delete the list wathclist
+app.delete('/api/watchList', async (req, res) => {
+  try{
+    const symbol = req.query.symbol;
+    if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+    }
+    data=await deleteWathcList(client,{name:symbol})
+    res.json(`Deleted ${symbol} successfully`);
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
 
 // Define route to fetch data from Finnhub API
 app.get('/api/company_description', async (req, res) => {
@@ -32,6 +125,7 @@ app.get('/api/company_description', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching data' });
   }
 });
+
 
 
 //Get the data for the company price
@@ -172,10 +266,6 @@ app.get('/api/company_hourly_data', async (req, res) => {
   // // Extract necessary data from the response
   const { data } = response;
 
-  for (let i = 0; i < data.results.length; i += 1) {
-    console.log("time ",new Date(data.results[i].t).toLocaleString())
-  }
-
   // const { name, exchange, industry, country, logo } = data;
 
   // // Send extracted data in the response
@@ -243,6 +333,31 @@ app.get('/api/company_earnings', async (req, res) => {
   }
 
   const apiUrl = `https://finnhub.io/api/v1/stock/earnings?symbol=${symbol}&token=${API_KEY}`
+  
+  const response = await axios.get(apiUrl);
+  // console.log(response)
+  // // Extract necessary data from the response
+  const { data } = response;
+  // const { name, exchange, industry, country, logo } = data;
+
+  // // Send extracted data in the response
+  res.json(data);
+  } catch (error) {
+  console.error('Error fetching sentiments data:', error.message);
+  res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+
+//Get the data for the company autocomplete
+app.get('/api/company_autocomplete', async (req, res) => {
+  try {
+  const symbol = req.query.symbol;
+  if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+  }
+  
+  const apiUrl = `https://finnhub.io/api/v1/search?q=${symbol}&token=${API_KEY}`
   
   const response = await axios.get(apiUrl);
   // console.log(response)

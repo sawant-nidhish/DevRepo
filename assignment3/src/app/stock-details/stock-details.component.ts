@@ -2,6 +2,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyDescriptionService } from '../services/company-description.service'
 import { format } from 'date-fns';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-stock-details',
@@ -26,7 +29,13 @@ export class StockDetailsComponent {
 
   //market closed
   marketClosed:boolean=false
-  constructor(private companyDataAPI: CompanyDescriptionService) { }
+
+  //start button
+  isSelected=false
+  starColor=""
+  addToWatchlist=false
+  rmFromWatchlist=false
+  constructor(private companyDataAPI: CompanyDescriptionService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.companyDataAPI.getCompanyDataObservable().subscribe(data => {
@@ -36,10 +45,13 @@ export class StockDetailsComponent {
         this.companyName = data.name;
         this.exchangeCode= data.exchange
         this.logo= data.logo
+
       }
         
     });
 
+    //check if the stock is in watchlist
+    this.checkInWatchList(this.ticker.toUpperCase())
 
     //Company Price
     this.companyDataAPI.getCompanyPriceDataObservable().subscribe(data => {
@@ -80,5 +92,73 @@ export class StockDetailsComponent {
         
     });
 
+  }
+
+  checkInWatchList(symbol:string){
+    let response=this.http.get(`http://localhost:3000/api/watchlist?symbol=${symbol}`).pipe(
+    catchError(error => {
+      console.error('Error fetching company data:', error);
+      throw error;
+    })
+  );
+  response.subscribe(data=>{
+    console.log("This is the data from the wathclist endpoint",data)
+    if(data){
+      this.isSelected=true
+      this.starColor="yellow"
+    }
+    else{
+      this.isSelected=false
+      this.starColor=""
+    }
+  })
+  }
+
+   async addToWatchList(stock:any){
+    const response= this.http.post(`http://localhost:3000/api/watchlist`,stock).pipe(
+      catchError(error => {
+        console.error('Error fetching company data:', error);
+        throw error;
+      }),
+    );
+    response.subscribe(data=>{
+      console.log("This is the data from the wathclist endpoint",data)
+    });
+    // return response
+  }
+
+  async deleteFromWatchList(symbol:string){
+    const response=this.http.delete(`http://localhost:3000/api/watchlist?symbol=${symbol}`).pipe(
+      catchError(error => {
+        console.error('Error fetching company data:', error);
+        throw error;
+      })
+    );
+    response.subscribe(data=>{
+      console.log("This is the data from the wathclist endpoint",data)
+    });
+  }
+
+
+  async clickStar(){
+    console.log("Clicked the start button for ticker",this.ticker)
+    this.isSelected=!this.isSelected
+    if(this.isSelected){
+      //code for adding to DB
+      await this.addToWatchList({name:this.ticker.toUpperCase(),companyName:this.companyName})
+      console.log("Added data")
+      this.starColor='yellow';
+      this.addToWatchlist=true
+      this.rmFromWatchlist=false
+      // console.log("Added data")
+    }
+    else{
+      //code for deleting from DB
+      this.deleteFromWatchList(this.ticker.toUpperCase())
+      console.log("Deleted Successfully")
+      this.starColor=""
+      this.addToWatchlist=false
+      this.rmFromWatchlist=true
+    }
   }
 }

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AlertsComponent } from './alerts/alerts.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -24,6 +24,12 @@ import {ChartsComponent} from './charts/charts.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {CommonModule} from '@angular/common';
 import { InsightsComponent } from './insights/insights.component'
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { TestComponent } from './test/test.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
+
 // import{NgbdModalComponent} from '../app/ng-modal/ng-modal.component'
 @NgModule({
   declarations: [
@@ -38,6 +44,8 @@ import { InsightsComponent } from './insights/insights.component'
     ContentComponent,
     ChartsComponent,
     InsightsComponent,
+    WatchlistComponent,
+    
     
     // HighchartsChartComponent
 
@@ -47,6 +55,7 @@ import { InsightsComponent } from './insights/insights.component'
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatTabsModule,
     RouterModule,
@@ -55,7 +64,11 @@ import { InsightsComponent } from './insights/insights.component'
     HighchartsChartModule,
     NewsComponent,
     // NgbdModalComponent,
-    CommonModule
+    CommonModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    TestComponent
   ],
   providers: [
     provideClientHydration(),

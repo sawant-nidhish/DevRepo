@@ -36,6 +36,9 @@
 .red{
     color: red;
 }
+.yellow{
+    color: yellow
+}
 .market-status{
     margin-top: 2em;
 }
@@ -43,3 +46,14 @@
     height: 10em;
     /* width: 100%; */
 }
+.starbtn{
+    /* height: 0; */
+    border: 0;
+    background: none;
+}
+.starbtn:focus {
+    outline: none;
+    box-shadow: none;
+    
+    animation: none
+  }

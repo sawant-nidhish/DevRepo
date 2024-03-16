@@ -19,10 +19,11 @@ export class ContentComponent {
     private router: Router) {}
 
   ngOnInit(): void {
+    console.log("Printing from the content",this.router.url)
     this.route.params.subscribe(params => {
       this.tickerValue = params['query'];
       this.companyDataAPI.setInputTicker(this.tickerValue);
-      console.log("Prinitng from the component")
+      console.log("Prinitng from the component",this.tickerValue)
       this.isLoading = true;
       this.showContent = false;
       this.isInvalidTicker = false;
