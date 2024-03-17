@@ -1,12 +1,12 @@
-<div class="alert alert-success alert-dismissible fade show text-center" role="alert" *ngIf="addToWatchlist">
-    <p>{{ticker}} added to Watchlist</p>
+<div class="alert alert-success alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="addToWatchlist">
+    <p class="mb-0">{{ticker}} added to Watchlist</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<div class="alert alert-danger alert-dismissible fade show text-center" role="alert" *ngIf="rmFromWatchlist">
-    <p>{{ticker}} removed frfom Watchlist</p>
+<div class="alert alert-danger alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="rmFromWatchlist">
+    <p class="mb-0">{{ticker}} removed from Watchlist</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

@@ -1,0 +1,29 @@
+
+<div class="container">
+    <h1 class="my-3 mt-5">My Watchlist</h1>
+    <div class="spinner-container  d-flex justify-content-center">
+        <mat-progress-spinner class="small-spinner" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <div class="alert alert-warning" role="alert" *ngIf="isEmpty">
+        Currently you don't have any stock in your wathclist.
+    </div>
+    <div *ngIf="!isEmpty">
+        <div class="col mt-2 px-0" *ngFor="let item of watchListData">
+            <div class="card" (click)="redirect(item)">
+                
+                <div class="card-body pt-0 pl-0">
+                    <button class="btn clickable ml-1 "  type="button" (click)="removeItem(item)"><i class="fa fa-times"></i></button>
+                  <div class="row pl-3">
+                    <div class="col-6"><h2>{{item.name}}</h2></div>
+                    <div class="col-6"><h2 [ngClass]="{'green':item.d>0,'red':item.d<0,'black':item.d==0}">{{item.c}}</h2></div>
+                  </div>
+                  <div class="row pl-3">
+                    <div class="col-6">{{item.companyName}}</div>
+                    <div class="col-6" [ngClass]="{'green':item.d>0,'red':item.d<0,'black':item.d==0}">{{item.d}}({{item.dp}}%)</div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    
+</div>
