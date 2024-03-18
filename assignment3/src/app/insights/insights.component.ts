@@ -35,7 +35,7 @@ export class InsightsComponent {
         this.recommendation=data
       }
     });
-    console.log(this.recommendation[0].period)
+    // console.log(this.recommendation[0].period)
     this.chartOptions_rec= {
       chart: {
           type: 'column'
@@ -205,7 +205,7 @@ this.companyDataAPI.getCompanySentimentsDataObservable().subscribe(data => {
     this.symbol=data.symbol
     data=data.data
     for(let i=0; i<data.length; i++){
-      console.log(data[i].mspr)
+      // console.log(data[i].mspr)
       this.totalMSPR+=data[i].mspr
       if(data[i].mspr>=0){
        this.posMSPR+=data[i].mspr

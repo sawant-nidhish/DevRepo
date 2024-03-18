@@ -2,7 +2,7 @@ import { Component, OnDestroy,OnInit } from '@angular/core';
 import { CompanyDescriptionService } from '../services/company-description.service';
 import { timer, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -30,7 +30,9 @@ export class SearchBarComponent implements OnInit{
     this.companyDataAPI.getInputTicker().subscribe(data=>{
       console.log("%%%%%%%%Input ticker value has changed",data)
       this.inputTicker=data})
-    // console.log("Printing from the content",this.router.url)
+
+        //   this.tickerValue = params['query'];
+    // console.log("Prin ting from the content",this.router.url)
     //   this.route.params.subscribe(params => {
     //   this.tickerValue = params['query'];
     //   if(this.tickerValue){

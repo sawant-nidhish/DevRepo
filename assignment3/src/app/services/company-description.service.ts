@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
+import { Observable, forkJoin, BehaviorSubject, tap, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
@@ -9,6 +9,8 @@ import { consumerPollProducersForChange } from '@angular/core/primitives/signals
   providedIn: 'root'
 })
 export class CompanyDescriptionService {
+
+  private cachedData: Map<string, any> = new Map<string, any>();
 
   private companyDataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private companyPriceDataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -21,6 +23,8 @@ export class CompanyDescriptionService {
   private companyRecommendationData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private companyEarningsData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private companySentimentsData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  private showContent:BehaviorSubject<any> = new BehaviorSubject<any>(false);
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   // Company Details HTTP Call
@@ -127,18 +131,46 @@ export class CompanyDescriptionService {
 
   // Fetch data from both APIs
   fetchData(symbol: string): Observable<[any, any, any, any, any, any, any, any, any]> {
-    const companyData$ = this.getCompanyData(symbol);
-    const companyPrice$ = this.getCompanyPrice(symbol);
-    const companyPeers$ = this.getCompanyPeers(symbol);
-    const companyNews$ = this.getCompanyNews(symbol);
-    const companyHistoricalData$ = this.getCompanyHistoricalData(symbol);
-    const companyHourlyData$ = this.getCompanyHourlyData(symbol);
-    const companyRecommendationData$ = this.getCompanyRecommendationData(symbol);
-    const companyEarningsData$ = this.getCompanyEarningsData(symbol);
-    const companySentimentsData$ = this.getCompanySentimentsData(symbol);
-    return forkJoin([companyData$, companyPrice$, companyPeers$, companyNews$, companyHistoricalData$, companyHourlyData$, companyRecommendationData$, companyEarningsData$, companySentimentsData$]);
+    
+    // if(!this.cachedData.has(symbol)){
+      if (this.cachedData.has(symbol)) {
+        console.log("Returning from chance")
+        return of(this.cachedData.get(symbol));
+      } else {
+        console.log("Making API CAlls")
+      const companyData$ = this.getCompanyData(symbol);
+      const companyPrice$ = this.getCompanyPrice(symbol);
+      const companyPeers$ = this.getCompanyPeers(symbol);
+      const companyNews$ = this.getCompanyNews(symbol);
+      const companyHistoricalData$ = this.getCompanyHistoricalData(symbol);
+      const companyHourlyData$ = this.getCompanyHourlyData(symbol);
+      const companyRecommendationData$ = this.getCompanyRecommendationData(symbol);
+      const companyEarningsData$ = this.getCompanyEarningsData(symbol);
+      const companySentimentsData$ = this.getCompanySentimentsData(symbol);
+      return forkJoin([companyData$, companyPrice$, companyPeers$, companyNews$, companyHistoricalData$, companyHourlyData$, companyRecommendationData$, companyEarningsData$, companySentimentsData$]).pipe(
+        tap(data => {
+          // Store the fetched data in the cache
+          this.cachedData.set(symbol, data);
+        }),
+        catchError(error => {
+          // Handle errors if any
+          console.error('Error fetching data:', error);
+          return [];
+        })
+      );
+  
+    
+      }
+    
   }
 
+  setChache(symbol:string,data:any){
+    this.cachedData.set(symbol, data);
+  }
+
+  getChache(symbol:string){
+    return this.cachedData.get(symbol);
+  }
   // Set company data
   setCompanyData(data: any): void {
     this.companyDataSubject.next(data);
@@ -241,6 +273,15 @@ export class CompanyDescriptionService {
   
   // Set company peers data
   setCompanySentimentsData(data: any): void {
+    this.companySentimentsData.next(data);
+  }
+
+  getShowContent(): Observable<any> {
+    return this.companySentimentsData.asObservable();
+  }
+  
+  // Set company peers data
+  setShowContent(data: any): void {
     this.companySentimentsData.next(data);
   }
   // openDialog(content:any): void {

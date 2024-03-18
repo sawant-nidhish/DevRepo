@@ -70,7 +70,23 @@ ngOnInit(){
         ['week', [1]],
         ['month', [1, 2, 3, 4, 6]]
       ];
-      console.log("OHLC",ohlc)  
+      console.log("OHLC",ohlc) 
+      console.log("Volume",volume)  
+
+      const ohlcSeries: Highcharts.SeriesOptionsType = {
+        type: 'candlestick',
+        name: 'OHLC',
+        data: ohlc
+      };
+
+      // Create the Volume series
+      const volumeSeries: Highcharts.SeriesOptionsType = {
+        type: 'column',
+        name: 'Volume',
+        data: volume,
+        yAxis: 1
+      };
+
       this.chartOptions = {
 
           // rangeSelector: {
@@ -166,7 +182,7 @@ ngOnInit(){
           series: [{
               type: 'candlestick',
               name: data.ticker,
-              id: data.ticker,
+              id: "OHLC",
               zIndex: 2,
               pointWidth:5,
               data: ohlc
@@ -178,7 +194,7 @@ ngOnInit(){
               yAxis: 1
           }, {
               type: 'vbp',
-              linkedTo: data.ticker,
+              linkedTo: "OHLC",
               params: {
                   volumeSeriesID: 'volume'
               },
@@ -190,7 +206,7 @@ ngOnInit(){
               }
           }, {
               type: 'sma',
-              linkedTo: data.ticker,
+              linkedTo: "OHLC",
               zIndex: 1,
               marker: {
                   enabled: false

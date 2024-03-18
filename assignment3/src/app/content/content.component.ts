@@ -31,21 +31,40 @@ export class ContentComponent {
       this.companyDataAPI.fetchData(this.tickerValue).subscribe({
         next: ([companyData, companyPrice, companyPeers, companyNews, companyHistoricalData, companyHourlyData, companyRecommendationData, companyEarningsData, companySentimentsData]) => {
           if (Object.keys(companyData).length === 0 || Object.keys(companyPrice).length === 0) {
+            console.log("Invalid")
             this.isInvalidTicker = true;
             this.isLoading = false;
             this.showContent = false;
             
           } else {
+            console.log(companyData)
+            console.log(companyPrice)
+            console.log(companyPeers)
+            console.log(companyNews)
+            console.log(companyHistoricalData)
+            console.log(companyHourlyData)
+            console.log(companyRecommendationData)
+            console.log(companyEarningsData)
+            console.log(companySentimentsData)  
+
             this.companyDataAPI.setCompanyData(companyData);
+            
             this.companyDataAPI.setCompanyPriceData(companyPrice);
             this.companyDataAPI.setCompanyPeersData(companyPeers);
+            
             this.companyDataAPI.setCompanyNewsData(companyNews);
+            
             this.companyDataAPI.setCompanyHistoricalData(companyHistoricalData);
+            
             this.companyDataAPI.setCompanyHourlyData(companyHourlyData);
+            
             this.companyDataAPI.setCompanyRecommendationData(companyRecommendationData);
+            
             this.companyDataAPI.setCompanyEarningsData(companyEarningsData);
+            
             this.companyDataAPI.setCompanySentimentsData(companySentimentsData);
-
+            
+            
             this.isLoading = false;
             this.showContent = true;
             const stockTimestamp= companyPrice.t*1000;

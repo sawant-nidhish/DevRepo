@@ -79,9 +79,9 @@ chartOptions: Highcharts.Options = {
       console.log("######Curretn timestamp",new Date(currTime).toLocaleString())
       const diffTime=(currTime-stockTimestamp)/(1000*60)
       
-      for (let i = 0; i < data.results.length; i += 1) {
-        console.log("time ",new Date(data.results[i].t).toLocaleString())
-      }
+      // for (let i = 0; i < data.results.length; i += 1) {
+      //   // console.log("time ",new Date(data.results[i].t).toLocaleString())
+      // }
 
 
 
@@ -105,13 +105,13 @@ chartOptions: Highcharts.Options = {
         data.results.filter(function (item:any){
           let aDayBefore=new Date()
           aDayBefore.setTime(aDayBefore.getTime()-6*60*60*1000)
-          console.log(aDayBefore.toLocaleString())
+          // console.log(aDayBefore.toLocaleString())
 
           // console.log("PrevDay",latestTime)
           let currUnix=Math.floor(closeTime*1000)
-          console.log(new Date(currUnix).toLocaleString())
+          // console.log(new Date(currUnix).toLocaleString())
           // let adDayBefore=Math.floor(aDayBefore.getTime()/1000)
-          console.log(new Date(item.t).toLocaleString())
+          // console.log(new Date(item.t).toLocaleString())
           return item.t >=aDayBefore && item.t <=currUnix
         })
         this.companyHourlyData = data.results
