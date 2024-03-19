@@ -29,6 +29,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { TestComponent } from './test/test.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 // import{NgbdModalComponent} from '../app/ng-modal/ng-modal.component'
 @NgModule({
@@ -45,6 +46,7 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
     ChartsComponent,
     InsightsComponent,
     WatchlistComponent,
+    PortfolioComponent,
     
     
     // HighchartsChartComponent

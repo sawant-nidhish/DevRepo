@@ -12,6 +12,19 @@
     </button>
 </div>
 
+<div class="alert alert-success alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="buyAlert.flag">
+    <p class="mb-0">{{buyAlert.ticker}} bought successfully.</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="sellAlert.flag">
+    <p class="mb-0">{{sellAlert.ticker}} sold successfully.</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 
 <div class="row stock-details">
     <div class="col-md-4 border border-primary description-box">
@@ -35,6 +48,11 @@
         
         <p class="text-center cmpName">{{companyName}}</p>
         <p class="text-center exchange">{{exchangeCode}}</p>
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-success"(click)="openModal('buy')">Buy</button>
+            <button type="button" class="btn btn-danger ml-2" *ngIf="showSellBtn" (click)="openModal('sell')">Sell</button>
+        </div>
+        
     </div>
     <div class="col-md-4 border border-primary d-flex flex-column">
         <img class="logo_img" src="{{logo}}">

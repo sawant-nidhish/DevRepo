@@ -2,7 +2,8 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const moment = require('moment');
-const {MongoClient} =require('mongodb')
+const {MongoClient} =require('mongodb');
+const { resourceLimits } = require('worker_threads');
 
 const app = express();
 const PORT = 3000;
@@ -19,6 +20,15 @@ function connect(){
   try{
       client.connect();
       console.log("Connectd to DataBase Successfully");
+
+      const db=client.db('homework_3')
+      const collection=db.collection('wallet')
+      
+      const query={name:"wallet"}
+      const update ={$set:{name:"wallet",money:25000}};
+
+    const result=collection.findOneAndUpdate(query,update,{upsert:true}).then(result=>console.log(result))
+      // collection.findOne().then(result=>console.log(result))
       return client
   }
   catch (e){
@@ -42,6 +52,28 @@ async function findOneStock(client,query){
 
 async function deleteWathcList(client,watchlist){
   const result = await client.db('homework_3').collection('watchlist').deleteOne(watchlist)
+  console.log("Deleted ",result)
+}
+
+
+
+
+async function findPortfolio(client){
+  const cursor = await client.db('homework_3').collection('portfolio').find()
+  const result = await cursor.toArray()
+  console.log(result)
+  return result
+}
+
+async function findOneStockPortfolio(client,query){
+  const result = await client.db('homework_3').collection('portfolio').findOne(query)
+  // const result = await cursor.toArray()
+  console.log(result)
+  return result
+}
+
+async function deleteWathcList(client,portfolio){
+  const result = await client.db('homework_3').collection('portfolio').deleteOne(portfolio)
   console.log("Deleted ",result)
 }
 
@@ -97,6 +129,117 @@ app.delete('/api/watchList', async (req, res) => {
     }
     data=await deleteWathcList(client,{name:symbol})
     res.json(`Deleted ${symbol} successfully`);
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+
+//Degine a endpoint to get the list wallet
+app.get('/api/wallet', async (req, res) => {
+  try{
+    
+    const db=client.db('homework_3')
+    const collection=db.collection('wallet')
+    
+    data=await collection.findOne()
+
+    // data=await findOneStock(client,{name:symbol})
+    res.json(data);
+    
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+//Degine a endpoint to post the Data wallet
+app.post('/api/wallet', async (req, res) => {
+  try{
+    
+    newItem=req.body
+    console.log("New Itme is",newItem)
+
+    const db=client.db('homework_3')
+    const collection=db.collection('wallet');
+    // console.log(watchlist.name)
+    const query={name:newItem.name}
+    const update ={$set:newItem};
+
+    const result=await collection.findOneAndUpdate(query,update,{upsert:true})
+
+    console.log("Updated wallet successfully")
+    // data=await findOneStock(client,{name:symbol})
+    res.json("Updated wallet successfully");
+    
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+//Degine a endpoint to get the list portfolio
+app.get('/api/portfolio', async (req, res) => {
+  try{
+    const symbol = req.query.symbol;
+    if (!symbol) {
+      data=await findPortfolio(client)
+      res.json(data);
+    }
+    else{
+      data=await findOneStockPortfolio(client,{name:symbol})
+      res.json(data);
+    }
+    
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+
+//Degine a endpoint to post the Portfolio
+app.post('/api/portfolio', async (req, res) => {
+  try{
+    
+    newItem=req.body
+    buy=req.query.buy
+    console.log("New Itme is",newItem)
+
+    const db=client.db('homework_3')
+    const collection=db.collection('portfolio');
+    // console.log(watchlist.name)
+    const query={name:newItem.name}
+
+    data=await findOneStockPortfolio(client,{name:newItem.name})
+    if(data){
+      if(buy=='true'){
+        console.log("Updating the data in the buy db",data)
+        newItem.totalCost=data.qty*data.avgCost + newItem.qty*newItem.avgCost
+        newItem.qty=newItem.qty+data.qty
+        newItem.avgCost=newItem.totalCost/newItem.qty
+      }
+      else{
+        console.log("Updating the data in the sell db",(data.qty-newItem.qty)*data.avgCost)
+        
+        newItem.qty=data.qty-newItem.qty
+        newItem.totalCost=newItem.qty*data.avgCost
+      }
+      
+    }
+    else{
+      console.log("Buying stock fro the first time")
+    }
+    console.log(newItem)
+    const update ={$set:newItem};
+
+    const result=await collection.findOneAndUpdate(query,update,{upsert:true})
+
+    console.log("Updated portfolio successfully")
+    // data=await findOneStock(client,{name:symbol})
+    res.json("Updated portfolio successfully");
+    
   } catch (error) {
     console.error('Error fetching data:', error.message);
     res.status(500).json({ error: 'An error occurred while fetching data' });

@@ -5,6 +5,7 @@ import {ContentComponent} from './content/content.component'
 import {WatchlistComponent} from './watchlist/watchlist.component'
 import { StockDetailsComponent } from './stock-details/stock-details.component'
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 const routes: Routes = [
   // Default route redirected to '/search/home'
   { path: '', redirectTo: '/search/home', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
   ]
 },
   // { path: 'search/:query', component: SearchBarComponent },
-  {path: 'watchlist',component:WatchlistComponent}
+  {path: 'watchlist',component:WatchlistComponent},
+  {path: 'portfolio',component:PortfolioComponent}
 ];
 
 @NgModule({

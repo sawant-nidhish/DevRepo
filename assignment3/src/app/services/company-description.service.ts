@@ -25,6 +25,15 @@ export class CompanyDescriptionService {
   private companySentimentsData:BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   private showContent:BehaviorSubject<any> = new BehaviorSubject<any>(false);
+  private buyAlert:BehaviorSubject<any> = new BehaviorSubject<any>({ticker:"",flag:false});
+  private sellAlert:BehaviorSubject<any> = new BehaviorSubject<any>({ticker:"",flag:false});
+
+
+  private buyAlertPort:BehaviorSubject<any> = new BehaviorSubject<any>({ticker:"",flag:false});
+  private sellAlertPort:BehaviorSubject<any> = new BehaviorSubject<any>({ticker:"",flag:false});
+
+
+  private showSellButton:BehaviorSubject<any> = new BehaviorSubject<any>(false);
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   // Company Details HTTP Call
@@ -283,6 +292,52 @@ export class CompanyDescriptionService {
   // Set company peers data
   setShowContent(data: any): void {
     this.companySentimentsData.next(data);
+  }
+
+
+  getBuyAlert(): Observable<any> {
+    return this.buyAlert.asObservable();
+  }
+  
+  // Set company peers data
+  setBuyAlert(data: any): void {
+    this.buyAlert.next(data);
+  }
+
+  getSellAlert(): Observable<any> {
+    return this.sellAlert.asObservable();
+  }
+  
+  // Set company peers data
+  setSellAlert(data: any): void {
+    this.sellAlert.next(data);
+  }
+
+  getShowSellBtnt(): Observable<any> {
+    return this.showSellButton.asObservable();
+  }
+  
+
+  getBuyAlertPort(): Observable<any> {
+    return this.buyAlertPort.asObservable();
+  }
+  
+  // Set company peers data
+  setBuyAlertPort(data: any): void {
+    this.buyAlertPort.next(data);
+  }
+
+  getSellAlertPort(): Observable<any> {
+    return this.sellAlertPort.asObservable();
+  }
+  
+  // Set company peers data
+  setSellAlertPort(data: any): void {
+    this.sellAlertPort.next(data);
+  }
+  // Set company peers data
+  setShowSellBtn(data: any): void {
+    this.showSellButton.next(data);
   }
   // openDialog(content:any): void {
   //   // this.dialogRef = this.dialog.open(ModalComponent, {
