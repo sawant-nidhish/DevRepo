@@ -72,7 +72,7 @@ async function findOneStockPortfolio(client,query){
   return result
 }
 
-async function deleteWathcList(client,portfolio){
+async function deletePortfolio(client,portfolio){
   const result = await client.db('homework_3').collection('portfolio').deleteOne(portfolio)
   console.log("Deleted ",result)
 }

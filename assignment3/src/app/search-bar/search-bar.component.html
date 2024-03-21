@@ -1,15 +1,39 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h2 class="text-center">Stock Search</h2>
+      <h2 class="text-center">STOCK SEARCH</h2>
       
-      <form class="input-group rounded d-flex align-items-center" (ngSubmit)="getData()">
-        <input type="search" class="form-control rounded search-input" placeholder="Enter Stock Ticker Symbol" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="inputTicker" name="ticker">
+      <form class=" d-flex align-items-center box justify-content-center " (ngSubmit)="getData()">
+        <!-- <input type="search" class="form-control rounded search-input" placeholder="Enter Stock Ticker Symbol" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="inputTicker" name="ticker"> -->
+        <div class="search-box d-flex rounded-pill border-3">
+
+        
+        <input type="search" class="form-control rounded-pill  search-input"
+             placeholder="Enter Stock Ticker Symbol"
+             aria-label="Search" aria-describedby="search-addon"
+             matInput
+             name="ticker"
+             [formControl]="myControl"
+             [matAutocomplete]="auto"
+             [(ngModel)]="inputTicker">
+             <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngIf="isLoading">
+                <mat-spinner diameter="20" ></mat-spinner>
+              </mat-option>
+
+              <!-- <mat-spinner*ngIf="isLoading" matSuffix diameter="20"></mat-spinner>    -->
+             <mat-option *ngFor="let option of filteredOptions | async" [value]="option.symbol">
+                {{ option.symbol }} | {{ option.description }}
+              </mat-option>
+            </mat-autocomplete>
+
+
         <div class="input-group-append">
           <button class="btn" type="submit"><i class="fas fa-search"></i></button>
           <button class="btn" type="button"><i class="fas fa-times"></i></button>
-          <a routerLink="/search/AAPL">AAPL</a>
+         
         </div>
+      </div>
       </form>
     </div>
   </div>
@@ -18,9 +42,9 @@
   
     <!-- <app-stock-details *ngIf="showContent"></app-stock-details>
     <app-tabs-content *ngIf="showContent"></app-tabs-content> -->
-    <router-outlet *ngIf="showContent"></router-outlet>
+    <router-outlet></router-outlet>
     <!-- <div class="d-flex flex-column">
-
+    
     <div class="spinner-container  d-flex justify-content-center">
         <mat-progress-spinner class="small-spinner" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
     </div>
@@ -28,6 +52,7 @@
     <app-stock-details *ngIf="showContent"></app-stock-details>
     <app-tabs-content *ngIf="showContent"></app-tabs-content>
 </div>-->
+<!-- <app-test></app-test> -->
 
   
   

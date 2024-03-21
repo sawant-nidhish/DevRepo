@@ -34,6 +34,7 @@ export class CompanyDescriptionService {
 
 
   private showSellButton:BehaviorSubject<any> = new BehaviorSubject<any>(false);
+  // private showContent:BehaviorSubject<any> = new BehaviorSubject<any>(false);
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   // Company Details HTTP Call
@@ -286,12 +287,12 @@ export class CompanyDescriptionService {
   }
 
   getShowContent(): Observable<any> {
-    return this.companySentimentsData.asObservable();
+    return this.showContent.asObservable();
   }
   
   // Set company peers data
   setShowContent(data: any): void {
-    this.companySentimentsData.next(data);
+    this.showContent.next(data);
   }
 
 
@@ -339,6 +340,7 @@ export class CompanyDescriptionService {
   setShowSellBtn(data: any): void {
     this.showSellButton.next(data);
   }
+
   // openDialog(content:any): void {
   //   // this.dialogRef = this.dialog.open(ModalComponent, {
   //   //   width: '400px',

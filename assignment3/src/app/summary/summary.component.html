@@ -1,10 +1,10 @@
 <div class="pl-5 row" style="overflow-x: visible">
     <div class="col-md-6 d-flex flex-column">    
         <!-- <div class="d-flex flex-column w-100"> -->
-            <p class="m-0 h6"><span class="font-weight-bold m-0">High Price:</span>{{highPrice}}</p>
-            <p class="m-0 h6"><span class="font-weight-bold"> Low Price:</span>{{lowPrice}}</p>
-            <p class="m-0 h6"><span class="font-weight-bold"> Open Price:</span>{{openPrice}}</p>
-            <p class="m-0 h6"><span class="font-weight-bold"> Prev. Close Price:</span>{{prevClosePrice}}</p>
+            <p class="m-0 h6"><span class="font-weight-bold m-0">High Price:</span>{{highPrice| number : '1.2-2'}}</p>
+            <p class="m-0 h6"><span class="font-weight-bold"> Low Price:</span>{{lowPrice| number : '1.2-2'}}</p>
+            <p class="m-0 h6"><span class="font-weight-bold"> Open Price:</span>{{openPrice| number : '1.2-2'}}</p>
+            <p class="m-0 h6"><span class="font-weight-bold"> Prev. Close Price:</span>{{prevClosePrice| number : '1.2-2'}}</p>
             <div class="mx-auto">
                 <p>About the company</p>
                 <p><span class="font-weight-bold">IPO Start Date:</span>{{ipo}}</p>

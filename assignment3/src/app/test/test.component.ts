@@ -1,9 +1,9 @@
 
 
-import {Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectorRef, NgZone  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {filter, map, startWith, switchMap, tap, finalize} from 'rxjs/operators';
 import {AsyncPipe} from '@angular/common';
 import {MatAutocompleteModule, MatAutocomplete} from '@angular/material/autocomplete';
@@ -32,7 +32,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class TestComponent implements OnInit {
   isLoading = false;
-  constructor(private companyDataAPI: CompanyDescriptionService){}
+  constructor(private companyDataAPI: CompanyDescriptionService, private cdr: ChangeDetectorRef, private ngZone: NgZone){}
   // myControl = new FormControl('');
   // options1!: any[]
   // filteredOptions!: Observable<any[]>;
@@ -65,21 +65,39 @@ export class TestComponent implements OnInit {
     
   // }
   myControl = new FormControl('');
-  options: any[] = ['One', 'Two', 'Three'];
+  options: any[] = [];
   filteredOptions!: Observable<any[]>;
   // @ViewChild(MatAutocomplete) auto!: MatAutocomplete;
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      tap(() => this.isLoading = true),
-      switchMap(value => this._updateOptions(value || '').pipe(
-        map(() => this._filter(value || ''),
-        finalize(() => this.isLoading = false)
-        )),
-      
-      )
+      // startWith(''),
+      tap(()=>{
+       
+          this.isLoading = true; // Set isLoading to true immediately
+        // this.cdr.detectChanges();
+        this.runChangeDetection()
+        
+        
+      }),
+      switchMap(value => {
+        
+        return this._updateOptions(value || '').pipe(
+          map(res => this._filter(value || '')),
+          finalize(() => {
+            this.isLoading = false; // Set isLoading to false when _updateOptions completes
+            // this.cdr.detectChanges();
+            this.runChangeDetection()
+          })
+        );
+      })
     );
+  }
+  setLoading(){
+    this.isLoading=true
+  }
+  unSetLoading(){
+    this.isLoading=false
   }
 
   private _updateOptions(value: string): Observable<void> {
@@ -92,7 +110,7 @@ export class TestComponent implements OnInit {
         })
       );
     }
-    return new Observable<void>(); // Return an empty observable if value is empty
+    return of(void 0);  // Return an empty observable if value is empty
   }
 
   private _filter(value: string): string[] {
@@ -101,5 +119,8 @@ export class TestComponent implements OnInit {
   }
   displayFn(item:any){
     return item ? item.symbol : undefined
+  }
+  private runChangeDetection(): void {
+    this.cdr.detectChanges();
   }
 }

@@ -13,7 +13,7 @@
 </div>
 <div class="container">
     <h1 class="my-3 mt-5">My Portfolio</h1>
-    <h3 class="">Money in Wallet: ${{money}}</h3>
+    <h3 class="">Money in Wallet: ${{money| number : '1.2-2'}}</h3>
     <div *ngIf="!isEmpty">
         <div class="col mt-2 px-0" *ngFor="let item of portfolioList">
             <div class="card">
@@ -24,21 +24,28 @@
                     
                   <div class="row pl-3">
                     <div class="col-3"><h4 >Quantity:</h4></div>
-                    <div class="col-3">{{item.qty}}</div>
+                    <div class="col-3">{{item.qty| number : '1.2-2'}}</div>
                     <div class="col-3"><h4>Change:</h4></div>
-                    <div class="col-3"[ngClass]="{'green':item.change>0,'red':item.change<0,'black':item.change==0}">{{item.change}}</div>
+                    <div class="col-3"[ngClass]="{'green':item.change>0,'red':item.change<0,'black':item.change==0}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16" *ngIf="item.change<0">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16"  *ngIf="item.change>=0">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                    </svg>
+                      {{item.change| number : '1.2-2'}}</div>
                   </div>
                   <div class="row pl-3 mb-1">
                     <div class="col-3"><h4>Avg. Cost /Share:</h4></div>
-                    <div class="col-3">{{item.avgCost}}</div>
+                    <div class="col-3">{{item.avgCost| number : '1.2-2'}}</div>
                     <div class="col-3"><h4>Current Price:</h4></div>
-                    <div class="col-3"[ngClass]="{'green':item.change>0,'red':item.change<0,'black':item.change==0}">{{item.currentPrice}}</div>
+                    <div class="col-3"[ngClass]="{'green':item.change>0,'red':item.change<0,'black':item.change==0}">{{item.currentPrice| number : '1.2-2'}}</div>
                   </div>
                   <div class="row pl-3 mb-1">
                     <div class="col-3"><h4>Total Cost:</h4></div>
-                    <div class="col-3">{{item.totalCost}}</div>
+                    <div class="col-3">{{item.totalCost| number : '1.2-2'}}</div>
                     <div class="col-3"><h4>Market Value:</h4></div>
-                    <div class="col-3"[ngClass]="{'green':item.change>0,'red':item.change<0,'black':item.change==0}">{{item.marketValue}}</div>
+                    <div class="col-3"[ngClass]="{'green':item.change>0,'red':item.change<0,'black':item.change==0}">{{item.marketValue| number : '1.2-2'}}</div>
                   </div>
                 </div>
                 <div class="d-flex card-footer">

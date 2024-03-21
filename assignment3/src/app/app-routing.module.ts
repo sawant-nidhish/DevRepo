@@ -8,7 +8,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 const routes: Routes = [
   // Default route redirected to '/search/home'
-  { path: '', redirectTo: '/search/home', pathMatch: 'full' },
+  { path: '', redirectTo: 'search/home', pathMatch: 'full' },
   
   // // Search Details Route with a parameterized path
   // { path: 'search/:ticker', component: SearchDetailsComponent },
@@ -17,17 +17,22 @@ const routes: Routes = [
   { path: 'search', component: SearchBarComponent, 
     children:[
       {
+        path: ':query',
+        component:ContentComponent
+  
+      },
+      {
         path: 'home',
         component:SearchBarComponent
   
-      },
-    {
-      path: ':query',
-      component:ContentComponent
-
-    }
+      }
+    
   ]
 },
+// {path:'search', component:SearchBarComponent},
+// {path:'search/home', component:SearchBarComponent},
+// {path:'search/:query', component:SearchBarComponent},
+{path:'search/:query', component:ContentComponent},
   // { path: 'search/:query', component: SearchBarComponent },
   {path: 'watchlist',component:WatchlistComponent},
   {path: 'portfolio',component:PortfolioComponent}

@@ -223,12 +223,19 @@ this.companyDataAPI.getCompanySentimentsDataObservable().subscribe(data => {
        }
 
     }
-    this.totalMSPR=Math.round(this.totalMSPR*100/data.length)/100
-    this.posMSPR= Math.round(this.posMSPR*100/data.length)/100
-    this.negMSPR=Math.round(this.negMSPR*100/data.length)/100
-    this.totalChange=Math.round(this.totalChange*100/data.length)/100
-    this.posChange=Math.round(this.posChange*100/data.length)/100
-    this.negChange=Math.round(this.negChange*100/data.length)/100
+    // this.totalMSPR=Math.round(this.totalMSPR*100/data.length)/100
+    // this.posMSPR= Math.round(this.posMSPR*100/data.length)/100
+    // this.negMSPR=Math.round(this.negMSPR*100/data.length)/100
+    // this.totalChange=Math.round(this.totalChange*100/data.length)/100
+    // this.posChange=Math.round(this.posChange*100/data.length)/100
+    // this.negChange=Math.round(this.negChange*100/data.length)/100
+
+    this.totalMSPR=this.totalMSPR
+    this.posMSPR= this.posMSPR
+    this.negMSPR=this.negMSPR
+    this.totalChange=this.totalChange
+    this.posChange=this.posChange
+    this.negChange=this.negChange
     console.log("total Change",this.totalChange)
   }
 })

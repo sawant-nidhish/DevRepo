@@ -1,20 +1,50 @@
 <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Number</mat-label>
+    
+      <!-- <mat-label>Number</mat-label> -->
       <input type="text"
-             placeholder="Pick one"
-             aria-label="Number"
+             placeholder="Enter Stock Ticker Symbol"
+
              matInput
              [formControl]="myControl"
              [matAutocomplete]="auto">
-             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-spinner *ngIf="isLoading" matSuffix diameter="20"></mat-spinner>
+             <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngIf="isLoading">
+                <mat-spinner diameter="20" ></mat-spinner>
+              </mat-option>
+
+              <!-- <mat-spinner*ngIf="isLoading" matSuffix diameter="20"></mat-spinner>    -->
              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.symbol">
                 {{ option.symbol }} | {{ option.description }}
               </mat-option>
             </mat-autocomplete>
             
-    </mat-form-field>
+    
   </form>
+
+  <!-- <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Number</mat-label>
+      <input
+        type="text"
+        placeholder="Pick one"
+        aria-label="Number"
+        matInput
+        [formControl]="myControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngIf="isLoading; else options">
+          <mat-spinner diameter="20" ></mat-spinner>
+        </mat-option>
+        <ng-template #options>
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.symbol">
+            {{ option.symbol }} | {{ option.description }}
+          </mat-option>
+        </ng-template>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form> -->
+
+  
   <!-- <div *ngFor="let option of options1">{{option.symbol}}</div> -->
   

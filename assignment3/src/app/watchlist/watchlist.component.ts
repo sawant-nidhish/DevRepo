@@ -58,7 +58,7 @@ async ngOnInit() {
 
 async checkInWatchList() {
   return new Promise<any>((resolve, reject) => {
-    this.http.get('http://localhost:3000/api/watchlist').subscribe(
+    this.http.get('http://localhost:3000/api/watchList').subscribe(
       (data) => {
         if (Object.keys(data).length > 0) {
           console.log("Watchlist data received:", data);
@@ -77,7 +77,7 @@ async checkInWatchList() {
 }
 
 async deleteFromWatchList(symbol:string){
-  const response=this.http.delete(`http://localhost:3000/api/watchlist?symbol=${symbol}`).pipe(
+  const response=this.http.delete(`http://localhost:3000/api/watchList?symbol=${symbol}`).pipe(
     catchError(error => {
       console.error('Error fetching company data:', error);
       throw error;
@@ -91,7 +91,7 @@ async deleteFromWatchList(symbol:string){
 removeItem(removedItem:any){
   console.log(removedItem.name)
   this.watchListData = this.watchListData.filter((item:any) => item!=removedItem);
-  this.deleteFromWatchList(removedItem.name)
+  this.deleteFromWatchList(removedItem.name.toUpperCase())
   if(this.watchListData.length==0){
     this.isEmpty=true
   }

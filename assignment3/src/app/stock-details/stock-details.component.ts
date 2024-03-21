@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { computeStyles } from '@popperjs/core';
-
+import { Router, ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-stock-details',
   templateUrl: './stock-details.component.html',
@@ -48,67 +48,69 @@ export class StockDetailsComponent {
   buyAlert:any={ticker:"",flag:false}
   sellAlert:any={ticker:"",flag:false}
   private modalService = inject(NgbModal);
-  constructor(private companyDataAPI: CompanyDescriptionService, private http: HttpClient) { }
+  constructor(private companyDataAPI: CompanyDescriptionService, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    
-    this.companyDataAPI.getBuyAlert().subscribe(data=>this.buyAlert=data)
-    this.companyDataAPI.getSellAlert().subscribe(data=>this.sellAlert=data)
-    this.companyDataAPI.getShowSellBtnt().subscribe(data=>this.showSellBtn=data)
+    this.route.params.subscribe(params => {
+      this.companyDataAPI.getBuyAlert().subscribe(data=>this.buyAlert=data)
+      this.companyDataAPI.getSellAlert().subscribe(data=>this.sellAlert=data)
+      this.companyDataAPI.getShowSellBtnt().subscribe(data=>this.showSellBtn=data)
 
-    this.companyDataAPI.getCompanyDataObservable().subscribe(data => {
-      //companydetails
-      if(data){
-        this.ticker = data.ticker;
-        this.companyName = data.name;
-        this.exchangeCode= data.exchange
-        this.logo= data.logo
+      this.companyDataAPI.getCompanyDataObservable().subscribe(data => {
+        //companydetails
+        if(data){
+          this.ticker = data.ticker;
+          this.companyName = data.name;
+          this.exchangeCode= data.exchange
+          this.logo= data.logo
 
-      }
-        
-    });
-
-    //check if the stock is in watchlist
-    this.checkInWatchList(this.ticker.toUpperCase())
-    this.checkInPortfolio(this.ticker.toUpperCase())
-    //Company Price
-    this.companyDataAPI.getCompanyPriceDataObservable().subscribe(data => {
-      if(data){
-        //stockprice
-        this.marketClosed=false
-        this.lastPrice = data.c;
-        this.change = data.d;
-        this.changePercent= data.dp;
-        console.log("Time received from API",data.t)
-        this.currTimeStamp= format(new Date(data.t * 1000).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
-        console.log(new Date(data.t * 1000).toLocaleString())
-        const currDate = new Date(this.currTimeStamp);
-
-        // Get the current timestamp in milliseconds
-        const currentTimestamp = new Date();
-        console.log("Today's Date",currentTimestamp.getTime().toLocaleString())
-        // Get the timestamp of the formatted date
-        const currTimestamp = currDate.getTime();
-
-        // Calculate the difference in milliseconds
-        const difference = currentTimestamp.getTime() - currTimestamp;
-
-        // Check if the difference is greater than 5 minutes (5 * 60 * 1000 milliseconds)
-        if (difference > (5 * 60 * 1000)) {
-          this.marketClosed=true
-          console.log('More than 5 minutes have elapsed since this.currTimeStamp.');
-        } else {
-          console.log('Less than 5 minutes have elapsed since this.currTimeStamp.');
         }
+          
+      });
 
-        if(this.change<0)
-          this.color='red'
-        else
-        this.color='green'
-        console.log("The lastPRice ",this.change)
-      }
-        
-    });
+      //check if the stock is in watchlist
+      console.log("Checking if the ticker is present in the wathclist")
+      this.checkInWatchList(this.ticker.toUpperCase())
+      this.checkInPortfolio(this.ticker.toUpperCase())
+      //Company Price
+      this.companyDataAPI.getCompanyPriceDataObservable().subscribe(data => {
+        if(data){
+          //stockprice
+          this.marketClosed=false
+          this.lastPrice = data.c;
+          this.change = data.d;
+          this.changePercent= data.dp;
+          console.log("Time received from API",data.t)
+          this.currTimeStamp= format(new Date(data.t * 1000).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
+          console.log(new Date(data.t * 1000).toLocaleString())
+          const currDate = new Date(this.currTimeStamp);
+
+          // Get the current timestamp in milliseconds
+          const currentTimestamp = new Date();
+          console.log("Today's Date",currentTimestamp.getTime().toLocaleString())
+          // Get the timestamp of the formatted date
+          const currTimestamp = currDate.getTime();
+
+          // Calculate the difference in milliseconds
+          const difference = currentTimestamp.getTime() - currTimestamp;
+
+          // Check if the difference is greater than 5 minutes (5 * 60 * 1000 milliseconds)
+          if (difference > (5 * 60 * 1000)) {
+            this.marketClosed=true
+            console.log('More than 5 minutes have elapsed since this.currTimeStamp.');
+          } else {
+            console.log('Less than 5 minutes have elapsed since this.currTimeStamp.');
+          }
+
+          if(this.change<0)
+            this.color='red'
+          else
+          this.color='green'
+          console.log("The lastPRice ",this.change)
+        }
+          
+      });
+    })
 
   }
 
@@ -135,7 +137,7 @@ export class StockDetailsComponent {
   }
 
    async addToWatchList(stock:any){
-    const response= this.http.post(`http://localhost:3000/api/watchlist`,stock).pipe(
+    const response= this.http.post(`http://localhost:3000/api/watchList`,stock).pipe(
       catchError(error => {
         console.error('Error fetching company data:', error);
         throw error;
@@ -148,7 +150,7 @@ export class StockDetailsComponent {
   }
 
   async deleteFromWatchList(symbol:string){
-    const response=this.http.delete(`http://localhost:3000/api/watchlist?symbol=${symbol}`).pipe(
+    const response=this.http.delete(`http://localhost:3000/api/watchList?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company data:', error);
         throw error;
@@ -174,7 +176,7 @@ export class StockDetailsComponent {
       // this.starColor="yellow"
     }
     else{
-      this.isSelected=false
+      this.showSellBtn=false
       // this.starColor=""
     }
   })
@@ -264,7 +266,7 @@ export class StockDetailsComponent {
     <p class="mt-2" *ngIf="!isValidPurch" style="color:red">Not enough money in wallet!</p>
     <p class="mt-2" *ngIf="!isValidSale" style="color:red">You cannot sell the stocks that you don't have!</p>
 		</div>
-		<div class="modal-footer">
+		<div class="modal-footer d-flex justify-content-between">
     <p>Total: {{total}}</p>
     <button type="submit" class="btn btn-success"(click)="buy()"[disabled]="isDisabled" *ngIf="fromBuy">Buy</button>
     <button type="submit" class="btn btn-success"(click)="sell()"[disabled]="isDisabled" *ngIf="!fromBuy">Sell</button>
