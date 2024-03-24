@@ -1,12 +1,17 @@
 .search-input {
-    width: calc(100% - 80px); /* Adjust width based on button sizes */
+    /* width: calc(100% - 80px); Adjust width based on button sizes */
     /* border-color: rgb(9, 0, 170); */
     /* border-right: 0; */
     border: 0;
   }
-input:focus{
-  outline: none;
-  box-shadow: none;
+input:focus, .btn:focus{
+  outline: none!important;
+  box-shadow: none!important;
+}
+
+.btn{
+  outline: none!important;
+  box-shadow: none!important;
 }
   .search-box{
     background-color: white;

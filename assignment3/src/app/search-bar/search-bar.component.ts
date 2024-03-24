@@ -17,7 +17,7 @@ export class SearchBarComponent implements OnInit{
   inputTicker: string = '';
   tickerValue:string=""
   isInvalidTicker: boolean = false;
-  isEmptyTicker: boolean = false;
+  isEmptyTicker2: boolean = false;
   isLoading: boolean = false;
   showContent: boolean = false;
 
@@ -176,11 +176,13 @@ export class SearchBarComponent implements OnInit{
 
   getData(): void {
     //add the route call here so that when some thing is searched the app redirects to that route
+    console.log("Submit Button is Clicked")
     this.showContent = false;
     this.isInvalidTicker = false;
-    this.isEmptyTicker = false;
-    this.isEmptyTicker = this.inputTicker.length === 0;
-    if (!this.isEmptyTicker) {
+    this.isEmptyTicker2 = false;
+    this.isEmptyTicker2 = this.inputTicker.length === 0;
+    console.log("Input Ticker",this.isEmptyTicker2)
+    if (!this.isEmptyTicker2) {
       
       this.showContent=true
       if (this.inputTicker.trim() !== '') {
@@ -193,6 +195,13 @@ export class SearchBarComponent implements OnInit{
       this.isInvalidTicker = false;
       this.showContent = false;
     }
+  }
+
+  clearScreen(){
+    this.inputTicker=""
+    this.isLoading=false
+    this.router.navigate(['/search/home']);
+    
   }
   // ngOnDestroy(): void {
   //   // Unsubscribe from the timer subscription when the component is destroyed

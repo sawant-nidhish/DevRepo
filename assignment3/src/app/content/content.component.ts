@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CompanyDescriptionService } from '../services/company-description.service';
-import { timer, Subscription } from 'rxjs';
+import { timer, Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Router, ActivatedRoute} from '@angular/router';
 import { tick } from '@angular/core/testing';
@@ -40,7 +40,10 @@ export class ContentComponent {
               console.log("Invalid")
               if(this.tickerValue!='home')
                 this.isInvalidTicker = true;
-              this.isLoading = false;
+              // this.isLoading = false;
+              setTimeout(() => {
+                this.isLoading=false
+              }, 1000);
               this.showContent = false;
               
             } else {
@@ -72,7 +75,10 @@ export class ContentComponent {
               this.companyDataAPI.setCompanySentimentsData(companySentimentsData);
               
               
-              this.isLoading = false;
+              // this.isLoading = false;
+              setTimeout(() => {
+                this.isLoading=false
+              }, 1000);
               this.showContent = true;
               const stockTimestamp= companyPrice.t*1000;
               console.log("Timestamp from the API",new Date(companyPrice.t * 1000).toLocaleString())
@@ -81,7 +87,7 @@ export class ContentComponent {
               const diffTime=(currTime-stockTimestamp)/(1000*60)
               if(diffTime<5){
                 // Call the API every 15 seconds
-                this.timerSubscription = timer(15000, 15000)
+                this.timerSubscription = interval(15000)
                 .pipe(
                   switchMap(() => this.companyDataAPI.getCompanyPrice(this.tickerValue))
                 )
@@ -105,7 +111,10 @@ export class ContentComponent {
           },
           error: error => {
             console.error('Error fetching data:', error);
-            this.isLoading = false;
+            // this.isLoading = false;
+            setTimeout(() => {
+              this.isLoading=false
+            }, 1000);
           }
         });  
       }

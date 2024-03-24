@@ -4,7 +4,7 @@
     <div class="spinner-container  d-flex justify-content-center">
         <mat-progress-spinner class="small-spinner" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
     </div>
-    <app-alerts [isInvalidTicker]=isInvalidTicker></app-alerts>
-    <app-stock-details *ngIf="showContent"></app-stock-details>
-    <app-tabs-content *ngIf="showContent"></app-tabs-content>
+    <app-alerts *ngIf="!isLoading" [isInvalidTicker]=isInvalidTicker></app-alerts>
+    <app-stock-details *ngIf="showContent&&!isLoading"></app-stock-details>
+    <app-tabs-content *ngIf="showContent&&!isLoading"></app-tabs-content>
 </div>

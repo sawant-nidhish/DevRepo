@@ -3,12 +3,12 @@
     <div class="col-md-6">
       <h2 class="text-center">STOCK SEARCH</h2>
       
-      <form class=" d-flex align-items-center box justify-content-center " (ngSubmit)="getData()">
+      <form class=" d-flex align-items-center box justify-content-center " (submit)="getData()">
         <!-- <input type="search" class="form-control rounded search-input" placeholder="Enter Stock Ticker Symbol" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="inputTicker" name="ticker"> -->
         <div class="search-box d-flex rounded-pill border-3">
 
         
-        <input type="search" class="form-control rounded-pill  search-input"
+        <input type="search" class="form-control rounded-pill  search-input col"
              placeholder="Enter Stock Ticker Symbol"
              aria-label="Search" aria-describedby="search-addon"
              matInput
@@ -29,15 +29,27 @@
 
 
         <div class="input-group-append">
-          <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-          <button class="btn" type="button"><i class="fas fa-times"></i></button>
+          <button class="btn" type="submit" (click)="getData()"><i class="fas fa-search"></i></button>
+          <button class="btn" type="button" (click)="clearScreen()"><i class="fas fa-times"></i></button>
          
         </div>
       </div>
       </form>
     </div>
   </div>
-  <app-alerts [isEmptyTicker]=isEmptyTicker></app-alerts>
+
+  <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isEmptyTicker">
+    Please enter a valid ticker
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div> -->
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isEmptyTicker2">
+    Please enter a valid ticker
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
   
   
     <!-- <app-stock-details *ngIf="showContent"></app-stock-details>

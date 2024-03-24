@@ -17,7 +17,6 @@ export class SummaryComponent {
   ipo:string=""
   industry:string=""
   webpage:string=""
-
   companyPeers:string=""
 
   companyHourlyData:any
@@ -64,58 +63,48 @@ chartOptions: Highcharts.Options = {
     }
       
   });
+  
 
-  this.companyDataAPI.getCompanyHourlyDataObservable().subscribe(data => {
-    //companydetails
-    console.log("Getting the data")
-    if(data){
-      console.log(data)
-      this.companyHourlyData = data
-      let closeTime=this.latestTime
-      console.log("########Got this time from API",this.latestTime)
-      const stockTimestamp= this.latestTime*1000;
-      console.log("######Timestamp from the API",new Date(this.latestTime * 1000).toLocaleString())
-      const currTime = Date.now();
-      console.log("######Curretn timestamp",new Date(currTime).toLocaleString())
-      const diffTime=(currTime-stockTimestamp)/(1000*60)
+  //code to decide whether the market is closed or open and pull corresposning hourly data
+  let closeTime=this.latestTime
+  console.log("########Got this time from API",this.latestTime)
+  const stockTimestamp= this.latestTime*1000;
+  console.log("######Timestamp from the API",new Date(this.latestTime * 1000).toLocaleString())
+  const currTime = Date.now();
+  console.log("######Curretn timestamp",new Date(currTime).toLocaleString())
+  const diffTime=(currTime-stockTimestamp)/(1000*60)
       
       // for (let i = 0; i < data.results.length; i += 1) {
       //   // console.log("time ",new Date(data.results[i].t).toLocaleString())
       // }
 
+  let color:string
+  if(diffTime<5){
+    console.log("Plot graph from currrent to last date");
+    let aDayBefore=new Date(currTime)
+    aDayBefore.setDate(aDayBefore.getDate()-1)
+    let today=new Date(currTime).getDate()
+    color="green"
+    //make call to hourly with these time stamps
+    // this.companyHourlyData()
 
 
-      if(diffTime<5){
-        console.log("Plot graph from currrent to last date");
-        data.results.filter(function (item:any){
-          let aDayBefore=new Date()
-          aDayBefore.setTime(aDayBefore.getTime()-6*60*60*1000)
-          aDayBefore.getTime()
-          console.log("PrevDay",aDayBefore.getTime())
-          console.log(new Date(item.t))
-          let currUnix=Math.floor(new Date().getTime())
-          let adDayBefore=Math.floor(aDayBefore.getTime())
-          console.log("Prev datye",new Date(adDayBefore))
-          return item.t >=aDayBefore && item.t <=currUnix
-        })
+  }
+  else{
+    console.log("Plot graph from market close time to a daybefore date");
+    let aDayBefore=new Date(stockTimestamp)
+    aDayBefore.setDate(aDayBefore.getDate()-1)
+    let today=new Date(stockTimestamp).getDate()
+    color="red"
+    //make call to hourly with these time stamps
+    
+  }
+  this.companyDataAPI.getCompanyHourlyDataObservable().subscribe(data => {
+    //companydetails
+    
         this.companyHourlyData = data.results
-      }
-      else{
-
-        data.results.filter(function (item:any){
-          let aDayBefore=new Date()
-          aDayBefore.setTime(aDayBefore.getTime()-6*60*60*1000)
-          // console.log(aDayBefore.toLocaleString())
-
-          // console.log("PrevDay",latestTime)
-          let currUnix=Math.floor(closeTime*1000)
-          // console.log(new Date(currUnix).toLocaleString())
-          // let adDayBefore=Math.floor(aDayBefore.getTime()/1000)
-          // console.log(new Date(item.t).toLocaleString())
-          return item.t >=aDayBefore && item.t <=currUnix
-        })
-        this.companyHourlyData = data.results
-      }
+        
+      
       let hourlyPrice=[]
         console.log("Chart daata",this.companyHourlyData)
         for (let i = 0; i < this.companyHourlyData.length; i += 1) {
@@ -130,26 +119,36 @@ chartOptions: Highcharts.Options = {
            type: "line"
         },
         title: {
-           text: "Monthly Average Temperature"
+           text: `${data.ticker} Hourly Price Variation`
         },
-        subtitle: {
-           text: "Source: WorldClimate.com"
-        },
+        // subtitle: {
+        //    text: "Source: WorldClimate.com"
+        // },
         xAxis:{
           type:'datetime'
+          
+          
         },
         yAxis: {          
-           title:{
-              text:"Temperature °C"
-           } 
+          //  title:{
+          //     text:"Temperature °C"
+          //  } 
+         
         },
         tooltip: {
-           valueSuffix:" °C"
+          //  valueSuffix:" °C"
+          split:true,
+          formatter: function() {
+            // Only display the series name and y-axis value
+            return '<b>' + this.series.name + '</b>: ' + this.y;
+        }
         },
         series: [{
             type:'line',
-           name: 'Tokyo',
-           data: hourlyPrice
+           name: data.ticker,
+           data: hourlyPrice,
+           marker:{enabled:false},
+           color:color
         },
         ]
      };
@@ -160,6 +159,6 @@ chartOptions: Highcharts.Options = {
       // this.webpage= data.weburl
       // this.logo= data.logo
     
-  });
+  );
   }
 }

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, BehaviorSubject, tap, of } from 'rxjs';
+import { Observable, forkJoin, BehaviorSubject, tap, of, switchMap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
-
+import { objectEach } from 'highcharts';
+import { format } from 'date-fns';
 @Injectable({
   providedIn: 'root'
 })
@@ -88,8 +89,8 @@ export class CompanyDescriptionService {
   }
 
   // Company Historical Data HTTP Call
-  getCompanyHourlyData(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_hourly_data?symbol=${symbol}`).pipe(
+  getCompanyHourlyData(symbol: string, from:string,to:string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/company_hourly_data?symbol=${symbol}&from=${from}&to=${to}`).pipe(
       catchError(error => {
         console.error('Error fetching company Hourly data:', error);
         throw error;
@@ -153,11 +154,51 @@ export class CompanyDescriptionService {
       const companyPeers$ = this.getCompanyPeers(symbol);
       const companyNews$ = this.getCompanyNews(symbol);
       const companyHistoricalData$ = this.getCompanyHistoricalData(symbol);
-      const companyHourlyData$ = this.getCompanyHourlyData(symbol);
+      
+      let aDayBeforeFormatted:string=""
+      let todayFormatted:string=""
+      // let companyHourlyData$:any
+      
+      const companyHourlyData$ = companyPrice$.pipe(
+        switchMap((data) => {
+          const stockTimestamp = data.t * 1000;
+          const currTime = Date.now();
+          const diffTime = (currTime - stockTimestamp) / (1000 * 60);
+  
+          let aDayBeforeFormatted: string = "";
+          let todayFormatted: string = "";
+  
+          if (diffTime < 5) {
+            console.log("Plot graph from current to last date");
+            let aDayBefore = new Date(currTime);
+            aDayBefore.setDate(aDayBefore.getDate() - 1);
+            aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
+            let today = new Date(currTime);
+            todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
+          } else {
+            console.log("Plot graph from closeDate to last date");
+            let aDayBefore = new Date(stockTimestamp);
+            aDayBefore.setDate(aDayBefore.getDate() - 1);
+            aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
+            let today = new Date(stockTimestamp);
+            todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
+            console.log("to Date", todayFormatted);
+            console.log("From Date", aDayBeforeFormatted);
+          }
+  
+          return this.getCompanyHourlyData(symbol, aDayBeforeFormatted, todayFormatted);
+        })
+      );
+  
+      console.log("Handled the hourly charts case properly");
+  
       const companyRecommendationData$ = this.getCompanyRecommendationData(symbol);
       const companyEarningsData$ = this.getCompanyEarningsData(symbol);
       const companySentimentsData$ = this.getCompanySentimentsData(symbol);
-      return forkJoin([companyData$, companyPrice$, companyPeers$, companyNews$, companyHistoricalData$, companyHourlyData$, companyRecommendationData$, companyEarningsData$, companySentimentsData$]).pipe(
+  
+      
+      return forkJoin([companyData$, companyPrice$, companyPeers$, companyNews$, companyHistoricalData$, companyHourlyData$, companyRecommendationData$, companyEarningsData$, companySentimentsData$])
+      .pipe(
         tap(data => {
           // Store the fetched data in the cache
           this.cachedData.set(symbol, data);

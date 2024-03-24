@@ -23,6 +23,7 @@ export class PortfolioComponent {
   portfolio:any
   portfolioList:any=[]
   isEmpty:boolean=false
+  isLoading:boolean=true
   buyAlert:any={ticker:"",flag:false}
   sellAlert:any={ticker:"",flag:false}
   private modalService = inject(NgbModal);
@@ -31,16 +32,27 @@ export class PortfolioComponent {
   }
   
   ngOnInit(){
+    this.isLoading=true
     this.companyDataAPI.getBuyAlertPort().subscribe(data=>{
       this.buyAlert=data
       console.log(this.buyAlert)
+
     })
     this.companyDataAPI.getSellAlertPort().subscribe(data=>this.sellAlert=data)
     if(this.buyAlert.flag==true){
       console.log("#######Buy Alert is true")
     }
+    if(this.buyAlert.flag||this.sellAlert.flag){
+      this.isLoading=false
+    }
     let response=this.checkWallet()
     response.subscribe(data=>this.money=data.money)
+
+    // response1 = new Promise<any>((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve(this.checkInPortfolio());
+    //   }, 1000);
+    // });
 
     response=this.checkInPortfolio()
     response.subscribe(data=>{
@@ -63,10 +75,17 @@ export class PortfolioComponent {
             })
           })
         }
-        
+        setTimeout(() => {
+          this.isLoading=false
+        }, 1000);
+        // this.isLoading=false
       }
       else{
         this.isEmpty=true
+        setTimeout(() => {
+          this.isLoading=false
+        }, 1000);
+        // this.isLoading=false
       }  
       }
       )
@@ -225,6 +244,17 @@ export class NgbdModalContent {
     
     // return response
   }
+  //deete stock
+  deleteStock(stock:any):Observable<any>{
+    return this.http.delete(`http://localhost:3000/api/portfolio?symbol=${stock}`).pipe(
+      catchError(error => {
+        console.error('Error fetching company data:', error);
+        throw error;
+      }),
+    );
+    
+    // return response
+  }
 
   //update wwallet
   async updateWallet(stock:any){
@@ -315,8 +345,28 @@ export class NgbdModalContent {
           name:'wallet',
           money:this.money+(this.quantity*this.currentPrice)
         }
-        this.updateWallet(updateMoney)
+        
+        
+          this.updateWallet(updateMoney)
+        
+        
         console.log(stock)
+        if(qtyInPortfolio-this.quantity==0){
+          //delete teh stock from portfolio
+          
+          this.deleteStock(this.name).subscribe(data=>{
+            this.companyDataAPI.setBuyAlertPort({ticker:this.name,flag:false});
+            this.companyDataAPI.setSellAlertPort({ticker:this.name,flag:true});
+            // this.showBuyAlert=true
+            // this.showBuyAlert=true
+            const currentUrl = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigateByUrl(currentUrl, { replaceUrl: true });
+            });
+          })
+        }
+        else{
+        
         this.buyStock(stock,"false").subscribe(data=>{
           this.companyDataAPI.setBuyAlertPort({ticker:this.name,flag:false});
           this.companyDataAPI.setSellAlertPort({ticker:this.name,flag:true});
@@ -327,6 +377,7 @@ export class NgbdModalContent {
           this.router.navigateByUrl(currentUrl, { replaceUrl: true });
           });
         })
+      }
 
        
         // this.showBuyAlert=true

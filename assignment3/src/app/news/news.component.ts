@@ -2,6 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { CompanyDescriptionService } from '../services/company-description.service'
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import { elementAt } from 'rxjs';
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
@@ -32,6 +33,10 @@ export class NewsComponent {
       //companydetails
       if(data){
         // console.log(data[0].id)
+        data=data.filter(function(item:any){
+          console.log(item.image.length!=0)
+          return item.image.length!=0
+        })
        this.topNews=data.slice(0,20)
         this.image = data.image
         this.title = data.headline

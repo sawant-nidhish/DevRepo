@@ -11,10 +11,15 @@
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
 <div class="container">
     <h1 class="my-3 mt-5">My Portfolio</h1>
-    <h3 class="">Money in Wallet: ${{money| number : '1.2-2'}}</h3>
-    <div *ngIf="!isEmpty">
+    <mat-progress-spinner class="small-spinner" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+    <h3 class="" *ngIf="!isLoading&&!isLoading">Money in Wallet: ${{money| number : '1.2-2'}}</h3>
+    <div class="alert alert-warning" role="alert" *ngIf="isEmpty">
+      Currently you don't have any stock.
+    </div>
+    <div *ngIf="!isEmpty&&!isLoading">
         <div class="col mt-2 px-0" *ngFor="let item of portfolioList">
             <div class="card">
                 <div class="card-header d-flex align-items-center">
@@ -30,7 +35,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16" *ngIf="item.change<0">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                     </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16"  *ngIf="item.change>=0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16"  *ngIf="item.change>0">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                     </svg>
                       {{item.change| number : '1.2-2'}}</div>

@@ -29,6 +29,7 @@ export class StockDetailsComponent {
   change:number=0
   changePercent:number=0
   currTimeStamp:string=""
+  marketTime:string=""
   color=""
 
   //market closed
@@ -52,6 +53,10 @@ export class StockDetailsComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.addToWatchlist=false
+      this.rmFromWatchlist=false
+      this.buyAlert=false
+      this.sellAlert=false
       this.companyDataAPI.getBuyAlert().subscribe(data=>this.buyAlert=data)
       this.companyDataAPI.getSellAlert().subscribe(data=>this.sellAlert=data)
       this.companyDataAPI.getShowSellBtnt().subscribe(data=>this.showSellBtn=data)
@@ -81,18 +86,22 @@ export class StockDetailsComponent {
           this.change = data.d;
           this.changePercent= data.dp;
           console.log("Time received from API",data.t)
-          this.currTimeStamp= format(new Date(data.t * 1000).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
+          this.marketTime= format(new Date(data.t * 1000).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
           console.log(new Date(data.t * 1000).toLocaleString())
-          const currDate = new Date(this.currTimeStamp);
+          let timeStampAPI=data.t*1000
+          // const currDate = new Date(this.marketTime);
 
           // Get the current timestamp in milliseconds
-          const currentTimestamp = new Date();
-          console.log("Today's Date",currentTimestamp.getTime().toLocaleString())
+          const currentTimestamp = Date.now()
+          this.currTimeStamp= format(new Date(currentTimestamp).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
+          console.log("Today's Date",currentTimestamp)
+          console.log("Today's Date",new Date(currentTimestamp).toLocaleString())
+          console.log("Today's Date",currentTimestamp)
           // Get the timestamp of the formatted date
-          const currTimestamp = currDate.getTime();
+          // const currTimestamp = currDate.getTime();
 
           // Calculate the difference in milliseconds
-          const difference = currentTimestamp.getTime() - currTimestamp;
+          const difference = currentTimestamp - timeStampAPI;
 
           // Check if the difference is greater than 5 minutes (5 * 60 * 1000 milliseconds)
           if (difference > (5 * 60 * 1000)) {

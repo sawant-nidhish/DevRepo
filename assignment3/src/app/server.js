@@ -27,7 +27,7 @@ function connect(){
       const query={name:"wallet"}
       const update ={$set:{name:"wallet",money:25000}};
 
-    const result=collection.findOneAndUpdate(query,update,{upsert:true}).then(result=>console.log(result))
+    const result=collection.findOneAndUpdate(query,update,{upsert:true})
       // collection.findOne().then(result=>console.log(result))
       return client
   }
@@ -39,14 +39,14 @@ function connect(){
 async function findWatchList(client){
   const cursor = await client.db('homework_3').collection('watchlist').find()
   const result = await cursor.toArray()
-  console.log(result)
+  // console.log(result)
   return result
 }
 
 async function findOneStock(client,query){
   const result = await client.db('homework_3').collection('watchlist').findOne(query)
   // const result = await cursor.toArray()
-  console.log(result)
+  // console.log(result)
   return result
 }
 
@@ -61,14 +61,14 @@ async function deleteWathcList(client,watchlist){
 async function findPortfolio(client){
   const cursor = await client.db('homework_3').collection('portfolio').find()
   const result = await cursor.toArray()
-  console.log(result)
+  // console.log(result)
   return result
 }
 
 async function findOneStockPortfolio(client,query){
   const result = await client.db('homework_3').collection('portfolio').findOne(query)
-  // const result = await cursor.toArray()
-  console.log(result)
+  // // const result = await cursor.toArray()
+  // console.log(result)
   return result
 }
 
@@ -231,7 +231,7 @@ app.post('/api/portfolio', async (req, res) => {
     else{
       console.log("Buying stock fro the first time")
     }
-    console.log(newItem)
+    // console.log(newItem)
     const update ={$set:newItem};
 
     const result=await collection.findOneAndUpdate(query,update,{upsert:true})
@@ -240,6 +240,20 @@ app.post('/api/portfolio', async (req, res) => {
     // data=await findOneStock(client,{name:symbol})
     res.json("Updated portfolio successfully");
     
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    res.status(500).json({ error: 'An error occurred while fetching data' });
+  }
+});
+
+app.delete('/api/portfolio', async (req, res) => {
+  try{
+    const symbol = req.query.symbol;
+    if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+    }
+    data=await deletePortfolio(client,{name:symbol})
+    res.json(`Deleted ${symbol} successfully`);
   } catch (error) {
     console.error('Error fetching data:', error.message);
     res.status(500).json({ error: 'An error occurred while fetching data' });
@@ -386,23 +400,26 @@ app.get('/api/company_historical_data', async (req, res) => {
 app.get('/api/company_hourly_data', async (req, res) => {
   try {
   const symbol = req.query.symbol;
+  const fromDate = req.query.from
+  const toDate = req.query.to
   // const time = req.query.time;
   if (!symbol) {
       return res.status(400).json({ error: 'Symbol parameter is required' });
   }
-  // Get the current date
-  const currentDate = moment();
-  const formattedCurrDate = currentDate.format('YYYY-MM-DD');
-  // Calculate the date 6 hours ago
-  const twoYearsAgo = currentDate.subtract(5, 'day');
+  console.log("^^^^^^^^^^From Date hourly",fromDate)
+  console.log("^^^^^^^^^^To Date hourly",toDate)
+  // // Get the current date
+  // const currentDate = moment();
+  // const formattedCurrDate = currentDate.format('YYYY-MM-DD');
+  // // Calculate the date 6 hours ago
+  // const twoYearsAgo = currentDate.subtract(5, 'day');
 
-  // Format the date to your desired format (e.g., YYYY-MM-DD)
-  const formattedPrevDate = twoYearsAgo.format('YYYY-MM-DD');
+  // // Format the date to your desired format (e.g., YYYY-MM-DD)
+  // const formattedPrevDate = twoYearsAgo.format('YYYY-MM-DD');
   
-  console.log("Calling hourly data for",formattedCurrDate)
+  // console.log("Calling hourly data for",formattedCurrDate)
 
-  const apiUrl = `https://api.polygon.io/v2/aggs/ticker/${symbol}/range/1/hour/${formattedPrevDate}/${formattedCurrDate}?adjusted=true&
-  // sort=asc&apiKey=${POLYGON_KEY}`;
+  const apiUrl = `https://api.polygon.io/v2/aggs/ticker/${symbol}/range/1/hour/${fromDate}/${toDate}?adjusted=true&sort=asc&apiKey=${POLYGON_KEY}`;
   // const apiUrl='https://demo-live-data.highcharts.com/aapl-ohlcv.json'
   const response = await axios.get(apiUrl);
   // console.log(response)
