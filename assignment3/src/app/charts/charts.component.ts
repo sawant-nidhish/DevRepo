@@ -92,7 +92,7 @@ ngOnInit(){
           // rangeSelector: {
           //     selected: 2
           // },
-  
+               
           title: {
               text: data.ticker + ' Historical'
           },
@@ -104,7 +104,18 @@ ngOnInit(){
             enabled: true // Enable the navigator (zoom bar)
         },
         chart:{
-          height:'60%'
+          // height:'60%',
+          // height:'100%',
+          backgroundColor:"#f3f3f3",
+          // type: 'line',
+    // width: '100%',
+    // Other options
+    // responsive: true
+        },
+        navigation:{
+          buttonOptions:{
+            enabled:false
+          }
         },
         stockTools: {
           gui: {
@@ -130,7 +141,8 @@ ngOnInit(){
               lineWidth: 2,
               resize: {
                   enabled: true
-              }
+              },
+              opposite:true,
           }, {
               labels: {
                   align: 'right',
@@ -142,7 +154,8 @@ ngOnInit(){
               top: '65%',
               height: '35%',
               offset: 0,
-              lineWidth: 2
+              lineWidth: 2,
+              opposite:true,
           }],
   
           tooltip: {
@@ -173,6 +186,11 @@ ngOnInit(){
                 type: 'ytd', // Year to date
                 text: 'YTD'
             },
+            {
+              type: 'year',
+              count: 1,
+              text: '1y'
+          },
             {
                 type: 'all', // Show entire data range
                 text: 'All'

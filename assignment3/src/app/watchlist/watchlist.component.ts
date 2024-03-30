@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Router, ActivatedRoute} from '@angular/router';
 import {CompanyDescriptionService} from '../services/company-description.service'
+import { env } from '../environment';
+
 @Component({
   selector: 'app-watchlist',
   templateUrl: './watchlist.component.html',
@@ -58,7 +60,7 @@ async ngOnInit() {
 
 async checkInWatchList() {
   return new Promise<any>((resolve, reject) => {
-    this.http.get('http://localhost:3000/api/watchList').subscribe(
+    this.http.get(env+'/api/watchList').subscribe(
       (data) => {
         if (Object.keys(data).length > 0) {
           console.log("Watchlist data received:", data);
@@ -77,7 +79,7 @@ async checkInWatchList() {
 }
 
 async deleteFromWatchList(symbol:string){
-  const response=this.http.delete(`http://localhost:3000/api/watchList?symbol=${symbol}`).pipe(
+  const response=this.http.delete(env+`/api/watchList?symbol=${symbol}`).pipe(
     catchError(error => {
       console.error('Error fetching company data:', error);
       throw error;

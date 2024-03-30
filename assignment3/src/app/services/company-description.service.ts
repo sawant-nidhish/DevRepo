@@ -6,6 +6,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 import { objectEach } from 'highcharts';
 import { format } from 'date-fns';
+import { env } from '../environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,7 +42,7 @@ export class CompanyDescriptionService {
 
   // Company Details HTTP Call
   getCompanyData(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_description?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_description?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company data:', error);
         throw error;
@@ -50,7 +52,7 @@ export class CompanyDescriptionService {
 
   // Company Price HTTP Call
   getCompanyPrice(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_latest_price?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_latest_price?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company price:', error);
         throw error;
@@ -60,7 +62,7 @@ export class CompanyDescriptionService {
 
   // Company Peers HTTP Call
   getCompanyPeers(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_peers?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_peers?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company price:', error);
         throw error;
@@ -70,7 +72,7 @@ export class CompanyDescriptionService {
 
   // Company News HTTP Call
   getCompanyNews(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_news?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_news?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company price:', error);
         throw error;
@@ -80,7 +82,7 @@ export class CompanyDescriptionService {
 
   // Company Historical Data HTTP Call
   getCompanyHistoricalData(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_historical_data?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_historical_data?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company Historical data:', error);
         throw error;
@@ -90,7 +92,7 @@ export class CompanyDescriptionService {
 
   // Company Historical Data HTTP Call
   getCompanyHourlyData(symbol: string, from:string,to:string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_hourly_data?symbol=${symbol}&from=${from}&to=${to}`).pipe(
+    return this.http.get(env+`/api/company_hourly_data?symbol=${symbol}&from=${from}&to=${to}`).pipe(
       catchError(error => {
         console.error('Error fetching company Hourly data:', error);
         throw error;
@@ -100,7 +102,7 @@ export class CompanyDescriptionService {
 
   // Company Recommendation Data HTTP Call
   getCompanyRecommendationData(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_recommendation_trends?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_recommendation_trends?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company recommendation data:', error);
         throw error;
@@ -110,7 +112,7 @@ export class CompanyDescriptionService {
 
   // Company Earnings Data HTTP Call
   getCompanyEarningsData(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_earnings?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_earnings?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company recommendation data:', error);
         throw error;
@@ -120,7 +122,7 @@ export class CompanyDescriptionService {
 
   // Company Earnings Data HTTP Call
   getCompanySentimentsData(symbol: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/company_insider_sentiments?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_insider_sentiments?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company sentiments data:', error);
         throw error;
@@ -131,7 +133,7 @@ export class CompanyDescriptionService {
   // Company Autocomplete Data HTTP Call
   getCompanyAutocompleteData(symbol: string): Observable<any> {
     // this.http.get(`http://localhost:3000/api/company_autocomplete?symbol=${symbol}`).subscribe(data => console.log(data))
-    return this.http.get(`http://localhost:3000/api/company_autocomplete?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/company_autocomplete?symbol=${symbol}`).pipe(
       catchError(error => {
         console.error('Error fetching company autocomplete data:', error);
         throw error;

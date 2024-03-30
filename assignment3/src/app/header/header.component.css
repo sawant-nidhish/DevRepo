@@ -1,3 +1,13 @@
 .navbar{
     background-color: rgb(9, 0, 170)
 }
+
+.container-fluid{
+    position: relative;
+}
+
+.navbar-toggler{
+    position: absolute;
+    right: 0%;
+    top: 0;
+}

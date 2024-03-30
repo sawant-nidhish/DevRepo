@@ -38,7 +38,14 @@ export class InsightsComponent {
     // console.log(this.recommendation[0].period)
     this.chartOptions_rec= {
       chart: {
-          type: 'column'
+          type: 'column',
+          backgroundColor:"#f3f3f3",
+          animation:true,
+      },
+      navigation:{
+        buttonOptions:{
+          enabled:false
+        }
       },
       title: {
           text: 'Recommendation Trends',
@@ -139,8 +146,14 @@ export class InsightsComponent {
     chart: {
         type: 'spline',
         // inverted: true
-        
-    },
+        animation:true,
+        backgroundColor:"#f3f3f3"
+      },
+      navigation:{
+        buttonOptions:{
+          enabled:false
+        }
+      },
     title: {
         text: 'Atmosphere Temperature by Altitude',
         align: 'center'

@@ -1,25 +1,25 @@
-<div class="alert alert-success alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="addToWatchlist">
+<div class="alert alert-success alert-dismissible fade show text-center align-items-center mt-4" role="alert" *ngIf="addToWatchlist">
     <p class="mb-0">{{ticker}} added to Watchlist</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<div class="alert alert-danger alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="rmFromWatchlist">
+<div class="alert alert-danger alert-dismissible fade show text-center align-items-center mt-4" role="alert" *ngIf="rmFromWatchlist">
     <p class="mb-0">{{ticker}} removed from Watchlist</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<div class="alert alert-success alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="buyAlert.flag">
+<div class="alert alert-success alert-dismissible fade show text-center align-items-center mt-4" role="alert" *ngIf="buyAlert.flag">
     <p class="mb-0">{{buyAlert.ticker}} bought successfully.</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<div class="alert alert-danger alert-dismissible fade show text-center align-items-center" role="alert" *ngIf="sellAlert.flag">
+<div class="alert alert-danger alert-dismissible fade show text-center align-items-center mt-4" role="alert" *ngIf="sellAlert.flag">
     <p class="mb-0">{{sellAlert.ticker}} sold successfully.</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -27,7 +27,7 @@
 </div>
 
 <div class="row stock-details">
-    <div class="col-md-4 border border-primary description-box">
+    <div class="col-md-4  col-5 description-box">
         <div class="d-flex justify-content-center align-items-start">
             
             <p class="text-center ticker">{{ticker}}</p>
@@ -54,12 +54,15 @@
         </div>
         
     </div>
-    <div class="col-md-4 border border-primary d-flex flex-column">
-        <img class="logo_img" src="{{logo}}">
-        <p class="green text-center market-status" *ngIf="!marketClosed">Market is Open</p>
-        <p class="red text-center market-status" *ngIf="marketClosed">Market Closed on {{marketTime}}</p>
+    <div class="col-md-4  col-2  d-flex flex-column">
+        <div class="col-2 d-flex flex-column">
+            
+        </div>
+        <img class="logo_img img-fluid" alt="Responsive image" src="{{logo}}">
+        
     </div>
-    <div class="col-md-4 border border-primary description-box">
+   
+    <div class="col-md-4  col-5 description-box">
         <p class="text-center price {{color}}">{{lastPrice| number : '1.2-2'}}</p>
         <p class="text-center change {{color}}">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16" *ngIf="change<0">
@@ -74,3 +77,5 @@
     </div>
     
 </div>
+<p class="green text-center market-status" *ngIf="!marketClosed">Market is Open</p>
+<p class="red text-center market-status" *ngIf="marketClosed">Market Closed on {{marketTime}}</p>

@@ -28,95 +28,118 @@ export class ContentComponent {
       
       this.showContent = false;
       this.isInvalidTicker = false;
+      
       if(this.tickerValue=='home' || !this.tickerValue || this.tickerValue==""){
         console.log("Do nothing")
         // this.isLoading = false;
       }
       else{
         this.isLoading = true;
-        this.companyDataAPI.fetchData(this.tickerValue).subscribe({
-          next: ([companyData, companyPrice, companyPeers, companyNews, companyHistoricalData, companyHourlyData, companyRecommendationData, companyEarningsData, companySentimentsData]) => {
-            if (Object.keys(companyData).length === 0 || Object.keys(companyPrice).length === 0) {
-              console.log("Invalid")
-              if(this.tickerValue!='home')
+        this.companyDataAPI.getCompanyData(this.tickerValue.toLocaleUpperCase()).subscribe((data)=>{
+          console.log("This is the data",data)
+          if (Object.keys(data).length == 0) {
+            if(this.tickerValue!='home')
                 this.isInvalidTicker = true;
               // this.isLoading = false;
               setTimeout(() => {
                 this.isLoading=false
               }, 1000);
               this.showContent = false;
-              
-            } else {
-              console.log(companyData)
-              console.log(companyPrice)
-              console.log(companyPeers)
-              console.log(companyNews)
-              console.log(companyHistoricalData)
-              console.log(companyHourlyData)
-              console.log(companyRecommendationData)
-              console.log(companyEarningsData)
-              console.log(companySentimentsData)  
-  
-              this.companyDataAPI.setCompanyData(companyData);
-              
-              this.companyDataAPI.setCompanyPriceData(companyPrice);
-              this.companyDataAPI.setCompanyPeersData(companyPeers);
-              
-              this.companyDataAPI.setCompanyNewsData(companyNews);
-              
-              this.companyDataAPI.setCompanyHistoricalData(companyHistoricalData);
-              
-              this.companyDataAPI.setCompanyHourlyData(companyHourlyData);
-              
-              this.companyDataAPI.setCompanyRecommendationData(companyRecommendationData);
-              
-              this.companyDataAPI.setCompanyEarningsData(companyEarningsData);
-              
-              this.companyDataAPI.setCompanySentimentsData(companySentimentsData);
-              
-              
-              // this.isLoading = false;
-              setTimeout(() => {
-                this.isLoading=false
-              }, 1000);
-              this.showContent = true;
-              const stockTimestamp= companyPrice.t*1000;
-              console.log("Timestamp from the API",new Date(companyPrice.t * 1000).toLocaleString())
-              const currTime = Date.now();
-              console.log("Curretn timestamp",new Date(currTime).toLocaleString())
-              const diffTime=(currTime-stockTimestamp)/(1000*60)
-              if(diffTime<5){
-                // Call the API every 15 seconds
-                this.timerSubscription = interval(15000)
-                .pipe(
-                  switchMap(() => this.companyDataAPI.getCompanyPrice(this.tickerValue))
-                )
-                .subscribe({
-                  next: (updatedCompanyPrice) => {
-                    // Update the company data and pri
-                    this.companyDataAPI.setCompanyPriceData(updatedCompanyPrice);
-                    
-  
-                    console.log("Called the data");
-                  },
-                  error: error => {
-                    console.error('Error fetching updated data:', error);
-                  }
-                });
-              }
-              else{
-                console.log("More than 5 minutes have elasped since market open hence not calling the market")
-              }
-            }
-          },
-          error: error => {
-            console.error('Error fetching data:', error);
-            // this.isLoading = false;
-            setTimeout(() => {
-              this.isLoading=false
-            }, 1000);
           }
-        });  
+          else{
+            this.companyDataAPI.fetchData(this.tickerValue.toUpperCase()).subscribe({
+              next: ([companyData, companyPrice, companyPeers, companyNews, companyHistoricalData, companyHourlyData, companyRecommendationData, companyEarningsData, companySentimentsData]) => {
+                if (Object.keys(companyData).length == 0 || Object.keys(companyPrice).length == 0) {
+                  console.log("Invalid")
+                  if(this.tickerValue!='home')
+                    this.isInvalidTicker = true;
+                  // this.isLoading = false;
+                  setTimeout(() => {
+                    this.isLoading=false
+                  }, 1000);
+                  this.showContent = false;
+                  
+                } else {
+                  console.log("Is a valid ticker")
+                  console.log(companyData)
+                  console.log(companyPrice)
+                  console.log(companyPeers)
+                  console.log(companyNews)
+                  console.log(companyHistoricalData)
+                  console.log(companyHourlyData)
+                  console.log(companyRecommendationData)
+                  console.log(companyEarningsData)
+                  console.log(companySentimentsData)  
+    
+                  
+                  this.companyDataAPI.setCompanyData(companyData);
+                  
+                  this.companyDataAPI.setCompanyPriceData(companyPrice);
+                  this.companyDataAPI.setCompanyPeersData(companyPeers);
+                  
+                  this.companyDataAPI.setCompanyNewsData(companyNews);
+                  
+                  this.companyDataAPI.setCompanyHistoricalData(companyHistoricalData);
+                  
+                  this.companyDataAPI.setCompanyHourlyData(companyHourlyData);
+                  
+                  this.companyDataAPI.setCompanyRecommendationData(companyRecommendationData);
+                  
+                  this.companyDataAPI.setCompanyEarningsData(companyEarningsData);
+                  
+                  this.companyDataAPI.setCompanySentimentsData(companySentimentsData);
+                  
+                  
+                  // this.isLoading = false;
+                  setTimeout(() => {
+                    this.isLoading=false
+                  }, 1000);
+                  this.showContent = true;
+                  const stockTimestamp= companyPrice.t*1000;
+                  console.log("Timestamp from the API",new Date(companyPrice.t * 1000).toLocaleString())
+                  const currTime = Date.now();
+                  console.log("Curretn timestamp",new Date(currTime).toLocaleString())
+                  const diffTime=(currTime-stockTimestamp)/(1000*60)
+                  if(diffTime<5){
+                    // Call the API every 15 seconds
+                    this.timerSubscription = interval(15000)
+                    .pipe(
+                      switchMap(() => this.companyDataAPI.getCompanyPrice(this.tickerValue))
+                    )
+                    .subscribe({
+                      next: (updatedCompanyPrice) => {
+                        // Update the company data and pri
+                        this.companyDataAPI.setCompanyPriceData(updatedCompanyPrice);
+                        
+      
+                        console.log("Called the data");
+                      },
+                      error: error => {
+                        console.error('Error fetching updated data:', error);
+                      }
+                    });
+                  }
+                  else{
+                    console.log("More than 5 minutes have elasped since market open hence not calling the market")
+                  }
+                }
+              },
+              error: error => {
+                console.error('Error fetching data:', error);
+                // this.isLoading = false;
+                setTimeout(() => {
+                  this.isLoading=false
+                }, 1000);
+              }
+            });  
+          }
+
+        })
+        
+        // if(!this.isInvalidTicker){
+
+        // }
+        
       }
       
     })

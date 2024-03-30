@@ -1,24 +1,18 @@
-<div class="pl-5 row" style="overflow-x: visible">
+<div class="pl-5 row" style="overflow-x: hidden">
     <div class="col-md-6 d-flex flex-column">    
         <!-- <div class="d-flex flex-column w-100"> -->
             <p class="m-0 h6"><span class="font-weight-bold m-0">High Price:</span>{{highPrice| number : '1.2-2'}}</p>
             <p class="m-0 h6"><span class="font-weight-bold"> Low Price:</span>{{lowPrice| number : '1.2-2'}}</p>
             <p class="m-0 h6"><span class="font-weight-bold"> Open Price:</span>{{openPrice| number : '1.2-2'}}</p>
             <p class="m-0 h6"><span class="font-weight-bold"> Prev. Close Price:</span>{{prevClosePrice| number : '1.2-2'}}</p>
-            <div class="mx-auto">
-                <p>About the company</p>
-                <p><span class="font-weight-bold">IPO Start Date:</span>{{ipo}}</p>
-                <p><span class="font-weight-bold">Industry:</span>{{industry}}</p>
-                <p><span class="font-weight-bold">Webpage:</span><a href="{{webpage}}" >{{webpage}}</a></p>
-                <p class="font-weight-bold">Company Peers:</p>
+            <div class="mx-auto text-center mt-5">
+                <p class="fw-bold text-decoration-underline h5">About the company</p>
+                <p class="h6"><span class="font-weight-bold">IPO Start Date:</span>{{ipo}}</p>
+                <p class="h6"><span class="font-weight-bold">Industry:</span>{{industry}}</p>
+                <p class="h6"><span class="font-weight-bold">Webpage:</span><a href="{{webpage}}" target="_blank">{{webpage}}</a></p>
+                <p class="font-weight-bold h6">Company Peers:</p>
                 <div class="d-flex"><a class="d-inline" *ngFor="let cmpny of companyPeers" routerLink="/search/{{cmpny}}">{{cmpny}}, </a></div>
             </div>
-            
-        <!-- </div> -->
-        <!-- <div class="d-flex flex-column">
-            
-            
-        </div> -->
     </div>
     <div class="col-md-6">
         <highcharts-chart

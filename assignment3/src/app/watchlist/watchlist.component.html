@@ -1,8 +1,8 @@
 
 <div class="container">
-    <h1 class="my-3 mt-5">My Watchlist</h1>
+    <p class="my-3 mt-5 h2">My Watchlist</p>
     <div class="spinner-container  d-flex justify-content-center">
-        <mat-progress-spinner class="small-spinner" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+        <mat-progress-spinner class="small-spinner" *ngIf="isLoading" mode="indeterminate" [diameter]="40"></mat-progress-spinner>
     </div>
     <div class="alert alert-warning" role="alert" *ngIf="isEmpty">
         Currently you don't have any stock in your wathclist.

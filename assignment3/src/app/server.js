@@ -6,12 +6,13 @@ const {MongoClient} =require('mongodb');
 const { resourceLimits } = require('worker_threads');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
 const API_KEY = 'cmtjpqpr01qqtangt8mgcmtjpqpr01qqtangt8n0';
 const POLYGON_KEY = 'sHItDAscBrHfX9CxLM9G31Rc36d1dRaP';
 app.use(cors());
 app.use(express.json())
+app.use(express.static('dist/assignment3/browser'))
 function connect(){
   const uri='mongodb+srv://nidhishsawant135:QMcqhyI5g53sFzjR@homework3.j2ujlwy.mongodb.net/?retryWrites=true&w=majority&appName=Homework3'
 
@@ -338,15 +339,25 @@ app.get('/api/company_latest_price', async (req, res) => {
         return res.status(400).json({ error: 'Symbol parameter is required' });
     }
 
+    // console.log("Timestamp from the API",new Date(companyPrice.t * 1000).toLocaleString())
+    const currTime = Date.now();
+    console.log("Curretn timestamp",new Date(currTime).toLocaleString())
+
+    // const diffTime=(currTime-stockTimestamp)/(1000*60)
+
     // Get the current date
     const currentDate = moment();
 
+
     // Calculate the date one week ago
-    const oneWeekAgo = currentDate.subtract(1, 'weeks');
+    const oneWeekAgo = currentDate.clone().subtract(1, 'weeks');
 
     // Format the date to your desired format (e.g., YYYY-MM-DD)
+    
     const formattedPrevDate = oneWeekAgo.format('YYYY-MM-DD');
     const formattedCurrDate = currentDate.format('YYYY-MM-DD');
+    console.log("News",formattedPrevDate)
+    console.log("News",formattedCurrDate)
     const apiUrl = `https://finnhub.io/api/v1/company-news?symbol=${symbol}&from=${formattedPrevDate}&to=${formattedCurrDate}&token=${API_KEY}`;
     const response = await axios.get(apiUrl);
     // console.log(response)
@@ -373,7 +384,7 @@ app.get('/api/company_historical_data', async (req, res) => {
   const currentDate = moment();
   const formattedCurrDate = currentDate.format('YYYY-MM-DD');
   // Calculate the date one week ago
-  const twoYearsAgo = currentDate.subtract(2, 'years');
+  const twoYearsAgo = currentDate.clone().subtract(2, 'years');
 
   // Format the date to your desired format (e.g., YYYY-MM-DD)
   const formattedPrevDate = twoYearsAgo.format('YYYY-MM-DD');

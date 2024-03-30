@@ -56,7 +56,7 @@ chartOptions: Highcharts.Options = {
     //companydetails
     if(data){
       console.log(data)
-      this.companyPeers = data
+      this.companyPeers = data.filter((str:string) => !str.includes("."))
       // this.industry = data.finnhubIndustry
       // this.webpage= data.weburl
       // this.logo= data.logo
@@ -116,7 +116,14 @@ chartOptions: Highcharts.Options = {
       // Highcharts
       this.chartOptions = {   
         chart: {
-           type: "line"
+           type: "line",
+           backgroundColor:"#f3f3f3",
+           
+        },
+        navigation:{
+          buttonOptions:{
+            enabled:false
+          }
         },
         title: {
            text: `${data.ticker} Hourly Price Variation`
@@ -133,6 +140,7 @@ chartOptions: Highcharts.Options = {
           //  title:{
           //     text:"Temperature °C"
           //  } 
+          opposite:true,
          
         },
         tooltip: {

@@ -96,21 +96,25 @@ export class NewsComponent {
 	template: `
 		<div class="modal-header d-flex">
 			<div class="d-flex flex-column">
-      <h2 class="modal-title">{{news.source}}</h2>
-      <p>{{news.datetime}}</p>
+      <h2 class="modal-title fw-bold">{{news.source}}</h2>
+      <p class="my-0" style="font:1em">{{news.datetime}}</p>
       </div>
 			<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 		</div>
 		<div class="modal-body">
-			<p>{{news.headline}}</p>
-      <p>{{news.summary}}</p>
-      <p>For more details click <a  href={{news.url}} target="_blank">here</a></p>
+			<p class="fw-bold" style="font-size:1.5em">{{news.headline}}</p>
+      <p style="font-size:1em">{{news.summary}}</p>
+      <p class="text-black-50" style="font-size:0.8em">For more details click <a  href={{news.url}} target="_blank">here</a></p>
 		</div>
-		<div class="modal-footer">
-    <a class="twitter-share-button"
-    href="https://twitter.com/intent/tweet?text={{news.headline}}&url={{news.url}}"
-    data-size="large" target="_blank">
-  Tweet</a>
+		<div class="border rounded mb-2 mx-2 pl-3 pt-4 pb-2">
+    <p>Share</p>
+    <div class="d-flex">
+        <a class="twitter-share-button"
+        href="https://twitter.com/intent/tweet?text={{news.headline}}&url={{news.url}}"
+        data-size="large" target="_blank"><img src="../../assets/twitter.jpg" style="height:3em"></a>
+      <div class="fb-share-button ml-2" [attr.data-href]=news.url data-layout="" data-size=""><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{news.url}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><img src="../../assets/facebook.webp" style="height:3em"></a></div>
+    </div>
+  </div>
 	`,
 })
 export class NgbdModalContent {

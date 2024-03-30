@@ -5,18 +5,20 @@ import { format } from 'date-fns';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, ObservableLike } from 'rxjs';
+import { Observable, ObservableLike, never } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { computeStyles } from '@popperjs/core';
 
 import { Router } from '@angular/router';
+import { env } from '../environment';
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.css'
 })
+
 export class PortfolioComponent {
   ticker:any
   money:number=0
@@ -96,7 +98,7 @@ export class PortfolioComponent {
 
   }
   checkWallet():Observable<any>{
-    return this.http.get(`http://localhost:3000/api/wallet`).pipe(
+    return this.http.get(env+`/api/wallet`).pipe(
     catchError(error => {
       console.error('Error fetching company data:', error);
       throw error;
@@ -105,7 +107,7 @@ export class PortfolioComponent {
   }
   //check for stock in portfolio
   checkInPortfolio():Observable<any>{
-    return this.http.get(`http://localhost:3000/api/portfolio`).pipe(
+    return this.http.get(env+`/api/portfolio`).pipe(
     catchError(error => {
       console.error('Error fetching company data:', error);
       throw error;
@@ -235,7 +237,7 @@ export class NgbdModalContent {
 
   //buy stock
   buyStock(stock:any,buy:string):Observable<any>{
-    return this.http.post(`http://localhost:3000/api/portfolio?buy=${buy}`,stock).pipe(
+    return this.http.post(env+`/api/portfolio?buy=${buy}`,stock).pipe(
       catchError(error => {
         console.error('Error fetching company data:', error);
         throw error;
@@ -246,7 +248,7 @@ export class NgbdModalContent {
   }
   //deete stock
   deleteStock(stock:any):Observable<any>{
-    return this.http.delete(`http://localhost:3000/api/portfolio?symbol=${stock}`).pipe(
+    return this.http.delete(env+`/api/portfolio?symbol=${stock}`).pipe(
       catchError(error => {
         console.error('Error fetching company data:', error);
         throw error;
@@ -258,7 +260,7 @@ export class NgbdModalContent {
 
   //update wwallet
   async updateWallet(stock:any){
-    const response= this.http.post(`http://localhost:3000/api/wallet`,stock).pipe(
+    const response= this.http.post(env+`/api/wallet`,stock).pipe(
       catchError(error => {
         console.error('Error fetching company data:', error);
         throw error;
@@ -272,7 +274,7 @@ export class NgbdModalContent {
 
   //check for stock in portfolio
   checkInPortfolio(symbol:string):Observable<any>{
-    return this.http.get(`http://localhost:3000/api/portfolio?symbol=${symbol}`).pipe(
+    return this.http.get(env+`/api/portfolio?symbol=${symbol}`).pipe(
     catchError(error => {
       console.error('Error fetching company data:', error);
       throw error;
