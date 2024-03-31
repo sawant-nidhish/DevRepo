@@ -1,0 +1,10 @@
+<div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isEmptyTicker">
+    Please enter a valid ticker
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="isInvalidTicker">
+    No data found. Please enter a valid Ticker
+</div>

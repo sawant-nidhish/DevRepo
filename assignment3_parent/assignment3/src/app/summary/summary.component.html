@@ -1,0 +1,60 @@
+<div class="col">
+    <div class="row mb-5 justify-content-center">
+        <div class="col-md-6 col-12 mt-3 mb-2">  
+            <div class="row">
+                <div class=" col-md-6 col-12 text-center">
+                    <p class="m-0 h6"><span class="font-weight-bold m-0">High Price:</span>{{highPrice| number : '1.2-2'}}</p>
+                    <p class="m-0 h6"><span class="font-weight-bold"> Low Price:</span>{{lowPrice| number : '1.2-2'}}</p>
+                    <p class="m-0 h6"><span class="font-weight-bold"> Open Price:</span>{{openPrice| number : '1.2-2'}}</p>
+                    <p class="m-0 h6"><span class="font-weight-bold"> Prev. Close:</span>{{prevClosePrice| number : '1.2-2'}}</p>
+                </div>
+            </div>
+            
+            <div class="row text-center">
+                <div class="col-12 mx-auto text-center mt-5">
+                    <p class="fw-bold text-decoration-underline h5">About the company</p>
+                    <p class="h6"><span class="font-weight-bold">IPO Start Date:</span>{{ipo}}</p>
+                    <p class="h6"><span class="font-weight-bold">Industry:</span>{{industry}}</p>
+                    <p class="h6"><span class="font-weight-bold">Webpage:</span><a href="{{webpage}}" target="_blank">{{webpage}}</a></p>
+                    <p class="font-weight-bold h6">Company Peers:</p>
+                    <div class="text-center"><a class="d-inline text-center" *ngFor="let cmpny of companyPeers" routerLink="/search/{{cmpny}}">{{cmpny}}, </a></div>
+                </div>
+            </div>  
+        </div>
+        <div class="col-md-6 col-12 text-center">
+            <highcharts-chart
+                [Highcharts] = "Highcharts" 
+                [options] = "chartOptions" 
+                style = "display: block;">
+            </highcharts-chart>
+        </div>
+    </div>
+    
+</div>
+
+<!-- 
+<div class="row">
+    <div class=" col-md-6 col-12 text-center">
+        <p class="m-0 h6"><span class="font-weight-bold m-0">High Price:</span>{{highPrice| number : '1.2-2'}}</p>
+        <p class="m-0 h6"><span class="font-weight-bold"> Low Price:</span>{{lowPrice| number : '1.2-2'}}</p>
+        <p class="m-0 h6"><span class="font-weight-bold"> Open Price:</span>{{openPrice| number : '1.2-2'}}</p>
+        <p class="m-0 h6"><span class="font-weight-bold"> Prev. Close:</span>{{prevClosePrice| number : '1.2-2'}}</p>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-12 mx-auto text-center mt-5">
+        <p class="fw-bold text-decoration-underline h5">About the company</p>
+        <p class="h6"><span class="font-weight-bold">IPO Start Date:</span>{{ipo}}</p>
+        <p class="h6"><span class="font-weight-bold">Industry:</span>{{industry}}</p>
+        <p class="h6"><span class="font-weight-bold">Webpage:</span><a href="{{webpage}}" target="_blank">{{webpage}}</a></p>
+        <p class="font-weight-bold h6">Company Peers:</p>
+        <div class="text-center"><a class="d-inline text-center" *ngFor="let cmpny of companyPeers" routerLink="/search/{{cmpny}}">{{cmpny}}, </a></div>
+    </div>
+</div> -->
+
+<!-- <highcharts-chart
+        [Highcharts] = "Highcharts" 
+        [options] = "chartOptions" 
+        style = "display: block;">
+</highcharts-chart> -->

@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-dark pl-2 container-fluid">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Stock Search</a>
+    
+      <button class="navbar-toggler pt-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink={{url}} (click)="searchClick()" [class.active1]="search" >Search <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="watchlist" (click)="watchlistClick()" [class.active1]="watchlist">Watchlist <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="portfolio" (click)="portfolioClick()" [class.active1]="portfolio">Portfolio <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+  </div>  
+     
+  </nav>
+
