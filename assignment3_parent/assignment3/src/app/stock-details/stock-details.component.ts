@@ -87,14 +87,38 @@ export class StockDetailsComponent {
           this.change = data.d;
           this.changePercent= data.dp;
           console.log("Time received from API",data.t)
-          this.marketTime= format(new Date(data.t * 1000).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
+          // this.marketTime= format(new Date(data.t * 1000).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
+          this.marketTime = new Intl.DateTimeFormat("es", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+
+          }).format(new Date(data.t * 1000));
+          this.marketTime=this.marketTime.replace(/\//g, "-");
+          this.marketTime=this.marketTime.replace(',', "");
+          
           console.log(new Date(data.t * 1000).toLocaleString())
           let timeStampAPI=data.t*1000
           // const currDate = new Date(this.marketTime);
 
           // Get the current timestamp in milliseconds
           const currentTimestamp = Date.now()
-          this.currTimeStamp= format(new Date(currentTimestamp).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
+          this.currTimeStamp=new Intl.DateTimeFormat("es", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+          }).format(currentTimestamp);
+          this.currTimeStamp=this.currTimeStamp.replace(/\//g, "-");
+          this.currTimeStamp=this.currTimeStamp.replace(',', "");
+          // this.currTimeStamp= format(new Date(currentTimestamp).toLocaleString(), 'yyyy-MM-dd HH:mm:ss');
           console.log("Today's Date",currentTimestamp)
           console.log("Today's Date",new Date(currentTimestamp).toLocaleString())
           console.log("Today's Date",currentTimestamp)

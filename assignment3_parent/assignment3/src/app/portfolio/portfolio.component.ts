@@ -167,7 +167,7 @@ export class PortfolioComponent {
     <p class="mt-2" *ngIf="!isValidSale" style="color:red">You cannot sell the stocks that you don't have!</p>
 		</div>
 		<div class="modal-footer">
-    <p>Total: {{total}}</p>
+    <p>Total: {{total| number : '1.2-2'}}</p>
     <button type="submit" class="btn btn-success"(click)="buy()"[disabled]="isDisabled" *ngIf="fromBuy">Buy</button>
     <button type="submit" class="btn btn-success"(click)="sell()"[disabled]="isDisabled" *ngIf="!fromBuy">Sell</button>
     </div>
@@ -196,17 +196,18 @@ export class NgbdModalContent {
   constructor(private companyDataAPI: CompanyDescriptionService, private http: HttpClient, private router: Router){}
   ngOnInit(){
     
-    console.log(this.quantity)
+    console.log("This the stock quantity",this.quantity)
   }
   onQuantityChange(value: number) {
+    console.log("This the stock quantity",this.quantity)
     this.isDisabled=true
     this.total=this.quantity*this.currentPrice
     if(this.total){
       if(!this.fromBuy){
         this.checkInPortfolio(this.name).subscribe(data=>{
           if(data){
-            console.log(data.qty)
-            if(this.total<=this.money && this.total!=0 && this.quantity<=data.qty){
+            console.log("this us the data quantity",data.qty)
+            if(this.quantity<=data.qty){
               this.isValidSale=true
               this.isDisabled=false
             }

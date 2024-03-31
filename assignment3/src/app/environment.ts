@@ -1,1 +1,0 @@
-export const env:string="http://localhost:8080"

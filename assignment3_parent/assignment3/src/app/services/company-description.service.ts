@@ -174,16 +174,46 @@ export class CompanyDescriptionService {
             console.log("Plot graph from current to last date");
             let aDayBefore = new Date(currTime);
             aDayBefore.setDate(aDayBefore.getDate() - 1);
-            aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
+            // aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
+            aDayBeforeFormatted = new Intl.DateTimeFormat("fr-CA", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }).format(aDayBefore);
             let today = new Date(currTime);
-            todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
+            // todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
+            aDayBeforeFormatted = new Intl.DateTimeFormat("fr-CA", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }).format(today);
           } else {
             console.log("Plot graph from closeDate to last date");
+
+            // const formattedDate = new Intl.DateTimeFormat("fr-CA", {
+            //   year: "numeric",
+            //   month: "2-digit",
+            //   day: "2-digit",
+            // }).format(date);
+
+
             let aDayBefore = new Date(stockTimestamp);
             aDayBefore.setDate(aDayBefore.getDate() - 1);
-            aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
+
+            aDayBeforeFormatted = new Intl.DateTimeFormat("fr-CA", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }).format(aDayBefore);
+            console.log("INTL Date", aDayBeforeFormatted);
+            // aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
             let today = new Date(stockTimestamp);
-            todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
+            // todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
+            todayFormatted = new Intl.DateTimeFormat("fr-CA", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }).format(aDayBefore);
             console.log("to Date", todayFormatted);
             console.log("From Date", aDayBeforeFormatted);
           }
