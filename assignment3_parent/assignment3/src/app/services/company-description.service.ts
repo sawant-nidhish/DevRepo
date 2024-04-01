@@ -182,7 +182,7 @@ export class CompanyDescriptionService {
             }).format(aDayBefore);
             let today = new Date(currTime);
             // todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
-            aDayBeforeFormatted = new Intl.DateTimeFormat("fr-CA", {
+            todayFormatted = new Intl.DateTimeFormat("fr-CA", {
               year: "numeric",
               month: "2-digit",
               day: "2-digit",

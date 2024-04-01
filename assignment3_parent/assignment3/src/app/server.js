@@ -230,11 +230,12 @@ app.post('/api/portfolio', async (req, res) => {
       
     }
     else{
-      console.log("Buying stock fro the first time")
+      console.log("Buying stock fro the first time",newItem)
     }
     // console.log(newItem)
     const update ={$set:newItem};
 
+    console.log("This is the new stock",update)
     const result=await collection.findOneAndUpdate(query,update,{upsert:true})
 
     console.log("Updated portfolio successfully")

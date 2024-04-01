@@ -47,6 +47,7 @@ export class ContentComponent {
               this.showContent = false;
           }
           else{
+            console.log("Showing the data")
             this.companyDataAPI.fetchData(this.tickerValue.toUpperCase()).subscribe({
               next: ([companyData, companyPrice, companyPeers, companyNews, companyHistoricalData, companyHourlyData, companyRecommendationData, companyEarningsData, companySentimentsData]) => {
                 if (Object.keys(companyData).length == 0 || Object.keys(companyPrice).length == 0) {

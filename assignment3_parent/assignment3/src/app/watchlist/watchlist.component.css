@@ -7,3 +7,6 @@ color:green
 .black{
     color:black
 }
+.card:hover{
+    cursor: pointer;
+}

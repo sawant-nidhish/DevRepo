@@ -1,6 +1,9 @@
 .card{
     /* height: 6em; */
 }
+.card:hover {
+    cursor: pointer;
+}
 .news-image{
     /* height: 4em;
     width: 7em; */

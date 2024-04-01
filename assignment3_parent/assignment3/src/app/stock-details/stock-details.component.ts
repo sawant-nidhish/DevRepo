@@ -289,8 +289,8 @@ export class StockDetailsComponent {
     <form input-group>
     
 		<div class="modal-body">
-		  <p>Current Price: $ {{currentPrice}}</p>	
-      <p>Money in Wallet: $ {{money}}</p>
+		  <p>Current Price: $ {{currentPrice| number : '1.2-2'}}</p>	
+      <p>Money in Wallet: $ {{money| number : '1.2-2'}}</p>
       <div class="form-outline d-flex align-items-center">
       <label class="form-label" for="typeNumber">Qunatity: </label>  
       <input type="number" id="typeNumber" class="form-control ml-1" [(ngModel)]="quantity" (ngModelChange)="onQuantityChange($event)" name="quantity"/>
@@ -301,7 +301,7 @@ export class StockDetailsComponent {
     <p class="mt-2" *ngIf="!isValidSale" style="color:red">You cannot sell the stocks that you don't have!</p>
 		</div>
 		<div class="modal-footer d-flex justify-content-between">
-    <p>Total: {{total}}</p>
+    <p>Total: {{total| number : '1.2-2'}}</p>
     <button type="submit" class="btn btn-success"(click)="buy()"[disabled]="isDisabled" *ngIf="fromBuy">Buy</button>
     <button type="submit" class="btn btn-success"(click)="sell()"[disabled]="isDisabled" *ngIf="!fromBuy">Sell</button>
     </div>
@@ -419,16 +419,20 @@ export class NgbdModalContent {
       avgCost:this.total/this.quantity
     }
 
-    let updateMoney={
-      name:'wallet',
-      money:this.money-(this.quantity*this.currentPrice)
-    }
-    this.updateWallet(updateMoney)
+    console.log("Buying the stock",stock)
+    
 
 
     this.buyStock(stock,"true").then(data=>{
-      
+      let updateMoney={
+        name:'wallet',
+        money:this.money-(this.quantity*this.currentPrice)
+      }
+      console.log("######Buying the money",updateMoney)
+      this.updateWallet(updateMoney)
     })
+
+    
 
     this.companyDataAPI.setBuyAlert({ticker:this.name,flag:true});
     this.companyDataAPI.setSellAlert({ticker:this.name,flag:false});
@@ -460,14 +464,14 @@ export class NgbdModalContent {
           // avgCost:(data.totalCost-this.quantity*this.currentPrice)/(qtyInPortfolio-this.quantity)
         }
 
-        let updateMoney={
-          name:'wallet',
-          money:this.money+(this.quantity*this.currentPrice)
-        }
-        this.updateWallet(updateMoney)
+        
         console.log(stock)
         this.buyStock(stock,"false").then(data=>{
-          
+          let updateMoney={
+            name:'wallet',
+            money:this.money+(this.quantity*this.currentPrice)
+          }
+          this.updateWallet(updateMoney)
         })
 
         this.companyDataAPI.setBuyAlert({ticker:this.name,flag:false});

@@ -18,11 +18,39 @@ export class HeaderComponent {
   watchlist:boolean=false
   portfolio:boolean=false
   constructor(private companyDataAPI: CompanyDescriptionService,private router: Router,){}
-  onNgInit(){
+  ngOnInit(){
     this.companyDataAPI.getInputTicker().subscribe(data=>{
       console.log("This is the value from the header",data)
     })
+    this.router.events.subscribe(event => {
+      
+      if (event instanceof NavigationEnd) {
+
+        if(event.url!="/watchlist"&&event.url!="/portfolio"){
+          this.search=true
+          this.watchlist=false
+          this.portfolio=false
+        }
+        else if(event.url=="/watchlist"){
+          this.search=false
+          this.watchlist=true
+          this.portfolio=false
+        }
+        else if(event.url=="/portfolio"){
+          this.search=false
+          this.watchlist=false
+          this.portfolio=true
+        }
+        else{
+          this.search=true
+          this.watchlist=false
+          this.portfolio=false
+        }
+        console.log('URL changed to:', event.url);
+      }
+    })
   }
+  
   searchClick(){
     this.search=true;
     this.watchlist=false;

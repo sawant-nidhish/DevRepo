@@ -155,8 +155,8 @@ export class PortfolioComponent {
     <form input-group>
     
 		<div class="modal-body">
-		  <p>Current Price: $ {{currentPrice}}</p>	
-      <p>Money in Wallet: $ {{money}}</p>
+		  <p>Current Price: $ {{currentPrice| number : '1.2-2'}}</p>	
+      <p>Money in Wallet: $ {{money| number : '1.2-2'}}</p>
       <div class="form-outline d-flex align-items-center">
       <label class="form-label" for="typeNumber">Qunatity: </label>  
       <input type="number" id="typeNumber" class="form-control ml-1" [(ngModel)]="quantity" (ngModelChange)="onQuantityChange($event)" name="quantity"/>

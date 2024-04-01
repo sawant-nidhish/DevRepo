@@ -17,7 +17,7 @@
              [formControl]="myControl"
              [matAutocomplete]="auto"
              [(ngModel)]="inputTicker">
-             <mat-autocomplete #auto="matAutocomplete">
+             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
               <mat-option *ngIf="isLoading">
                 <mat-spinner diameter="20" ></mat-spinner>
               </mat-option>

@@ -165,7 +165,9 @@ export class SearchBarComponent implements OnInit{
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.symbol.toLowerCase().includes(filterValue));
+    // data.filter((str:string) => !str.includes("."))
+    return this.options.filter(option => option.symbol.toLowerCase().includes(filterValue)&&!option.symbol.toLowerCase().includes("."));
+    // return this.options.filter((str:string) => !str.includes("."))
   }
   displayFn(item:any){
     return item ? item.symbol : undefined
@@ -202,6 +204,11 @@ export class SearchBarComponent implements OnInit{
     this.isLoading=false
     this.router.navigate(['/search/home']);
     
+  }
+  optionSelected(event:any){
+    console.log("This option is selected",event.option.value)
+    this.inputTicker=event.option.value
+    this.getData()
   }
   // ngOnDestroy(): void {
   //   // Unsubscribe from the timer subscription when the component is destroyed
