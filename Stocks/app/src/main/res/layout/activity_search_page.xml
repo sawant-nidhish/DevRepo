@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchPage"
+    android:background="@color/white">
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/black"
+            app:title="">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/symbol"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:id="@+id/descriptionSection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tokenName"
+
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/companyName"
+                        android:layout_below="@id/tokenName"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/currentPrice"
+
+                        android:layout_alignParentRight="true"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout"
+                        android:layout_below="@id/currentPrice"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/changePrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"/>
+
+                        <TextView
+                            android:id="@+id/changePercent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:layout_marginStart="8dp"/> <!-- Add margin between the two TextViews if needed -->
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+                <!--        <WebView-->
+                <!--            android:id="@+id/historicalChart"-->
+                <!--            android:layout_width="wrap_content"-->
+                <!--            android:layout_height="wrap_content" />-->
+
+                <!--        <WebView-->
+                <!--            android:id="@+id/hourlyChart"-->
+                <!--            android:layout_width="wrap_content"-->
+                <!--            android:layout_height="wrap_content" />-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_below="@id/view_pager"
+                        android:background="@color/white"
+                        />
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="420dp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Portfolio"
+                    android:textStyle="bold"
+                    android:layout_marginTop="40dp"/>
+                <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1,2"
+                    android:layout_marginTop="20dp">
+                    <TableRow android:layout_width="fill_parent">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/shares_owned_lable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Shares Owned:"
+                                 />
+
+                            <TextView
+                                android:id="@+id/avg_cost_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Avg. Cost / Share:"
+                                 />
+
+                            <TextView
+                                android:id="@+id/total_cost_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Cost:"
+                                 />
+
+                            <TextView
+                                android:id="@+id/change_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Change:"
+                                 />
+                            <TextView
+                                android:id="@+id/market_value_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Market Value:"
+                                 />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/shares_owned"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="0.00" />
+                            <TextView
+                                android:id="@+id/avg_cost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="$0.00" />
+                            <TextView
+                                android:id="@+id/total_cost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="$0.00" />
+                                <TextView
+                                    android:id="@+id/change"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$0.00" />
+
+
+                                <TextView
+                                    android:id="@+id/market_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$0.00" />
+
+
+
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/trade_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/green"
+                            android:text="TRADE" />
+
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stats"
+                    android:textStyle="bold"
+                    android:layout_marginTop="40dp"/>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1,2,3"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TableRow android:layout_width="fill_parent">
+                         <TextView
+                                android:id="@+id/open_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Open Price:" />
+                            <TextView
+                                android:id="@+id/open_price_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10" />
+
+                            <TextView
+                                android:id="@+id/high_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="High Price:" />
+
+                            <TextView
+                                android:id="@+id/high_price_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10" />
+
+                    </TableRow>
+
+                    <TableRow android:layout_width="fill_parent">
+
+                            <TextView
+                                android:id="@+id/low_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Low Price:" />
+                            <TextView
+                                android:id="@+id/low_price_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10"
+                                />
+
+                            <TextView
+                                android:id="@+id/prev_close"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Prev Close:" />
+
+                            <TextView
+                                android:id="@+id/prev_close_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10" />
+
+
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:textStyle="bold"
+                    android:layout_marginTop="40dp"/>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TableRow android:layout_width="fill_parent">
+                        <TextView
+                            android:id="@+id/ipo_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="IPO Start Date" />
+                        <TextView
+                            android:id="@+id/ipo_start_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10" />
+
+                    </TableRow>
+                    <TableRow android:layout_width="fill_parent">
+                        <TextView
+                            android:id="@+id/industry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Industry" />
+                        <TextView
+                            android:id="@+id/industry_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10" />
+
+                    </TableRow>
+                    <TableRow android:layout_width="fill_parent">
+                        <TextView
+                            android:id="@+id/webpage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Webpage" />
+                        <TextView
+                            android:id="@+id/webpage_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="web"
+                            android:linksClickable="true"
+                            android:text="10" />
+
+                    </TableRow>
+                    <TableRow android:layout_width="fill_parent">
+                        <TextView
+                            android:id="@+id/company_peers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Company Peers" />
+
+                        <HorizontalScrollView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            >
+                            <LinearLayout
+                                android:id="@+id/company_peers_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+
+                        <!--
+
+                                                    <TextView-->
+<!--                            android:id="@+id/company_peers_value"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:linksClickable="true"-->
+<!--                            android:text="10" />-->
+                    </TableRow>
+                </TableLayout>
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/company_peers_value"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                </LinearLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    >-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        >-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/open_price"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Open Price:" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/open_price_value"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="10" />-->
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="right"-->
+<!--                        >-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/high_price"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="High Price:" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/high_price_value"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="10" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="299dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="16dp">-->
+
+<!--                    -->
+<!--                   -->
+
+<!--                    -->
+<!--                </LinearLayout>-->
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

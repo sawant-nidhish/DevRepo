@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:elevation="10dp"
+        android:outlineSpotShadowColor="@color/black">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_centerInParent="true"/>
+        <SearchView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:queryHint="Enter Stock Symbol"
+            android:id="@+id/searchView"/>
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:text="4 April 2024"
+        android:id="@+id/date_homebar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_homebar"
+        android:id="@+id/portfolio_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PORTFOLIO"
+            android:id="@+id/portfolio_heading"
+
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@color/gray"/>
+        <TextView
+            android:id="@+id/netWorth_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Net Worth"
+            android:layout_below="@id/portfolio_heading"
+            />
+        <TextView
+            android:id="@+id/networth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/netWorth_text"/>
+        <TextView
+            android:id="@+id/cashBalance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash Balance"
+            android:layout_below="@id/portfolio_heading"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/cashBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cashBalance_text"
+            android:layout_alignParentRight="true"/>
+        <!--        Write the code for the relative layout here which will display the portfolio-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/portfolioRecyclerView"
+            android:layout_below="@id/cashBalance_text"
+            android:layout_marginTop="5dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/favorites_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/portfolio_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FAVORITES"
+            android:id="@+id/favorites_heading"
+
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@color/gray"/>
+    </RelativeLayout>
+
+</RelativeLayout>

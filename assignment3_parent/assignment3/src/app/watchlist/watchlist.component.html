@@ -5,7 +5,7 @@
         <mat-progress-spinner class="small-spinner" *ngIf="isLoading" mode="indeterminate" [diameter]="40"></mat-progress-spinner>
     </div>
     <div class="alert alert-warning" role="alert" *ngIf="isEmpty">
-        Currently you don't have any stock in your wathclist.
+        Currently you don't have any stock in your watchlist.
     </div>
     <div *ngIf="!isEmpty">
         <div class="col mt-2 px-0" *ngFor="let item of watchListData">

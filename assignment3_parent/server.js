@@ -102,7 +102,7 @@ app.get('/api/watchList', async (req, res) => {
 //Define a endpoint to update the list wathclist
 app.post('/api/watchList', async (req, res) => {
   try{
-    newItem=req.body
+   const newItem=req.body
     console.log("New Itme is",newItem)
 
     const db=client.db('homework_3')
@@ -159,7 +159,7 @@ app.get('/api/wallet', async (req, res) => {
 app.post('/api/wallet', async (req, res) => {
   try{
     
-    newItem=req.body
+    const newItem=req.body
     console.log("New Itme is",newItem)
 
     const db=client.db('homework_3')
@@ -204,9 +204,9 @@ app.get('/api/portfolio', async (req, res) => {
 app.post('/api/portfolio', async (req, res) => {
   try{
     
-    newItem=req.body
+    const newItem=req.body
     buy=req.query.buy
-    console.log("New Itme is",newItem)
+    console.log("New Itme is inside buy",newItem)
 
     const db=client.db('homework_3')
     const collection=db.collection('portfolio');
@@ -230,11 +230,11 @@ app.post('/api/portfolio', async (req, res) => {
       
     }
     else{
-      console.log("Buying stock fro the first time")
+      console.log("Buying stock fro the first time",newItem)
     }
     // console.log(newItem)
     const update ={$set:newItem};
-
+    console.log("this is the update",update)
     const result=await collection.findOneAndUpdate(query,update,{upsert:true})
 
     console.log("Updated portfolio successfully")

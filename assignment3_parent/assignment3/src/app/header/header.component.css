@@ -1,5 +1,6 @@
 .navbar{
-    background-color: rgb(9, 0, 170)
+    background-color: rgb(9, 0, 170);
+    position: fixed
 }
 
 .container-fluid{
