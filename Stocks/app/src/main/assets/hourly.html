@@ -3,101 +3,105 @@
 <head>
     <title>Highcharts Example</title>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://code.highcharts.com/stock/modules/data.js"></script>
-<script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
-<script src="https://code.highcharts.com/stock/indicators/volume-by-price.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/volume-by-price.js"></script>
 </head>
 <body>
-    <div id="container"></div>
+<div id="container"></div>
 
-    <script>
-        // Function to create the chart
-        function createChart(symbol) {
-            console.log("Inside the  function",symbol)
-            // Load the dataset
-            const currTime = Date.now();
-            
-            console.log("Current date",currTime)
-            let aDayBeforeFormatted = "";
-            let todayFormatted = "";
-    
-            
-            console.log("Plot graph from current to last date");
-            let aDayBefore = new Date(currTime);
-            aDayBefore.setDate(aDayBefore.getDate() - 4);
-            // aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
-            aDayBeforeFormatted = new Intl.DateTimeFormat("fr-CA", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            }).format(aDayBefore);
-            let today = new Date(currTime);
-            // todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
-            todayFormatted = new Intl.DateTimeFormat("fr-CA", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            }).format(today);
-            console.log("calling the fetch",todayFormatted)
-            fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_hourly_data?symbol=${symbol}&from=${aDayBeforeFormatted}&to=${todayFormatted}`)
-                .then(response => response.json())
-                .then(data => {
+<script>
+    // Function to create the chart
+    function createChart(symbol) {
+        console.log("Inside the  function",symbol)
+        // Load the dataset
+        const currTime = Date.now();
+
+        console.log("Current date",currTime)
+        let aDayBeforeFormatted = "";
+        let todayFormatted = "";
+
+
+        console.log("Plot graph from current to last date");
+        let aDayBefore = new Date(currTime);
+        aDayBefore.setDate(aDayBefore.getDate() - 1);
+        // aDayBeforeFormatted = format(aDayBefore.toLocaleString(), 'yyyy-MM-dd');
+        aDayBeforeFormatted = new Intl.DateTimeFormat("fr-CA", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        }).format(aDayBefore);
+        let today = new Date(currTime);
+        // todayFormatted = format(today.toLocaleString(), 'yyyy-MM-dd');
+        todayFormatted = new Intl.DateTimeFormat("fr-CA", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        }).format(today);
+        console.log("calling the fetch",todayFormatted)
+        fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_hourly_data?symbol=${symbol}&from=${aDayBeforeFormatted}&to=${todayFormatted}`)
+            .then(response => response.json())
+            .then(data => {
+                if(data){
                     console.log("This is the data",data)
-                    let companyHourlyData=data.results;
-                    let hourlyPrice=[]
-        console.log("Chart daata",companyHourlyData)
-        for (let i = 0; i < companyHourlyData.length; i += 1) {
-          hourlyPrice.push([
-            companyHourlyData[i]['t'], // the date
-            companyHourlyData[i]['c'],]) // open
-        }
-        console.log(hourlyPrice)
+                let companyHourlyData=data.results;
+                let hourlyPrice=[]
+                console.log("Chart daata",companyHourlyData)
+                for (let i = 0; i < companyHourlyData.length; i += 1) {
+                hourlyPrice.push([
+                    companyHourlyData[i]['t'], // the date
+                    companyHourlyData[i]['c'],]) // open
+                }
+                console.log(hourlyPrice)
 
-      // Highcharts
-var chartOptions = {   
-    chart: {
-        type: "line",
-    },
-    navigation:{
-        buttonOptions:{
-            enabled:false
-        }
-    },
-    title: {
-        text: data.ticker + " Hourly Price Variation"
-    },
-    xAxis: {
-        type: 'datetime'
-    },
-    yAxis: {          
-        opposite: true,
-    },
-    tooltip: {
-        split: true,
-        formatter: function() {
-            // Only display the series name and y-axis value
-            return '<b>' + this.series.name + '</b>: ' + this.y;
-        }
-    },
-    series: [{
-        type: 'line',
-        name: data.ticker,
-        data: hourlyPrice,
-        marker: { enabled: false },
-        color: "green"
-    }]
-};
+                    // Highcharts
+                var chartOptions = {
+                    chart: {
+                        type: "line",
+                        // backgroundColor:"#f3f3f3",
+                    },
+                    navigation:{
+                        buttonOptions:{
+                            enabled:false
+                        }
+                    },
+                    title: {
+                        text: data.ticker + " Hourly Price Variation"
+                    },
+                    xAxis: {
+                        type: 'datetime'
+                    },
+                    yAxis: {
+                        opposite: true,
+                    },
+                    tooltip: {
+                        split: true,
+                        formatter: function() {
+                            // Only display the series name and y-axis value
+                            return '<b>' + this.series.name + '</b>: ' + this.y;
+                        }
+                    },
+                    series: [{
+                        type: 'line',
+                        name: data.ticker,
+                        data: hourlyPrice,
+                        marker: { enabled: false },
+                        color: "green"
+                    }]
+                };
 
-// Render the chart
-Highcharts.chart('container', chartOptions);
+                // Render the chart
+                Highcharts.chart('container', chartOptions);
 
+
+                }
                 });
-                    
-        }
 
-        // Call createChart() once the Highcharts library is fully loaded
-    </script>
+                        }
+    // createChart("GOOGL")
+    // Call createChart() once the Highcharts library is fully loaded
+</script>
 </body>
 </html>

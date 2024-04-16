@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Highcharts Example</title>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+<script src="https://code.highcharts.com/stock/indicators/volume-by-price.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        // Function to create the chart
+        function createChart(symbol) {
+            console.log("Inside the highchart function",symbol)
+            // Load the dataset
+            fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_earnings?symbol=${symbol}`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data)
+                    {   let earnings=data
+                        let actual=[]
+                        let estimate=[]
+                        for(let i=0; i<earnings.length; i++){
+                            actual.push([earnings[i].period,earnings[i].actual])
+                            estimate.push([earnings[i].period,earnings[i].estimate])
+                        }
+
+                        this.chartOptions_eps={
+                            chart: {
+                                type: 'spline',
+                                // inverted: true
+                                animation:true,
+                            },
+                            navigation:{
+                                buttonOptions:{
+                                enabled:false
+                                }
+                            },
+                            title: {
+                                text: 'Historical EPS Surprises',
+                                align: 'center'
+                            },
+                            // subtitle: {
+                            //     text: 'According to the Standard Atmosphere Model',
+                            //     align: 'left'
+                            // },
+                            xAxis: {
+                                reversed: false,
+                                title: {
+                                    // enabled: true,
+                                },
+                                categories:[`${earnings[0].period}<br>Surprise: ${earnings[0].surprise}`,`${earnings[1].period}<br>Surprise: ${earnings[1].surprise}`,`${earnings[2].period}<br>Surprise: ${earnings[2].surprise}`,`${earnings[3].period}<br>Surprise: ${earnings[3].surprise}`],
+                                
+                                // accessibility: {
+                                //     rangeDescription: 'Range: 0 to 80 km.'
+                                // },
+                                // maxPadding: 0.05,
+                                
+                                showLastLabel: true
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Quaterly EPS'
+                                },
+                                labels: {
+                                    format: '{value}'
+                                },
+                                // accessibility: {
+                                //     rangeDescription: 'Range: -90°C to 20°C.'
+                                // },
+                                lineWidth: 2
+                            },
+                            legend: {
+                                enabled: true
+                            },
+                            tooltip: {
+                                headerFormat: '<b>{series.name}</b><br/>',
+                                pointFormat: 'Quaterly EPS: {point.y}'
+                            },
+                            plotOptions: {
+                                spline: {
+                                    marker: {
+                                        enabled: true
+                                    }
+                                }
+                            },
+                            series: [{
+                                type:'spline',
+                                name: 'Actual',
+                                data: actual
+                            },
+                            {
+                            type:'spline',
+                            name: 'Estimate',
+                            data: estimate
+                        }]
+                        }
+                    Highcharts.chart('container',chartOptions_eps)
+                        console.log("Done")
+
+                        console.log("Done")
+
+                        console.log("Done")
+                    }                
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+        // createChart("AAPL")
+        // Call createChart() once the Highcharts library is fully loaded
+    </script>
+</body>
+</html>

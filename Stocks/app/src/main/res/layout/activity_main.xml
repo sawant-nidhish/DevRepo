@@ -104,6 +104,12 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:background="@color/gray"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/watchlistRecyclerView"
+            android:layout_below="@id/favorites_heading"
+            android:layout_marginTop="5dp"/>
     </RelativeLayout>
 
 </RelativeLayout>

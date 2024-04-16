@@ -2,32 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="@color/white"
-    android:id="@+id/portfolio_list_item">
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AAPL"
-        android:id="@+id/portfolio_token_name"/>
+        android:id="@+id/watchlist_token_name"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/portfolio_numShares"
-        android:layout_below="@id/portfolio_token_name"/>
+        android:id="@+id/watchlist_companyName"
+        android:layout_below="@id/watchlist_token_name"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/portfolio_total_cost"
+        android:id="@+id/watchlist_current_price"
         android:layout_alignParentRight="true"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout"
-        android:layout_below="@id/portfolio_total_cost"
+        android:layout_below="@id/watchlist_current_price"
         android:layout_alignParentRight="true"
         android:orientation="horizontal">
 
@@ -36,13 +34,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/portfolio_change_price"
+            android:id="@+id/watchlist_change_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2"/>
 
         <TextView
-            android:id="@+id/portfolio_change_price_percent"
+            android:id="@+id/watchlist_change_price_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10"

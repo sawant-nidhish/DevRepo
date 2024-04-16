@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Highcharts Example</title>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+<script src="https://code.highcharts.com/stock/indicators/volume-by-price.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        // Function to create the chart
+        function createChart(symbol) {
+            console.log("Inside the highchart function",symbol)
+            // Load the dataset
+            fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_recommendation_trends?symbol=${symbol}`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data){
+                        console.log("Got the data",data)
+                    let recommendation=data
+                    console.log()
+                    console.log(recommendation[0].period)
+                    let chartOptions_rec= {
+                        chart: {
+                            type: 'column'
+                        },
+                    title: {
+                        text: 'Recommendation Trends',
+                        align: 'center'
+                    },
+                    xAxis: {
+                        type:"string",
+                        categories: [recommendation[0].period, recommendation[1].period, recommendation[2].period, recommendation[3].period]
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: '#Analysis',
+                            style:{textAlign:'center'}
+                        },
+                        stackLabels: {
+                            enabled: true
+                        }
+                    },
+                    legend: {
+                        // align: 'left',
+                        // x: 70,
+                        // verticalAlign: 'top',
+                        // y: 70,
+                        // floating: true,
+                        // backgroundColor:
+                        //     Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                        // borderColor: '#CCC',
+                        // borderWidth: 1,
+                        shadow: false
+                    },
+                    tooltip: {
+                        headerFormat: '<b>{point.x}</b><br/>',
+                        pointFormat: '{series.name}: {point.y}<br/>#Analysis: {point.stackTotal}'
+                    },
+                    plotOptions: {
+                        column: {
+                            stacking: 'normal',
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    },
+                    series: [{
+                        
+                        name: 'Strong Buy',
+                        data: [recommendation[0].strongBuy, recommendation[1].strongBuy, recommendation[2].strongBuy, recommendation[3].strongBuy],
+                        color:'#006630',
+                    }, {
+                        
+                        name: 'Buy',
+                        data: [recommendation[0].buy, recommendation[1].buy, recommendation[2].buy, recommendation[3].buy],
+                        color:'#13c253',
+                    },
+                        {
+                       
+                        name: 'Hold',
+                        data: [recommendation[0].hold, recommendation[1].hold, recommendation[2].hold, recommendation[3].hold],
+                        color:'#bd6c0f'
+                    },{
+                        
+                        name: 'Sell',
+                        data:[recommendation[0].sell, recommendation[1].sell, recommendation[2].sell, recommendation[3].sell],
+                        
+                        color:'#ff8d01'
+                    },{
+                    
+                    name: 'Strong Sell',
+                    data: [recommendation[0].strongSell, recommendation[1].strongSell, recommendation[2].strongSell, recommendation[3].strongSell],
+                    color:'#990c2a'
+                },]
+                }
+
+                Highcharts.chart('container',chartOptions_rec)
+                    console.log("Done")
+
+                    console.log("Done")
+
+                    console.log("Done")
+
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+        // Call createChart() once the Highcharts library is fully loaded
+    </script>
+</body>
+</html>

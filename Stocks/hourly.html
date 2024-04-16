@@ -44,59 +44,62 @@
             fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_hourly_data?symbol=${symbol}&from=${aDayBeforeFormatted}&to=${todayFormatted}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("This is the data",data)
+                    if(data){
+                        console.log("This is the data",data)
                     let companyHourlyData=data.results;
                     let hourlyPrice=[]
-        console.log("Chart daata",companyHourlyData)
-        for (let i = 0; i < companyHourlyData.length; i += 1) {
-          hourlyPrice.push([
-            companyHourlyData[i]['t'], // the date
-            companyHourlyData[i]['c'],]) // open
-        }
-        console.log(hourlyPrice)
+                    console.log("Chart daata",companyHourlyData)
+                    for (let i = 0; i < companyHourlyData.length; i += 1) {
+                    hourlyPrice.push([
+                        companyHourlyData[i]['t'], // the date
+                        companyHourlyData[i]['c'],]) // open
+                    }
+                    console.log(hourlyPrice)
 
-      // Highcharts
-var chartOptions = {   
-    chart: {
-        type: "line",
-        // backgroundColor:"#f3f3f3",
-    },
-    navigation:{
-        buttonOptions:{
-            enabled:false
-        }
-    },
-    title: {
-        text: data.ticker + " Hourly Price Variation"
-    },
-    xAxis: {
-        type: 'datetime'
-    },
-    yAxis: {          
-        opposite: true,
-    },
-    tooltip: {
-        split: true,
-        formatter: function() {
-            // Only display the series name and y-axis value
-            return '<b>' + this.series.name + '</b>: ' + this.y;
-        }
-    },
-    series: [{
-        type: 'line',
-        name: data.ticker,
-        data: hourlyPrice,
-        marker: { enabled: false },
-        color: "green"
-    }]
-};
+                        // Highcharts
+                    var chartOptions = {   
+                        chart: {
+                            type: "line",
+                            // backgroundColor:"#f3f3f3",
+                        },
+                        navigation:{
+                            buttonOptions:{
+                                enabled:false
+                            }
+                        },
+                        title: {
+                            text: data.ticker + " Hourly Price Variation"
+                        },
+                        xAxis: {
+                            type: 'datetime'
+                        },
+                        yAxis: {          
+                            opposite: true,
+                        },
+                        tooltip: {
+                            split: true,
+                            formatter: function() {
+                                // Only display the series name and y-axis value
+                                return '<b>' + this.series.name + '</b>: ' + this.y;
+                            }
+                        },
+                        series: [{
+                            type: 'line',
+                            name: data.ticker,
+                            data: hourlyPrice,
+                            marker: { enabled: false },
+                            color: "green"
+                        }]
+                    };
 
-// Render the chart
-Highcharts.chart('container', chartOptions);
+                    // Render the chart
+                    Highcharts.chart('container', chartOptions);
 
-                });
                     
-        }
+                    }
+                    });
+                                        
+                            }
         // createChart("GOOGL")
         // Call createChart() once the Highcharts library is fully loaded
     </script>
