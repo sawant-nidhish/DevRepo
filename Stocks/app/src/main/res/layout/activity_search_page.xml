@@ -14,7 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/blue"/>
     <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -33,13 +34,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/symbol"/>
+                android:id="@+id/symbol"
+                android:textSize="18dp"/>
             <ImageButton
                 android:id="@+id/favorites_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:background="@drawable/star_outline"/>
+                android:background="@drawable/star_outline"
+                android:layout_marginRight="10dp"/>
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
@@ -54,26 +57,37 @@
                     android:id="@+id/descriptionSection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
                     >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tokenName"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:paddingLeft="40dp"
 
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/companyName"
+                        android:textColor="@color/gray"
+                        android:textStyle="bold"
                         android:layout_below="@id/tokenName"
+                        android:paddingLeft="40dp"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/currentPrice"
-
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
                         android:layout_alignParentRight="true"
+                        android:paddingRight="10dp"
                         />
 
 
@@ -83,22 +97,28 @@
                         android:id="@+id/linearLayout"
                         android:layout_below="@id/currentPrice"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp">
 
                         <ImageView
                             android:id="@+id/imageView"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            />
                         <TextView
                             android:id="@+id/changePrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/gray"
+                            android:textStyle="bold"
                             android:text="2"/>
 
                         <TextView
                             android:id="@+id/changePercent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/gray"
+                            android:textStyle="bold"
                             android:text="10"
                             android:layout_marginStart="8dp"/> <!-- Add margin between the two TextViews if needed -->
 
@@ -140,12 +160,16 @@
                     android:layout_height="wrap_content"
                     android:text="Portfolio"
                     android:textStyle="bold"
-                    android:layout_marginTop="40dp"/>
+                    android:layout_marginTop="40dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="18dp"
+                    />
                 <TableLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="0,1,2"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="20dp">
                     <TableRow android:layout_width="fill_parent">
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -157,6 +181,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Shares Owned:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"
                                  />
 
                             <TextView
@@ -164,6 +190,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Avg. Cost / Share:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"
                                  />
 
                             <TextView
@@ -171,6 +199,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Total Cost:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"
                                  />
 
                             <TextView
@@ -178,12 +208,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Change:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"
                                  />
                             <TextView
                                 android:id="@+id/market_value_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Market Value:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"
+
                                  />
 
                         </LinearLayout>
@@ -197,42 +232,55 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="0.00" />
+                                android:text="0.00"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
                             <TextView
                                 android:id="@+id/avg_cost"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="$0.00" />
+                                android:text="$0.00"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
                             <TextView
                                 android:id="@+id/total_cost"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="$0.00" />
+                                android:text="$0.00"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
                                 <TextView
                                     android:id="@+id/change"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="$0.00" />
+                                    android:text="$0.00"
+                                    android:paddingTop="10dp"
+                                    android:textSize="15dp"/>
 
 
                                 <TextView
                                     android:id="@+id/market_value"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="$0.00" />
+                                    android:text="$0.00"
+                                    android:paddingTop="10dp"
+                                    android:textSize="15dp"/>
 
 
 
                         </LinearLayout>
+
                         <Button
                             android:id="@+id/trade_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@color/green"
-                            android:text="TRADE" />
+
+                            android:backgroundTint="@color/green"
+                            android:text="TRADE"
+                            app:cornerRadius="5dp" />
 
                     </TableRow>
                 </TableLayout>
@@ -242,65 +290,85 @@
                     android:layout_height="wrap_content"
                     android:text="Stats"
                     android:textStyle="bold"
-                    android:layout_marginTop="40dp"/>
+                    android:layout_marginTop="40dp"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"/>
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="0,1,2,3"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
+                    android:paddingLeft="20dp"
                     >
                     <TableRow android:layout_width="fill_parent">
                          <TextView
                                 android:id="@+id/open_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Open Price:" />
+                                android:text="Open Price:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
                             <TextView
                                 android:id="@+id/open_price_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10" />
+                                android:text="10"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
 
                             <TextView
                                 android:id="@+id/high_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="High Price:" />
+                                android:text="High Price:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
 
                             <TextView
                                 android:id="@+id/high_price_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10" />
+                                android:text="10"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
 
                     </TableRow>
 
-                    <TableRow android:layout_width="fill_parent">
+                    <TableRow android:layout_width="fill_parent"
+                        >
 
                             <TextView
                                 android:id="@+id/low_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Low Price:" />
+                                android:text="Low Price:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
                             <TextView
                                 android:id="@+id/low_price_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="10"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"
                                 />
 
                             <TextView
                                 android:id="@+id/prev_close"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Prev Close:" />
+                                android:text="Prev Close:"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
 
                             <TextView
                                 android:id="@+id/prev_close_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10" />
+                                android:text="10"
+                                android:paddingTop="10dp"
+                                android:textSize="15dp"/>
 
 
                     </TableRow>
@@ -311,25 +379,33 @@
                     android:layout_height="wrap_content"
                     android:text="About"
                     android:textStyle="bold"
-                    android:layout_marginTop="40dp"/>
+                    android:layout_marginTop="40dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="18dp"/>
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="0,1"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
+                    android:paddingLeft="20dp"
                     >
                     <TableRow android:layout_width="fill_parent">
                         <TextView
                             android:id="@+id/ipo_start"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="IPO Start Date" />
+                            android:text="IPO Start Date"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"/>
                         <TextView
                             android:id="@+id/ipo_start_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10" />
+                            android:text="10"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"
+                            android:paddingLeft="5dp"/>
 
                     </TableRow>
                     <TableRow android:layout_width="fill_parent">
@@ -337,12 +413,17 @@
                             android:id="@+id/industry"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Industry" />
+                            android:text="Industry"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"/>
                         <TextView
                             android:id="@+id/industry_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10" />
+                            android:text="10"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"
+                            android:paddingLeft="5dp"/>
 
                     </TableRow>
                     <TableRow android:layout_width="fill_parent">
@@ -350,14 +431,19 @@
                             android:id="@+id/webpage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Webpage" />
+                            android:text="Webpage"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"/>
                         <TextView
                             android:id="@+id/webpage_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:autoLink="web"
                             android:linksClickable="true"
-                            android:text="10" />
+                            android:text="10"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"
+                            android:paddingLeft="5dp"/>
 
                     </TableRow>
                     <TableRow android:layout_width="fill_parent">
@@ -365,16 +451,22 @@
                             android:id="@+id/company_peers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Company Peers" />
+                            android:text="Company Peers"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"/>
 
                         <HorizontalScrollView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:paddingTop="10dp"
+                            android:textSize="15dp"
+                            android:scrollbars="none"
+                            android:paddingLeft="5dp"
                             >
                             <LinearLayout
                                 android:id="@+id/company_peers_value"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal">
 
@@ -382,113 +474,187 @@
                         </HorizontalScrollView>
                     </TableRow>
                 </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Insigths"
+                    android:textStyle="bold"
+                    android:layout_marginTop="40dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="18dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Social Sentiments"
+                    android:textSize="18dp"
                     android:layout_marginTop="40dp"/>
+
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="0,1,2"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
 
-                    <TableRow android:layout_width="fill_parent">
+                    android:paddingHorizontal="30dp"
+                    android:stretchColumns="0,1,2"
+                    android:layout_gravity="center"
+                    >
+
+                    <TableRow android:layout_width="fill_parent"
+                        >
+
                         <TextView
                             android:id="@+id/company_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@color/lightGray"
                             android:text="Company Inc."
-                            android:background="@color/lightGray"/>
+                            android:textStyle="bold"
+                            android:textColor="@color/darkGray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/msrp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MSRP"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lightGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="MSRP"
+                            android:textStyle="bold"
+                            android:textColor="@color/darkGray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/change_table"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Change"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lightGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="Change"
+                            android:textStyle="bold"
+                            android:textColor="@color/darkGray"
+                            android:padding="5dp"/>
 
                     </TableRow>
-                    <TableRow android:layout_width="fill_parent" android:layout_marginTop="2dp">
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_marginTop="2dp"
+                        >
+
                         <TextView
                             android:id="@+id/total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@color/lightGray"
                             android:text="Total"
-                            android:background="@color/lightGray"/>
+                            android:textStyle="bold"
+
+                            android:textColor="@color/darkGray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/total_msrp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MSRP"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lighterGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="MSRP"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/total_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Change"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lighterGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="Change"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray"
+                            android:padding="5dp"/>
 
                     </TableRow>
-                    <TableRow android:layout_width="fill_parent" android:layout_marginTop="2dp">
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_marginTop="2dp">
+
                         <TextView
                             android:id="@+id/positive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@color/lightGray"
                             android:text="Positive"
-                            android:background="@color/lightGray"/>
+                            android:textStyle="bold"
+                            android:textColor="@color/darkGray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/positive_msrp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MSRP"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lighterGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="MSRP"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/positive_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Change"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lighterGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="Change"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray"
+                            android:padding="5dp"/>
 
                     </TableRow>
-                    <TableRow android:layout_width="fill_parent" android:layout_marginTop="2dp">
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_marginTop="2dp">
+
                         <TextView
                             android:id="@+id/negative"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@color/lightGray"
                             android:text="negative"
-                            android:background="@color/lightGray"/>
+                            android:textStyle="bold"
+                            android:textColor="@color/darkGray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/negative_msrp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MSRP"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lighterGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="MSRP"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray"
+                            android:padding="5dp"/>
+
                         <TextView
                             android:id="@+id/negative_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Change"
+                            android:layout_marginLeft="2dp"
                             android:background="@color/lighterGray"
-                            android:layout_marginLeft="2dp"/>
+                            android:text="Change"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray"
+                            android:padding="5dp"/>
 
                     </TableRow>
                 </TableLayout>
+
                 <WebView
                     android:id="@+id/recTrends"
                     android:layout_width="match_parent"
@@ -505,15 +671,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="News"
-                    android:layout_marginTop="40dp"/>
+                    android:layout_marginTop="40dp"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:paddingLeft="10dp"/>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/news_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    app:cardCornerRadius="5dp"
-                    app:cardElevation="5dp">
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="5dp"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -523,11 +694,31 @@
                         >
                         <ImageView
                             android:id="@+id/news_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="top"
+                            android:layout_width="300sp"
+                            android:layout_height="300dp"
+                            android:scaleType="centerCrop"
+                            android:layout_gravity="center"
                             android:layout_weight="8"
                             android:src="@mipmap/ic_launcher"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/news_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="5dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="top"
+                        android:padding="20dp"
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -543,12 +734,18 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="source"
+                                    android:textStyle="bold"
+                                    android:textSize="15dp"
+                                    android:textColor="@color/darkGray"
                                     android:layout_gravity="center_vertical"/>
                                 <TextView
                                     android:id="@+id/timeElapsed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="time hours ago"
+                                    android:textStyle="bold"
+                                    android:textSize="13dp"
+                                    android:textColor="@color/gray"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"/>
                             </LinearLayout>
@@ -558,6 +755,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="News Heaidng"
+                                android:layout_marginTop="10dp"
+                                android:textStyle="bold"
+                                android:textSize="17dp"
+                                android:textColor="@color/black"
                                 android:layout_gravity="center_vertical"/>
 
                         </LinearLayout>

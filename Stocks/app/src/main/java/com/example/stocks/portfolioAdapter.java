@@ -2,8 +2,12 @@ package com.example.stocks;
 
 
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,12 +41,13 @@ public class portfolioAdapter extends RecyclerView.Adapter<portfolioAdapter.Port
     @Override
     public void onBindViewHolder(@NonNull PortfolioItemViewHolder holder, int position) {
         Log.d("Set Token",portfolioList.get(position).getTokenName());
+        Log.d("total cost adapter",portfolioList.get(position).getTokenName());
         holder.tokenName.setText(portfolioList.get(position).getTokenName());
-        holder.numShares.setText(Integer.toString(portfolioList.get(position).getNumShares()));
+        holder.numShares.setText(String.format("%.0f shares",portfolioList.get(position).getNumShares()));
 
-        holder.totalCost.setText("$"+Integer.toString(portfolioList.get(position).getTotalCost()));
-        float changePrice = (portfolioList.get(position).getLatestPrice()-portfolioList.get(position).getAvgPrice())*portfolioList.get(position).getNumShares();
-        float changePercent = (changePrice/portfolioList.get(position).getTotalCost())*100;
+        holder.totalCost.setText(String.format("$%.2f", portfolioList.get(position).getLatestPrice()*portfolioList.get(position).getNumShares()));
+        float changePrice = (float) ((portfolioList.get(position).getLatestPrice()-portfolioList.get(position).getAvgPrice())*portfolioList.get(position).getNumShares());
+        float changePercent = (float) ((changePrice/portfolioList.get(position).getTotalCost())*100);
         if(changePrice<0){
             Drawable drawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.trending_down);
 // Set the desired color
@@ -68,6 +73,16 @@ public class portfolioAdapter extends RecyclerView.Adapter<portfolioAdapter.Port
         }
         holder.changePrice.setText(String.format("$%.2f",changePrice));
         holder.changePricePercent.setText(String.format("(%.2f%%)",changePercent));
+        holder.chevronRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(holder.itemView.getContext(), SearchPage.class);
+
+                newIntent.putExtra("symbol",holder.tokenName.getText());
+                holder.itemView.getContext().startActivity(newIntent);
+            }
+        });
+
 
     }
 
@@ -91,6 +106,7 @@ public class portfolioAdapter extends RecyclerView.Adapter<portfolioAdapter.Port
         private  TextView changePricePercent;
 
         private ImageView imageView;
+        private ImageView chevronRight;
         public PortfolioItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tokenName=itemView.findViewById(R.id.portfolio_token_name);
@@ -99,6 +115,7 @@ public class portfolioAdapter extends RecyclerView.Adapter<portfolioAdapter.Port
             changePrice=itemView.findViewById(R.id.portfolio_change_price);
             changePricePercent=itemView.findViewById(R.id.portfolio_change_price_percent);
             imageView = itemView.findViewById(R.id.imageView);
+            chevronRight=itemView.findViewById(R.id.chevron_right);
 
         }
     }

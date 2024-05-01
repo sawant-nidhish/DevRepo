@@ -9,17 +9,19 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/news_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp">
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             >
 
             <LinearLayout
@@ -36,14 +38,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="source"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:textColor="@color/darkGray"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/timeElapsed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="time hours ago"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:textSize="13dp"
+                        android:textColor="@color/gray"
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
                 <TextView
@@ -51,17 +59,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="News Heaidng"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:textSize="17dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
 
             <ImageView
                 android:id="@+id/news_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 android:layout_gravity=""
-                android:src="@mipmap/ic_launcher" />
+                android:paddingLeft="5dp"
+                android:src="@mipmap/ic_launcher"
+                android:background="@drawable/rounded_corner"
+                android:clipToOutline="true"
+                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

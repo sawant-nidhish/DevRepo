@@ -78,8 +78,11 @@
                                 enabled: true
                             },
                             tooltip: {
-                                headerFormat: '<b>{series.name}</b><br/>',
-                                pointFormat: 'Quaterly EPS: {point.y}'
+                                // headerFormat: '<b>{series.name}</b><br/>',
+                                // pointFormat: 'Quaterly EPS: {point.y}'
+                                split:false,
+                                shared:true,
+                                
                             },
                             plotOptions: {
                                 spline: {

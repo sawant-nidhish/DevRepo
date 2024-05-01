@@ -64,10 +64,11 @@
                         pointFormat: '{series.name}: {point.y}<br/>#Analysis: {point.stackTotal}'
                     },
                     plotOptions: {
+
                         column: {
                             stacking: 'normal',
                             dataLabels: {
-                                enabled: true
+                                enabled: false
                             }
                         }
                     },
@@ -115,6 +116,7 @@
                 });
         }
         // Call createChart() once the Highcharts library is fully loaded
+        // createChart("AAPL")
     </script>
 </body>
 </html>

@@ -44,7 +44,13 @@
             fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_hourly_data?symbol=${symbol}&from=${aDayBeforeFormatted}&to=${todayFormatted}`)
                 .then(response => response.json())
                 .then(data => {
-                    if(data){
+                    fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_latest_price?symbol=${symbol}&from=${aDayBeforeFormatted}&to=${todayFormatted}`)
+                    .then(response => response.json())
+                    .then(data2 => {
+                        let color="green"
+                        if(data2.d<0){
+                        let color="red"
+                        }
                         console.log("This is the data",data)
                     let companyHourlyData=data.results;
                     let hourlyPrice=[]
@@ -78,17 +84,17 @@
                         },
                         tooltip: {
                             split: true,
-                            formatter: function() {
-                                // Only display the series name and y-axis value
-                                return '<b>' + this.series.name + '</b>: ' + this.y;
-                            }
+                            // formatter: function() {
+                            //     // Only display the series name and y-axis value
+                            //     return '<b>' + this.series.name + '</b>: ' + this.y;
+                            // }
                         },
                         series: [{
                             type: 'line',
                             name: data.ticker,
                             data: hourlyPrice,
                             marker: { enabled: false },
-                            color: "green"
+                            color: color
                         }]
                     };
 
@@ -97,10 +103,12 @@
 
                     
                     }
+                    );
+                    
                     });
                                         
                             }
-        // createChart("GOOGL")
+        createChart("GOOGL")
         // Call createChart() once the Highcharts library is fully loaded
     </script>
 </body>

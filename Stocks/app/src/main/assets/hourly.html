@@ -44,7 +44,16 @@
         fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_hourly_data?symbol=${symbol}&from=${aDayBeforeFormatted}&to=${todayFormatted}`)
             .then(response => response.json())
             .then(data => {
-                if(data){
+                fetch(`https://assignment3-418809.wl.r.appspot.com/api/company_latest_price?symbol=${symbol}&from=${aDayBeforeFormatted}&to=${todayFormatted}`)
+                    .then(response => response.json())
+                    .then(data2 => {
+                        
+                        if(data){
+                            console.log("data2",data2.d)
+                        let color="green"
+                        if(data2.d<0){
+                        color="red"
+                        }
                     console.log("This is the data",data)
                 let companyHourlyData=data.results;
                 let hourlyPrice=[]
@@ -88,7 +97,7 @@
                         name: data.ticker,
                         data: hourlyPrice,
                         marker: { enabled: false },
-                        color: "green"
+                        color: color
                     }]
                 };
 
@@ -97,10 +106,12 @@
 
 
                 }
+                    });
+                
                 });
 
                         }
-    // createChart("GOOGL")
+    // createChart("MSFT")
     // Call createChart() once the Highcharts library is fully loaded
 </script>
 </body>

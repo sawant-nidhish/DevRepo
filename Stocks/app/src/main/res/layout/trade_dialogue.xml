@@ -15,7 +15,10 @@
             android:id="@+id/trade_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trade Apple Inc shares"></TextView>
+            android:text="Trade Apple Inc shares"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="18dp"></TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +35,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="shares" />
+                android:text="shares"
+                android:textColor="@color/black"/>
 
         </LinearLayout>
         <TextView
@@ -40,14 +44,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0*$money.share=0.00"
-            android:layout_gravity="right"/>
+            android:layout_gravity="right"
+            android:textColor="@color/black"/>
         <TextView
             android:id="@+id/money_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$25000.00 to buy AAPL"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/gray"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -62,7 +69,9 @@
                 android:id="@+id/buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buy" />
+                android:backgroundTint="@color/green"
+                android:text="Buy"
+                app:cornerRadius="5dp" />
 
             <Button
                 android:id="@+id/sell"
@@ -70,7 +79,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 android:layout_toRightOf="@id/buy"
-                android:text="Sell" />
+                android:backgroundTint="@color/green"
+                android:text="Sell"
+                app:cornerRadius="5dp" />
         </RelativeLayout>
 
     </LinearLayout>

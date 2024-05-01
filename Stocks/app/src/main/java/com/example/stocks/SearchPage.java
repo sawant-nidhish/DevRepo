@@ -2,6 +2,7 @@ package com.example.stocks;
 
 import static kotlinx.coroutines.DelayKt.delay;
 
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -107,6 +109,8 @@ public class SearchPage extends AppCompatActivity {
 
         content.setVisibility(View.GONE);
         spinner.setVisibility(View.VISIBLE);
+
+
 
         Intent thisIntent=getIntent();
         symbol = thisIntent.getStringExtra("symbol");
@@ -211,8 +215,8 @@ public class SearchPage extends AppCompatActivity {
                         try {
 //                            Log.d("Log",response.getString("c"));
                             ImageView imageView = findViewById(R.id.imageView);
-                            current_price = response.getInt("c");
-                            float change_price=response.getInt("d");
+                            double current_price = response.getDouble("c");
+                            double change_price=response.getDouble("d");
                             if(change_price<0){
                                 Drawable drawable = ContextCompat.getDrawable(SearchPage.this, R.drawable.trending_down);
 // Set the desired color
@@ -242,8 +246,14 @@ public class SearchPage extends AppCompatActivity {
                             changePrice.setText(String.format("$%.2f",response.getDouble("d")));
                             changePercent.setText(String.format("(%.2f%%)",response.getDouble("dp")));
                             final Handler handler = new Handler();
-                            spinner.setVisibility(View.GONE);
-                            content.setVisibility(View.VISIBLE);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    spinner.setVisibility(View.GONE);
+                                    content.setVisibility(View.VISIBLE);
+                                }
+                            },3000);
+
 //                            handler.postDelayed(new Runnable() {
 //                                @Override
 //                                public void run() {
@@ -305,7 +315,7 @@ public class SearchPage extends AppCompatActivity {
         ArrayList<Fragment> fragmentArrayList= new ArrayList<>();
         ArrayList<String> stringArrayList=new ArrayList<>();
 
-        int[] imageList={R.drawable.trending_down, R.drawable.trending_up};
+        int[] imageList={R.drawable.chart_hour, R.drawable.chart_historical};
 
         // Create constructor
         public void addFragment(Fragment fragment, String s)
@@ -346,7 +356,7 @@ public class SearchPage extends AppCompatActivity {
                     drawable.getIntrinsicHeight());
 
             // Initialize spannable image
-            SpannableString spannableString=new SpannableString(""+stringArrayList.get(position));
+            SpannableString spannableString=new SpannableString(" ");
 
             // Initialize image span
             ImageSpan imageSpan=new ImageSpan(drawable,ImageSpan.ALIGN_BOTTOM);
@@ -497,13 +507,13 @@ public class SearchPage extends AppCompatActivity {
                                                                 ((TextView) findViewById(R.id.shares_owned)).setText(String.format("%.2f", stock.getDouble("qty")));
                                                                 ((TextView) findViewById(R.id.avg_cost)).setText(String.format("$%.2f", stock.getDouble("avgCost")));
                                                                 ((TextView) findViewById(R.id.total_cost)).setText(String.format("$%.2f", stock.getDouble("totalCost")));
-                                                                Log.d("Current Price", String.format("%f", current_price));
+                                                                Log.d("Current Price 12", String.format("%f", response.getDouble("c")));
 
                                                                 double market_value = response.getDouble("c") * stock.getDouble("qty");
 //                                                                ImageView imageView2 = findViewById(R.id.imageView2);
 //                                                                ImageView imageView3 = findViewById(R.id.imageView3);
-                                                                current_price = response.getInt("c");
-                                                                float change_price = response.getInt("d");
+                                                                double current_price = response.getDouble("c");
+                                                                double change_price = response.getDouble("d");
                                                                 if (current_price < market_value) {
                                                                     Drawable drawable = ContextCompat.getDrawable(SearchPage.this, R.drawable.trending_down);
 // Set the desired color
@@ -1018,9 +1028,18 @@ public class SearchPage extends AppCompatActivity {
                                                                     StringBuilder peerString= new StringBuilder();
 
                                                                     LinearLayout peerLinearLayout = findViewById(R.id.company_peers_value);
+                                                                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                                                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                                                    );
                                                                     for (int i=0; i<response2.length(); i++){
                                                                         TextView textView=new TextView(SearchPage.this);
-                                                                        textView.setText(response2.get(i).toString()+", ");
+                                                                        textView.setText(response2.get(i).toString()+",");
+                                                                        textView.setPadding(0,0,40,0);
+                                                                        layoutParams.setMargins(5, 0, 5, 0);
+                                                                        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                                                                        textView.setTextColor(getResources().getColor(R.color.blue));
+
 //                                                                        textView.setAutoLinkMask(Linkify.addLinks());
                                                                         int finalI = i;
                                                                         textView.setOnClickListener(new View.OnClickListener() {

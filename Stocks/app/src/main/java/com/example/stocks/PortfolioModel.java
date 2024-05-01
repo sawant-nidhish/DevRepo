@@ -2,65 +2,65 @@ package com.example.stocks;
 
 public class PortfolioModel {
     private String tokenName;
-    private Integer numShares;
-    private Integer totalCost;
-    private Integer changePrice;
-    private Integer changePercent;
+    private Double numShares;
+    private Double totalCost;
+    private Double changePrice;
+    private Double changePercent;
 
-    public Integer getAvgPrice() {
+    public Double getAvgPrice() {
         return avgPrice;
     }
 
-    public void setAvgPrice(Integer avgPrice) {
+    public void setAvgPrice(Double avgPrice) {
         this.avgPrice = avgPrice;
     }
 
-    private Integer avgPrice;
+    private Double avgPrice;
 
-    public Integer getLatestPrice() {
+    public Double getLatestPrice() {
         return latestPrice;
     }
 
-    public void setLatestPrice(Integer latestPrice) {
+    public void setLatestPrice(Double latestPrice) {
         this.latestPrice = latestPrice;
     }
 
-    private Integer latestPrice;
-    public Integer getNumShares() {
+    private Double latestPrice;
+    public Double getNumShares() {
         return numShares;
     }
 
-    public void setNumShares(Integer numShares) {
+    public void setNumShares(Double numShares) {
         this.numShares = numShares;
     }
 
-    public Integer getTotalCost() {
+    public Double getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(Integer totalCost) {
+    public void setTotalCost(Double totalCost) {
         this.totalCost = totalCost;
     }
 
-    public Integer getChangePrice() {
+    public Double getChangePrice() {
         return changePrice;
     }
 
-    public void setChangePrice(Integer changePrice) {
+    public void setChangePrice(Double changePrice) {
         this.changePrice = changePrice;
     }
 
-    public Integer getChangePercent() {
+    public Double getChangePercent() {
         return changePercent;
     }
 
-    public void setChangePercent(Integer changePercent) {
+    public void setChangePercent(Double changePercent) {
         this.changePercent = changePercent;
     }
 
-    public PortfolioModel(String tokenName, Integer numShares, Integer totalCost,  int avgPrice, int latestPrice) {
+    public PortfolioModel(String tokenName, Integer numShares, Double totalCost,  double avgPrice, double latestPrice) {
         this.tokenName = tokenName;
-        this.numShares = numShares;
+        this.numShares = Double.valueOf(numShares);
         this.totalCost = totalCost;
         this.latestPrice = latestPrice;
         this.avgPrice = avgPrice;

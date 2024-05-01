@@ -2,26 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+
     android:background="@color/white"
-    android:id="@+id/portfolio_list_item">
+    android:id="@+id/portfolio_list_item"
+    android:paddingTop="10dp"
+    android:paddingHorizontal="10dp"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AAPL"
-        android:id="@+id/portfolio_token_name"/>
+        android:id="@+id/portfolio_token_name"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/portfolio_numShares"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/gray"
+        android:textStyle="bold"
         android:layout_below="@id/portfolio_token_name"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/portfolio_total_cost"
-        android:layout_alignParentRight="true"/>
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,16 +43,21 @@
         android:id="@+id/linearLayout"
         android:layout_below="@id/portfolio_total_cost"
         android:layout_alignParentRight="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="40dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            />
         <TextView
             android:id="@+id/portfolio_change_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textStyle="bold"
             android:text="2"/>
 
         <TextView
@@ -46,8 +65,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10"
+            android:textColor="@color/gray"
+            android:textStyle="bold"
             android:layout_marginStart="8dp"/> <!-- Add margin between the two TextViews if needed -->
 
     </LinearLayout>
+    <ImageView
+        android:id="@+id/chevron_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/chevron_right"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/linearLayout"
+        android:background="@color/gray" />
 
 </RelativeLayout>

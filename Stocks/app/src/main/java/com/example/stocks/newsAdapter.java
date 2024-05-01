@@ -118,6 +118,7 @@ public class newsAdapter  extends RecyclerView.Adapter<newsAdapter.ViewHolder>{
         TextView timeElapsed;
 
         ImageView imageView;
+
         public ViewHolder(View itemView){
             super(itemView);
             newsCard = itemView.findViewById(R.id.news_card);
@@ -125,6 +126,7 @@ public class newsAdapter  extends RecyclerView.Adapter<newsAdapter.ViewHolder>{
             source = itemView.findViewById(R.id.source);
             timeElapsed = itemView.findViewById(R.id.timeElapsed);
             imageView = itemView.findViewById((R.id.news_image));
+
         }
     }
 }
